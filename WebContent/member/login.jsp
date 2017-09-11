@@ -9,58 +9,10 @@
 <html>
 
 <!-- Head BEGIN -->
-
-<head>
-<meta charset="utf-8">
-<title>ChuMeet!</title>
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<link rel="shortcut icon" href="chumeet_icon.ico">
-
-<!-- Fonts START -->
-<!--  <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|PT+Sans+Narrow|Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all" rel="stylesheet" type="text/css">-->
-<!--  <link href="http://fonts.googleapis.com/earlyaccess/notosanstc.css" rel="stylesheet" type="text/css">-->
-
-<!-- Fonts END -->
-<!-- 全站統一CSS 不要亂動，動了要跟全組說 -->
-
-<!-- Global styles START -->
-<link
-	href="<%=request.getContextPath()%>/assets/plugins/font-awesome/css/font-awesome.min.css"
-	rel="stylesheet">
-<link
-	href="<%=request.getContextPath()%>/assets/plugins/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
-<link href="<%=request.getContextPath()%>/assets/pages/css/base.css"
-	rel="stylesheet">
-<!-- Global styles END -->
-
-<!-- Page level plugin styles START -->
-<link
-	href="<%=request.getContextPath()%>/assets/plugins/owl.carousel/assets/owl.carousel.css"
-	rel="stylesheet">
-<link
-	href="<%=request.getContextPath()%>/assets/plugins/fancybox/source/jquery.fancybox.css"
-	rel="stylesheet">
-<link href="<%=request.getContextPath()%>/assets/pages/css/animate.css"
-	rel="stylesheet">
-<!-- Page level plugin styles END -->
-
-<!-- Theme styles START -->
-<link
-	href="<%=request.getContextPath()%>/assets/pages/css/components.css"
-	rel="stylesheet">
-<link
-	href="<%=request.getContextPath()%>/assets/corporate/css/style.css"
-	rel="stylesheet">
-<link
-	href="<%=request.getContextPath()%>/assets/corporate/css/style-responsive.css"
-	rel="stylesheet">
-<link
-	href="<%=request.getContextPath()%>/assets/corporate/css/themes/red.css"
-	rel="stylesheet" id="style-color">
-<!-- Theme styles END -->
-
+	<!-- 共用Header -->
+  <c:import url="/head.jsp">
+</c:import>
+	<!-- 共用Header -->
 <!--  my styles  -->
 <!--@@@@@@@@@@@@@@@@@@@@@@@@@@ 自己的CSS用連結寫到這邊 @@@@@@@@@@@@@@@@@@@@@@@@@@@-->
 <!--!!!!!!!!!!!!!!!!!!!!!!!!!! 放在最後一行優先權越高 !!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
@@ -137,58 +89,16 @@
 	</c:import>
 	<!-- END FOOTER -->
 
-	<!-- Load javascripts at bottom, this will reduce page load time -->
-	<!-- BEGIN CORE PLUGINS (REQUIRED FOR ALL PAGES) -->
-	<!--[if lt IE 9]>
-    <script src="assets/plugins/respond.min.js"></script>
-    <![endif]-->
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/jquery.min.js"
-		type="text/javascript"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/jquery.wow.min.js"
-		type="text/javascript"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/jquery.smooth-scroll.js"
-		type="text/javascript"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/bootstrap/js/bootstrap.min.js"
-		type="text/javascript"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/corporate/scripts/back-to-top-outer.js"
-		type="text/javascript"></script>
-	<!-- END CORE PLUGINS -->
-
-	<!-- BEGIN PAGE LEVEL JAVASCRIPTS (REQUIRED ONLY FOR CURRENT PAGE) -->
-	<!--@@@@@@@@@@@@@@@@@@@@@@@@@ 頁面專屬JS，JS擺在最後有益身心健康，可以刪改 @@@@@@@@@@@@@@@@@@@@@@@@-->
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/fancybox/source/jquery.fancybox.pack.js"
-		type="text/javascript"></script>
-	<!-- pop up -->
-	<script
-		src="<%=request.getContextPath()%>/assets/plugins/owl.carousel/owl.carousel.min.js"
-		type="text/javascript"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/corporate/scripts/layout.js"
-		type="text/javascript"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/pages/scripts/bs-carousel.js"
-		type="text/javascript"></script>
-	<script type="text/javascript">
-		//	下面這部分可以增加，別刪感恩
-		jQuery(document).ready(function() {
-			Layout.init();
-			Layout.initOWL();
-			Layout.initFixHeaderWithPreHeader(); /* Switch On Header Fixing (only if you have pre-header) */
-			Layout.initNavScrolling();
-		});
-	</script>
-
-	<script
+	<!-- 共用Js -->
+ <c:import url="/publicJS.jsp">
+</c:import>
+  	<!-- 共用Js -->
+  	
+  	<!-- 自己加的Js -->
+		<script
 		src="<%=request.getContextPath()%>/assets/plugins/components/wow.min.js"
 		type="text/javascript"></script>
-
-	<!-- END PAGE LEVEL JAVASCRIPTS -->
+		<!-- 共用Js -->
 </body>
 <!-- END BODY -->
 
