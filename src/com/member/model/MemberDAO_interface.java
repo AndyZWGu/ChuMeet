@@ -9,6 +9,9 @@ public interface MemberDAO_interface {
     public void delete(Integer memID);
     //共用
     public MemberVO findByPrimaryKey(Integer memID);
+    //登入
+    public MemberVO findByMemEmail(String memEmail);
+    public MemberVO findByMemPw(String memPw);
     //會員用
 //    public void registerMember(MemberVO memberVO);
 //    public void updateInfo(MemberVO memberVO);

@@ -23,22 +23,22 @@
   <!-- 全站統一CSS 不要亂動，動了要跟全組說 -->
 
   <!-- Global styles START -->
-  <link href="assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/pages/css/base.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/assets/pages/css/base.css" rel="stylesheet">
   <!-- Global styles END -->
 
   <!-- Page level plugin styles START -->
-  <link href="assets/plugins/owl.carousel/assets/owl.carousel.css" rel="stylesheet">
-  <link href="assets/plugins/fancybox/source/jquery.fancybox.css" rel="stylesheet">
-  <link href="assets/pages/css/animate.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/assets/plugins/owl.carousel/assets/owl.carousel.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/assets/plugins/fancybox/source/jquery.fancybox.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/assets/pages/css/animate.css" rel="stylesheet">
   <!-- Page level plugin styles END -->
 
   <!-- Theme styles START -->
-  <link href="assets/pages/css/components.css" rel="stylesheet">
-  <link href="assets/corporate/css/style.css" rel="stylesheet">
-  <link href="assets/corporate/css/style-responsive.css" rel="stylesheet">
-  <link href="assets/corporate/css/themes/red.css" rel="stylesheet" id="style-color">
+  <link href="<%=request.getContextPath()%>/assets/pages/css/components.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/assets/corporate/css/style.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/assets/corporate/css/style-responsive.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/assets/corporate/css/themes/red.css" rel="stylesheet" id="style-color">
   <!-- Theme styles END -->
 
   <!--  my styles  -->
@@ -46,17 +46,17 @@
   <!--!!!!!!!!!!!!!!!!!!!!!!!!!! 放在最後一行優先權越高 !!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
   <!--#################### 單頁CSS路徑統一放在/src/xxx/css/xxx.css ###########-->
   <!--%%%%%%%%%%%%%%%%%% 第一行可以刪掉，那是activity(也就是敏道的活動頁)專用的CSS %%%%%-->
-  <link href="src/index/index-byAGu.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/src/index/index-byAGu.css" rel="stylesheet">
 </head>
 <!-- Head END -->
 
 <!-- Body BEGIN -->
 <body class="chumeet">
-  <c:import url="userHeader.jsp">
+  <c:import url="/userHeader.jsp">
 </c:import>
 
   <!-- Header Start -->
-  <c:import url="header.jsp">
+  <c:import url="/header.jsp">
 </c:import>
 
   <!-- Header END -->
@@ -488,7 +488,7 @@
   </div>
   
   <!-- BEGIN FOOTER -->
-<c:import url="footer.jsp">
+<c:import url="/footer.jsp">
 </c:import>
   <!-- END FOOTER -->
 
@@ -497,20 +497,20 @@
   <!--[if lt IE 9]>
     <script src="assets/plugins/respond.min.js"></script>
     <![endif]-->
-  <script src="assets/plugins/jquery.min.js" type="text/javascript"></script>
-  <script src="assets/plugins/jquery.wow.min.js" type="text/javascript"></script>
-  <script src="assets/plugins/jquery.smooth-scroll.js" type="text/javascript"></script>
-  <script src="assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-  <script src="assets/corporate/scripts/back-to-top-outer.js" type="text/javascript"></script>
+  <script src="<%=request.getContextPath()%>/assets/plugins/jquery.min.js" type="text/javascript"></script>
+  <script src="<%=request.getContextPath()%>/assets/plugins/jquery.wow.min.js" type="text/javascript"></script>
+  <script src="<%=request.getContextPath()%>/assets/plugins/jquery.smooth-scroll.js" type="text/javascript"></script>
+  <script src="<%=request.getContextPath()%>/assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="<%=request.getContextPath()%>/assets/corporate/scripts/back-to-top-outer.js" type="text/javascript"></script>
   <!-- END CORE PLUGINS -->
 
   <!-- BEGIN PAGE LEVEL JAVASCRIPTS (REQUIRED ONLY FOR CURRENT PAGE) -->
   <!--@@@@@@@@@@@@@@@@@@@@@@@@@ 頁面專屬JS，JS擺在最後有益身心健康，可以刪改 @@@@@@@@@@@@@@@@@@@@@@@@-->
-  <script src="assets/plugins/fancybox/source/jquery.fancybox.pack.js" type="text/javascript"></script>
+  <script src="<%=request.getContextPath()%>/assets/plugins/fancybox/source/jquery.fancybox.pack.js" type="text/javascript"></script>
   <!-- pop up -->
-  <script src="assets/plugins/owl.carousel/owl.carousel.min.js" type="text/javascript"></script>
-  <script src="assets/corporate/scripts/layout.js" type="text/javascript"></script>
-  <script src="assets/pages/scripts/bs-carousel.js" type="text/javascript"></script>
+  <script src="<%=request.getContextPath()%>/assets/plugins/owl.carousel/owl.carousel.min.js" type="text/javascript"></script>
+  <script src="<%=request.getContextPath()%>/assets/corporate/scripts/layout.js" type="text/javascript"></script>
+  <script src="<%=request.getContextPath()%>/assets/pages/scripts/bs-carousel.js" type="text/javascript"></script>
   <script type="text/javascript">
     //	下面這部分可以增加，別刪感恩
     jQuery(document).ready(function () {
@@ -520,7 +520,7 @@
       Layout.initNavScrolling();
     });
   </script>
-  <script src="assets/plugins/components/wow.min.js" type="text/javascript"></script>
+  <script src="<%=request.getContextPath()%>/assets/plugins/components/wow.min.js" type="text/javascript"></script>
 
   <!-- END PAGE LEVEL JAVASCRIPTS -->
 </body>

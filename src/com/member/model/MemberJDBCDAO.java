@@ -10,7 +10,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 	String passwd = "say531328";
 
 	private static final String INSERT_STMT = 
-			"INSERT INTO member VALUES (0,'adm@gmail','Master',2,50,42689,87870000,'Master',1,to_date('1988-08-08 12:00','yyyy-mm-dd hh24:mi'),0800666666,null,to_date('2017-08-15 13:00','yyyy-mm-dd hh24:mi'),239,null,'朊�@','閉�奪燴�Tㄛ梒礩貊腔橾�ㄛ�г�眳ヶ珂艘扂腔�伎疑些',null,null,2,1);";
+			"INSERT INTO member VALUES (0,'adm@gmail','Master',2,50,42689,87870000,'Master',1,to_date('1988-08-08 12:00','yyyy-mm-dd hh24:mi'),0800666666,null,to_date('2017-08-15 13:00','yyyy-mm-dd hh24:mi'),239,null,'鏈婏拷@','闁夛拷濂嚧锟絋銊涙绀╄矈鑵旀┚锟姐剾锟叫筹拷鐪炽兌鐝傝墭鎵傝厰锟戒紟鐤戜簺',null,null,2,1);";
 	private static final String GET_ALL_STMT = 
 		"SELECT memID,memEmail,memPw,memberType,memLv,memExp,memPt,memName,memGender,memBD,memPhone,memAvatar,memJoinDate,memLoginNum,memLocBorn,memLocLive,memInt,memLong,memLat,memPriv,memStatus FROM member order by memID";
 	private static final String GET_ONE_STMT = 
@@ -211,7 +211,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// MemberVO 也稱為 Domain objects
+				// MemberVO 涔熺ū鐐� Domain objects
 				memberVO = new MemberVO();
 				memberVO.setMemID(rs.getInt("memID"));
 				memberVO.setMemEmail(rs.getString("memEmail"));
@@ -288,7 +288,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// MemberVO 也稱為 Domain objects
+				// MemberVO 涔熺ū鐐� Domain objects
 				memberVO = new MemberVO();
 				memberVO.setMemID(rs.getInt("memID"));
 				memberVO.setMemEmail(rs.getString("memEmail"));
@@ -353,9 +353,9 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 
 		MemberJDBCDAO dao = new MemberJDBCDAO();
 
-		// 新增
+		// 鏂板
 //		MemberVO MemberVO1 = new MemberVO();
-//		MemberVO1.setEname("吳永志1");
+//		MemberVO1.setEname("鍚虫案蹇�1");
 //		MemberVO1.setJob("MANAGER");
 //		MemberVO1.setHiredate(java.sql.Date.valueOf("2005-01-01"));
 //		MemberVO1.setSal(new Double(50000));
@@ -363,10 +363,10 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 //		MemberVO1.setDeptno(10);
 //		dao.insert(MemberVO1);
 
-//		// 修改
+//		// 淇敼
 //		MemberVO MemberVO2 = new MemberVO();
 //		MemberVO2.setEmpno(7001);
-//		MemberVO2.setEname("吳永志2");
+//		MemberVO2.setEname("鍚虫案蹇�2");
 //		MemberVO2.setJob("MANAGER2");
 //		MemberVO2.setHiredate(java.sql.Date.valueOf("2002-01-01"));
 //		MemberVO2.setSal(new Double(20000));
@@ -374,10 +374,10 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 //		MemberVO2.setDeptno(20);
 //		dao.update(MemberVO2);
 
-		// 刪除
+		// 鍒櫎
 //		dao.delete(7014);
 
-		// 查詢
+		// 鏌ヨ
 //		MemberVO memberVO3 = dao.findByPrimaryKey(1);
 //		System.out.print(memberVO3.getMemID() + ",");
 //		System.out.print(memberVO3.getMemEmail() + ",");
@@ -402,7 +402,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 //		System.out.print(memberVO3.getMemStatus());
 //		System.out.println("---------------------");
 
-		// 查詢
+		// 鏌ヨ
 		List<MemberVO> list = dao.getAll();
 		for (MemberVO member : list) {
 			System.out.print(member.getMemID() + ",");
@@ -429,5 +429,17 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 			System.out.println("---------------------");
 			System.out.println();
 		}
+	}
+
+	@Override
+	public MemberVO findByMemEmail(String memEmail) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MemberVO findByMemPw(String memPw) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

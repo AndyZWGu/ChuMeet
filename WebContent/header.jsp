@@ -2,7 +2,7 @@
  <!-- BEGIN HEADER -->
   <div class="header">
     <div class="container">
-      <a class="site-logo" href="index.html"><img src="assets/LOGO/ChuMeet_NavLogo_25.png" alt="ChuMeet"></a>
+      <a class="site-logo" href="<%=request.getContextPath()%>/index.jsp"><img src="<%=request.getContextPath()%>/assets/LOGO/ChuMeet_NavLogo_25.png" alt="ChuMeet"></a>
 
       <a href="javascript:void(0);" class="mobi-toggler"><i class="fa fa-bars"></i></a>
 
@@ -10,28 +10,28 @@
       <!-- BEGIN NAVIGATION -->
       <div class="header-navigation pull-right font-transform-inherit">
         <ul>
-          <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="member/memNF.html"> 會員中心 </a>
+          <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="<%=request.getContextPath()%>/member/memNF.html"> 會員中心 </a>
             <ul class="dropdown-menu">
-              <li><a href="member/memSerach.html">搜尋會員</a></li>
-              <li><a href="member/memNF.html">會員動態</a></li>
+              <li><a href="<%=request.getContextPath()%>/member/memSerach.html">搜尋會員</a></li>
+              <li><a href="<%=request.getContextPath()%>/member/memNF.html">會員動態</a></li>
             </ul>
           </li>
-          <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="act/act.html"> 活動廣場 </a>
+          <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="<%=request.getContextPath()%>/act/act.html"> 活動廣場 </a>
             <ul class="dropdown-menu">
-              <li><a href="act/act.html">我的活動</a></li>
-              <li><a href="act/act.html">揪咪推薦</a></li>
-              <li><a href="act/act.html">政府藝文活動</a></li>
-              <li><a href="act/act.html">周末特調</a></li>
-              <li><a href="act/act.html">熱門標籤</a></li>
-              <li><a href="act/act.html">活動分類</a></li>
-              <li><a href="act/act.html">揪揪地圖</a></li>
+              <li><a href="<%=request.getContextPath()%>/act/act.html">我的活動</a></li>
+              <li><a href="<%=request.getContextPath()%>/act/act.html">揪咪推薦</a></li>
+              <li><a href="<%=request.getContextPath()%>/act/act.html">政府藝文活動</a></li>
+              <li><a href="<%=request.getContextPath()%>/act/act.html">周末特調</a></li>
+              <li><a href="<%=request.getContextPath()%>/act/act.html">熱門標籤</a></li>
+              <li><a href="<%=request.getContextPath()%>/act/act.html">活動分類</a></li>
+              <li><a href="<%=request.getContextPath()%>/act/act.html">揪揪地圖</a></li>
             </ul>
           </li>
-          <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="club/club_ALL.html"> 社團大廳 </a>
+          <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="<%=request.getContextPath()%>/club/club_ALL.html"> 社團大廳 </a>
             <ul class="dropdown-menu">
-              <li><a href="club/club_ALL.html">我的社團</a></li>
-              <li><a href="club/club_ALL.html">社團推薦</a></li>
-              <li><a href="club/club_ALL.html">社團地圖</a></li>
+              <li><a href="<%=request.getContextPath()%>/club/club_ALL.html">我的社團</a></li>
+              <li><a href="<%=request.getContextPath()%>/club/club_ALL.html">社團推薦</a></li>
+              <li><a href="<%=request.getContextPath()%>/club/club_ALL.html">社團地圖</a></li>
             </ul>
 
           </li>

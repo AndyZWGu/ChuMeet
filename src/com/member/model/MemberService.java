@@ -14,7 +14,7 @@ public class MemberService {
 	public MemberVO addMember(Integer memID,
 			String memEmail,
 			String memPw,
-			Integer memVerType,
+			Integer memberType,
 			Integer memLv,
 			Integer memExp,
 			Integer memPt,
@@ -36,7 +36,7 @@ public class MemberService {
 		memberVO.setMemID(memID);
 		memberVO.setMemEmail(memEmail);
 		memberVO.setMemPw(memPw);
-		memberVO.setMemVerType(memVerType);
+		memberVO.setMemberType(memberType);
 		memberVO.setMemLv(memLv);
 		memberVO.setMemExp(memExp);
 		memberVO.setMemPt(memPt);
@@ -60,7 +60,7 @@ public class MemberService {
 	public MemberVO updateMember(Integer memID,
 			String memEmail,
 			String memPw,
-			Integer memVerType,
+			Integer memberType,
 			Integer memLv,
 			Integer memExp,
 			Integer memPt,
@@ -82,7 +82,7 @@ public class MemberService {
 		memberVO.setMemID(memID);
 		memberVO.setMemEmail(memEmail);
 		memberVO.setMemPw(memPw);
-		memberVO.setMemVerType(memVerType);
+		memberVO.setMemberType(memberType);
 		memberVO.setMemLv(memLv);
 		memberVO.setMemExp(memExp);
 		memberVO.setMemPt(memPt);
@@ -113,5 +113,12 @@ public class MemberService {
 
 	public List<MemberVO> getAll() {
 		return dao.getAll();
+	}
+	
+	public MemberVO getMemberByMemEmail(String memEmail) {
+		return dao.findByMemEmail(memEmail);
+	}
+	public MemberVO getMemberByMemPw(String memPw) {
+		return dao.findByMemPw(memPw);
 	}
 }

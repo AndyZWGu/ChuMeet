@@ -1,2 +1,3 @@
 eclipse.preferences.version=1
 encoding//src/com/member/controller/MemberServlet.java=Big5
+encoding//src/com/member/model/MemberJDBCDAO.java=UTF-8

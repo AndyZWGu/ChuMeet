@@ -13,9 +13,13 @@
     margin-top: 80px;
     border-radius: 15px;
     text-align: center;
-    height: 350px;
+    height:450px;
     margin-top: 40%;
-    
+}
+.form-horizontal .g-recaptcha{
+	margin-top:3em;
+	margin-left:20%;
+	margin-bottom:1em;
 }
 .form-horizontal .heading{
     display: block;
