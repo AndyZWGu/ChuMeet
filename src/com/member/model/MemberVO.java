@@ -1,5 +1,5 @@
 package com.member.model;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class MemberVO implements java.io.Serializable {
 	private Integer memID;
@@ -11,10 +11,10 @@ public class MemberVO implements java.io.Serializable {
 	private Integer memPt;
 	private String memName;
 	private Integer memGender;
-	private Date memBD; 
+	private Timestamp memBD; 
 	private Integer memPhone; 
 	private byte[] memAvatar;
-	private Date memJoinDate;
+	private Timestamp memJoinDate;
 	private Integer memLoginNum;
 	private String memLocBorn;
 	private String memLocLive;
@@ -78,10 +78,10 @@ public class MemberVO implements java.io.Serializable {
 	public void setMemGender(Integer memGender) {
 		this.memGender = memGender;
 	}
-	public Date getMemBD() {
+	public Timestamp getMemBD() {
 		return memBD;
 	}
-	public void setMemBD(Date memBD) {
+	public void setMemBD(Timestamp memBD) {
 		this.memBD = memBD;
 	}
 	public Integer getMemPhone() {
@@ -96,10 +96,10 @@ public class MemberVO implements java.io.Serializable {
 	public void setMemAvatar(byte[] memAvatar) {
 		this.memAvatar = memAvatar;
 	}
-	public Date getMemJoinDate() {
+	public Timestamp getMemJoinDate() {
 		return memJoinDate;
 	}
-	public void setMemJoinDate(Date memJoinDate) {
+	public void setMemJoinDate(Timestamp memJoinDate) {
 		this.memJoinDate = memJoinDate;
 	}
 	public Integer getMemLoginNum() {

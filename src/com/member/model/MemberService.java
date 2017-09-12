@@ -1,6 +1,6 @@
 package com.member.model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 public class MemberService {
@@ -20,10 +20,10 @@ public class MemberService {
 			Integer memPt,
 			String memName,
 			Integer memGender,
-			Date memBD, 
+			Timestamp memBD, 
 			Integer memPhone, 
 			byte[] memAvatar,
-			Date memJoinDate,
+			Timestamp memJoinDate,
 			Integer memLoginNum,
 			String memLocBorn,
 			String memLocLive,
@@ -66,10 +66,10 @@ public class MemberService {
 			Integer memPt,
 			String memName,
 			Integer memGender,
-			Date memBD, 
+			Timestamp memBD, 
 			Integer memPhone, 
 			byte[] memAvatar,
-			Date memJoinDate,
+			Timestamp memJoinDate,
 			Integer memLoginNum,
 			String memLocBorn,
 			String memLocLive,

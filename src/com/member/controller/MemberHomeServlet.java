@@ -9,7 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.member.model.MemberService;
 import com.member.model.MemberVO;
@@ -17,13 +16,13 @@ import com.member.model.MemberVO;
 /**
  * Servlet implementation class LoginServlet
  */
-public class LoginServlet extends HttpServlet {
+public class MemberHomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public MemberHomeServlet() {
         super();
     }
 
@@ -107,15 +106,10 @@ public class LoginServlet extends HttpServlet {
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-				//以下為測試用
-//				req.setAttribute("memVO", memVO); // 資料庫取出的empVO物件,存入req
-//				String url = "/member/memHome.jsp"; 
-//				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 首頁
-//				successView.forward(req, res);
-				//正式重導,用session存取東西
-				HttpSession session = req.getSession();
-				session.setAttribute("memVO", memVO);
-				res.sendRedirect("../index.jsp");
+				req.setAttribute("memVO", memVO); // 資料庫取出的empVO物件,存入req
+				String url = "/member/memHome.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+				successView.forward(req, res);
 
 				/***************************其他可能的錯誤處理*************************************/
 			} catch (Exception e) {
@@ -131,6 +125,57 @@ public class LoginServlet extends HttpServlet {
 			failureView.forward(req, res);
 		}
 		
+		
+		
+		/**************************************************************
+		 *  *******************我的動態*******************************
+		 * *************************************************************/
+		if ("memNF".equals(action)) { // 來自memHome.jsp的請求
+			
+		}
+		/**************************************************************
+		 *  *******************我的等級積分*******************************
+		 * *************************************************************/
+		if ("memLevel".equals(action)) { // 來自memHome.jsp的請求
+			
+		}
+		/**************************************************************
+		 *  *******************我的基本資訊*******************************
+		 * *************************************************************/
+		if ("memInfo".equals(action)) { // 來自memHome.jsp的請求
+			
+		}
+		/**************************************************************
+		 *  *******************我的成就*******************************
+		 * *************************************************************/
+		if ("memAch".equals(action)) { // 來自memHome.jsp的請求
+			
+		}
+		/**************************************************************
+		 *  *******************我的評價*******************************
+		 * *************************************************************/
+		if ("memOpinion".equals(action)) { // 來自memHome.jsp的請求
+			
+		}
+		/**************************************************************
+		 *  *******************我的個人頁面設定*******************************
+		 * *************************************************************/
+		if ("memSeeting".equals(action)) { // 來自memHome.jsp的請求
+			
+		}
+		/**************************************************************
+		 *  *******************會員動態*******************************
+		 * *************************************************************/
+		if ("memLevel".equals(action)) { // 來自memHome.jsp的請求
+			
+		}
+		/**************************************************************
+		 *  *******************會員動態*******************************
+		 * *************************************************************/
+		if ("memLevel".equals(action)) { // 來自memHome.jsp的請求
+			
+		}
+		//doPost
 	}
-
+	
 }

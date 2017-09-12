@@ -1,10 +1,11 @@
 <%@ page contentType="text/html; charset=Big5"%>
-<%@ page import="com.member.model.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="com.member.model.*"%>
 <%
 MemberVO memVO = (MemberVO) request.getAttribute("memVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
 %>
+<fmt:formatDate value="${memVO.memBD}" pattern="yyyy-MM-dd HH:mm:ss" />
 <html>
 <head>
 <title>會員資料	Demo.jsp</title>
