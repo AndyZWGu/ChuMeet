@@ -3,7 +3,6 @@ encoding//WebContent/head.jsp=UTF-8
 encoding//WebContent/publicJS.jsp=UTF-8
 encoding//src/com/member/controller=UTF-8
 encoding//src/com/member/controller/LoginServlet.java=UTF-8
-encoding//src/com/member/controller/LogoutServlet.java=UTF-8
 encoding//src/com/member/model=UTF-8
 encoding//src/com/member/model/AchDAO.java=UTF-8
 encoding//src/com/member/model/AchDAO_interface.java=UTF-8

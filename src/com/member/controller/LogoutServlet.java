@@ -44,7 +44,7 @@ public class LogoutServlet extends HttpServlet {
 		String action = req.getParameter("action");
 //		String action = "login";
 		
-		if ("logout".equals(action)) { // ä¾†è‡ªlogin.jspçš„è«‹æ±‚
+		if ("logout".equals(action)) { // í×Ôlogin.jspµÄÕˆÇó
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -52,16 +52,16 @@ public class LogoutServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 			
 			try {
-				/***************************1.æ¥æ”¶è«‹æ±‚åƒæ•¸ - è¼¸å…¥æ ¼å¼çš„éŒ¯èª¤è™•ç†**********************/
-				/***************************2.é–‹å§‹æŸ¥è©¢è³‡æ–™*****************************************/
-				/***************************3.æŸ¥è©¢å®Œæˆ,æº–å‚™è½‰äº¤(Send the Success view)*************/
+				/***************************1.½ÓÊÕÕˆÇó…¢”µ - İ”Èë¸ñÊ½µÄåeÕ`ÌÀí**********************/
+				/***************************2.é_Ê¼²éÔƒÙYÁÏ*****************************************/
+				/***************************3.²éÔƒÍê³É,œÊ‚äŞD½»(Send the Success view)*************/
 				HttpSession session = req.getSession();
 				session.removeAttribute("memVO");
 				res.sendRedirect("../index.jsp");
 
-				/***************************å…¶ä»–å¯èƒ½çš„éŒ¯èª¤è™•ç†*************************************/
+				/***************************ÆäËû¿ÉÄÜµÄåeÕ`ÌÀí*************************************/
 			} catch (Exception e) {
-				errorMsgs.add("ç„¡æ³•å–å¾—è³‡æ–™:" + e.getMessage());
+				errorMsgs.add("Ÿo·¨È¡µÃÙYÁÏ:" + e.getMessage());
 				req.setAttribute("errorMsgs", errorMsgs);
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/member/error.jsp");

@@ -3,7 +3,7 @@ Build by Eclipse,For BA103g2 Team share;
 
 # 1.開發說明
 
- 1.先用您的GitHub帳號Fork一份到您那兒～
+ 1.先用您的GitHub帳號Fork一份到您那兒~,編碼統一為UTF-8
  
  2.提交commit and push到你自己的帳號專案中
  

@@ -16,13 +16,13 @@ import com.member.model.MemberVO;
 /**
  * Servlet implementation class LoginServlet
  */
-public class guestServlet extends HttpServlet {
+public class GuestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public guestServlet() {
+    public GuestServlet() {
         super();
     }
 

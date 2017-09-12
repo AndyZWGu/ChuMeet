@@ -84,7 +84,7 @@ public class LoginServlet extends HttpServlet {
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/emp/select_page2.jsp");
 					failureView.forward(req, res);
-					return;//��ʽ�Д�
+					return;//
 				}
 				
 				/***************************2.開始查詢資料*****************************************/
