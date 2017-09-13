@@ -3,21 +3,20 @@ package com.member.model;
 import java.util.List;
 
 public interface MemberDAO_interface {
-	//¹ÜÀí†TÓÃ
+	//ç®¡ç†å“¡ç”¨
     public void insert(MemberVO memberVO);
     public void update(MemberVO memberVO);
     public void delete(Integer memID);
-    //¹²ÓÃ
     public MemberVO findByPrimaryKey(Integer memID);
-    //µÇÈë
+    //æœƒå“¡ç™»å…¥ç”¨
     public MemberVO findByMemEmail(String memEmail);
     public MemberVO findByMemPw(String memPw);
-    //•ş†TÓÃ
+    //æœƒå“¡è¨»å†Šç”¨
 //    public void registerMember(MemberVO memberVO);
 //    public void updateInfo(MemberVO memberVO);
     
     
     public List<MemberVO> getAll();
-    //ÈfÓÃÑ}ºÏ²éÔƒ(‚÷Èë…¢”µĞÍ‘BMap)(»Ø‚÷ List)
+    //ï¿½fï¿½ï¿½ï¿½}ï¿½Ï²ï¿½Ôƒ(ï¿½ï¿½ï¿½ë…¢ï¿½ï¿½ï¿½Í‘BMap)(ï¿½Ø‚ï¿½ List)
 //  public List<memberVO> getAll(Map<String, String[]> map); 
 }

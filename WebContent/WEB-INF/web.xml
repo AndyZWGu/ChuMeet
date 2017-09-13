@@ -15,36 +15,53 @@
     <res-type>javax.sql.DataSource</res-type>
     <res-auth>Container</res-auth>
   </resource-ref>
+  
+  <!-- ********************會員專用******************** -->
+  <!-- 訪客 -->
   <servlet>
     <servlet-name>MemberGuestServlet</servlet-name>
     <servlet-class>com.member.controller.GuestServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>MemberGuestServlet</servlet-name>
-    <url-pattern>/member/guest.do</url-pattern>
+    <url-pattern>/front-end/member/guest.do</url-pattern>
   </servlet-mapping>
+  <!-- 登入 -->
   <servlet>
     <servlet-name>MemberLoginServlet</servlet-name>
     <servlet-class>com.member.controller.LoginServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>MemberLoginServlet</servlet-name>
-    <url-pattern>/member/memberLogin.do</url-pattern>
+    <url-pattern>/front-end/member/memberLogin.do</url-pattern>
   </servlet-mapping>
+  <!-- 登出 -->
   <servlet>
     <servlet-name>MemberLogoutServlet</servlet-name>
     <servlet-class>com.member.controller.LogoutServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>MemberLogoutServlet</servlet-name>
-    <url-pattern>/member/memberLogout.do</url-pattern>
+    <url-pattern>/front-end/member/memberLogout.do</url-pattern>
   </servlet-mapping>
+  <!-- 註冊 -->
+   <servlet>
+    <servlet-name>MemberRegisterServlet</servlet-name>
+    <servlet-class>com.member.controller.RegisterServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberRegisterServlet</servlet-name>
+    <url-pattern>/front-end/member/memberRegister.do</url-pattern>
+  </servlet-mapping>
+  <!-- 會員首頁切換 -->
   <servlet>
     <servlet-name>MemberServlet</servlet-name>
     <servlet-class>com.member.controller.MemberHomeServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>MemberServlet</servlet-name>
-    <url-pattern>/member/memberHome.do</url-pattern>
+    <url-pattern>/front-end/member/memberHome.do</url-pattern>
   </servlet-mapping>
+    <!-- ********************以上會員專用******************** -->
+  
 </web-app>

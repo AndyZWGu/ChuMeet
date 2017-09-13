@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 
 public class MemRewardDAO implements MemRewardDAO_interface {
 
-	// Ò»‚€‘ªÓÃ³ÌÊ½ÖÐ,á˜Œ¦Ò»‚€ÙYÁÏŽì ,¹²ÓÃÒ»‚€DataSource¼´¿É
+	// Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ã³ï¿½Ê½ï¿½ï¿½,á˜Œï¿½Ò»ï¿½ï¿½ï¿½Yï¿½ÏŽï¿½ ,ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½DataSourceï¿½ï¿½ï¿½ï¿½
 	private static DataSource ds = null;
 	static {
 		try {
@@ -33,7 +33,7 @@ public class MemRewardDAO implements MemRewardDAO_interface {
 		"UPDATE emp2 set ename=?, job=?, hiredate=?, sal=?, comm=?, deptno=? where empno = ?";
 
 	@Override
-	public void insert(RemRewardVO memRewardVO) {
+	public void insert(MemRewardVO memRewardVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -77,7 +77,7 @@ public class MemRewardDAO implements MemRewardDAO_interface {
 	}
 
 	@Override
-	public void update(RemRewardVO memRewardVO) {
+	public void update(MemRewardVO memRewardVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -161,9 +161,9 @@ public class MemRewardDAO implements MemRewardDAO_interface {
 	}
 
 	@Override
-	public RemRewardVO findByPrimaryKey(Integer empno) {
+	public MemRewardVO findByPrimaryKey(Integer empno) {
 
-		RemRewardVO memRewardVO = null;
+		MemRewardVO memRewardVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -178,8 +178,8 @@ public class MemRewardDAO implements MemRewardDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// memRewardVO Ò²·Qžé Domain objects
-				memRewardVO = new RemRewardVO();
+				// memRewardVO Ò²ï¿½Qï¿½ï¿½ Domain objects
+				memRewardVO = new MemRewardVO();
 				memRewardVO.setEmpno(rs.getInt("empno"));
 				memRewardVO.setEname(rs.getString("ename"));
 				memRewardVO.setJob(rs.getString("job"));
@@ -221,9 +221,9 @@ public class MemRewardDAO implements MemRewardDAO_interface {
 	}
 
 	@Override
-	public List<RemRewardVO> getAll() {
-		List<RemRewardVO> list = new ArrayList<RemRewardVO>();
-		RemRewardVO memRewardVO = null;
+	public List<MemRewardVO> getAll() {
+		List<MemRewardVO> list = new ArrayList<MemRewardVO>();
+		MemRewardVO memRewardVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -236,8 +236,8 @@ public class MemRewardDAO implements MemRewardDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// memRewardVO Ò²·Qžé Domain objects
-				memRewardVO = new RemRewardVO();
+				// memRewardVO Ò²ï¿½Qï¿½ï¿½ Domain objects
+				memRewardVO = new MemRewardVO();
 				memRewardVO.setEmpno(rs.getInt("empno"));
 				memRewardVO.setEname(rs.getString("ename"));
 				memRewardVO.setJob(rs.getString("job"));
