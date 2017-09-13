@@ -66,7 +66,7 @@ public class LoginServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/member/login.jsp");
+							.getRequestDispatcher("login.jsp");
 					failureView.forward(req, res);
 					return;//��ʽ�Д�
 				}
@@ -82,7 +82,7 @@ public class LoginServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/emp/select_page2.jsp");
+							.getRequestDispatcher("login.jsp");
 					failureView.forward(req, res);
 					return;//
 				}
@@ -101,7 +101,7 @@ public class LoginServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/member/login.jsp");
+							.getRequestDispatcher("login.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -122,12 +122,12 @@ public class LoginServlet extends HttpServlet {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				req.setAttribute("errorMsgs", errorMsgs);
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/member/login.jsp");
+						.getRequestDispatcher("login.jsp");
 				failureView.forward(req, res);
 			}
 		}else{
 			RequestDispatcher failureView = req
-					.getRequestDispatcher("/member/login.jsp");
+					.getRequestDispatcher("front-end/member/login.jsp");
 			failureView.forward(req, res);
 		}
 		
