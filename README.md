@@ -6,9 +6,9 @@
 
 # 1.開發說明
 
- 1.統一資料庫帳密為 帳號**<BA103G2> ,密碼**<a123> 方便整合
+ 1.統一資料庫帳密為 帳號<BA103G2> ,密碼<a123> 方便整合
  
- 2.統一Tomcat的Context.xml設定 TestDB 為**<BA103G2DB>**
+ 2.統一Tomcat的Context.xml設定 TestDB 為<BA103G2DB>
 
  3.先用您的GitHub帳號Fork一份到您那兒~,編碼統一為UTF-8
  
