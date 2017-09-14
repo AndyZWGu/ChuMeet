@@ -15,7 +15,7 @@ Build by Eclipse,For BA103g2 Team share;
  
 # 2.目錄結構
 
--這裡只列會用到的重點-
+
  ChuMeetWebsite/
 │
 ├── WebContent/
