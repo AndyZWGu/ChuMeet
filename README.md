@@ -12,7 +12,7 @@
 
  3.先用您的GitHub帳號Fork一份到您那兒~,編碼統一為**UTF-8**
  
- 4. 每次作業請先Pull回自己的最新版本,完成功能時提交commit and push到你自己的帳號專案中
+ 4.每次作業請先Pull回自己的最新版本,完成功能時提交commit and push到你自己的帳號專案中
  
  5.在自己的GitHub專案用Pull request提交到我這裡,我做總整理,ok就會合併～感謝～
  
@@ -57,25 +57,25 @@
 # 3.常見問題處理
 
  ## 配置
-   1.jar檔該匯入的匯一匯
+  1.jar檔該匯入的匯一匯
    
-   2.編碼統一為UTF-8
+   2.編碼統一為UTF-8
    
-   3.JSP頁面使用JSTL語法記得要引入才有效果**<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>**
-   
+   3.JSP頁面使用JSTL語法記得要引入才有效果**<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>**
+
  ## 連線
-   1.JDBC-檢查JDBC連線設定是否正確,檢查SQL指令是否正確,檢查欄位設定參數,問號<?>對應數量是否正確
+  1.JDBC-檢查JDBC連線設定是否正確,檢查SQL指令是否正確,檢查欄位設定參數,問號<?>對應數量是否正確
   
-   2JNDI-檢查Tomcat下的Context.xml是否正確,檢查SQL指令是否正確,檢查欄位設定參數,問號<?>對應數量是否正確
-   
-   3拜拜或求救大神~
-   
+  2JNDI-檢查Tomcat下的Context.xml是否正確,檢查SQL指令是否正確,檢查欄位設定參數,問號<?>對應數量是否正確
+  
+  3拜拜或求救大神~
+    
  ## 路徑語法
    1.各種好用語法收錄在**tools.java**裡,**一定****一定****一定**多去看看,很重要所以說三次,別死在死胡同裡惹～時間寶貴！
  
    2.form表單action,腳本script,超連結href一律用**<%=request.getContextPath()%>/**開頭,注意這裡的斜線是有的！
    
-   3.普通寫法,**沒/是從根目錄**起頭,**有/斜線是從當前該文件的目錄**起頭
+   3.普通寫法,**沒/是從根目錄**起頭,**有/斜線是從當前該文件的目錄**起頭
  
    4.blob欄位在VO裡面一律宣告為Byte[],寫入與讀取流程為
    InputStream=>Byte[]<=>資料庫<=>ResultSet的getBinaryStream()<=InputStream
