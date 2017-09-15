@@ -2,7 +2,7 @@ package com.member.model;
 
 import java.sql.Date;
 
-public class RemRewardVO implements java.io.Serializable{
+public class MemRewardVO implements java.io.Serializable{
 	private Integer memRewID;
 	private Integer memID;
 	private Integer rewID;

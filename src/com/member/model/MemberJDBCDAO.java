@@ -3,22 +3,26 @@ package com.member.model;
 import java.util.*;
 import java.sql.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MemberJDBCDAO implements MemberDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "demo11";
+	String userid = "ChuMeet3";
 	String passwd = "say531328";
 
 	private static final String INSERT_STMT = 
-			"INSERT INTO member VALUES (0,'adm@gmail','Master',2,50,42689,87870000,'Master',1,to_date('1988-08-08 12:00','yyyy-mm-dd hh24:mi'),0800666666,null,to_date('2017-08-15 13:00','yyyy-mm-dd hh24:mi'),239,null,'鏈婏拷@','闁夛拷濂嚧锟絋銊涙绀╄矈鑵旀┚锟姐剾锟叫筹拷鐪炽兌鐝傝墭鎵傝厰锟戒紟鐤戜簺',null,null,2,1);";
-	private static final String GET_ALL_STMT = 
-		"SELECT memID,memEmail,memPw,memberType,memLv,memExp,memPt,memName,memGender,memBD,memPhone,memAvatar,memJoinDate,memLoginNum,memLocBorn,memLocLive,memInt,memLong,memLat,memPriv,memStatus FROM member order by memID";
-	private static final String GET_ONE_STMT = 
-		"SELECT memID,memEmail,memPw,memberType,memLv,memExp,memPt,memName,memGender,memBD,memPhone,memAvatar,memJoinDate,memLoginNum,memLocBorn,memLocLive,memInt,memLong,memLat,memPriv,memStatus FROM member where memID = ?";
-	private static final String DELETE = 
-		"DELETE FROM member where memID = ?";
-	private static final String UPDATE = 
-		"UPDATE member set memID= ?,memEmail= ?,memPw= ?,memberType= ?,memLv= ?,memExp= ?,memPt= ?,memName= ?,memGender= ?,memBD= ?,memPhone= ?,memAvatar= ?,memJoinDate= ?,memLoginNum= ?,memLocBorn= ?,memLocLive= ?,memInt= ?,memLong= ?,memLat= ?,memPriv= ?,memStatus= ?";
+			"INSERT INTO member VALUES (MEMBER_SEQ.NEXTVAL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		private static final String GET_ALL_STMT = 
+			"SELECT * FROM member order by memID";
+		private static final String GET_ONE_STMT = 
+			"SELECT * FROM member where memID = ?";
+		private static final String DELETE = 
+			"DELETE FROM member where memID = ?";
+		private static final String UPDATE = 
+			"UPDATE member set memEmail= ?,memPw= ?,memberType= ?,memLv= ?,memExp= ?,memPt= ?,memName= ?,memGender= ?,memBD= ?,memPhone= ?,memAvatar= ?,memJoinDate= ?,memLoginNum= ?,memLocBorn= ?,memLocLive= ?,memInt= ?,memLong= ?,memLat= ?,memPriv= ?,memStatus= ? where memID= ?";
 
 	@Override
 	public void insert(MemberVO memberVO) {
@@ -32,27 +36,26 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setInt(1, memberVO.getMemID());
-			pstmt.setString(2, memberVO.getMemEmail());
-			pstmt.setString(3, memberVO.getMemPw());
-			pstmt.setInt(4, memberVO.getMemberType());
-			pstmt.setInt(5, memberVO.getMemLv());
-			pstmt.setInt(6, memberVO.getMemExp());
-			pstmt.setInt(7, memberVO.getMemPt());
-			pstmt.setString(8, memberVO.getMemName());
-			pstmt.setInt(9, memberVO.getMemGender());
-			pstmt.setDate(10, memberVO.getMemBD());
-			pstmt.setInt(11, memberVO.getMemPhone());
-			pstmt.setBytes(12, memberVO.getMemAvatar());
-			pstmt.setDate(13, memberVO.getMemJoinDate());
-			pstmt.setInt(14, memberVO.getMemLoginNum());
-			pstmt.setString(15, memberVO.getMemLocBorn());
-			pstmt.setString(16, memberVO.getMemLocLive());
-			pstmt.setString(17, memberVO.getMemInt());
-			pstmt.setDouble(18, memberVO.getMemLong());	
-			pstmt.setDouble(19, memberVO.getMemLat());	
-			pstmt.setInt(20, memberVO.getMemPriv());	
-			pstmt.setInt(21, memberVO.getMemStatus());	
+			pstmt.setString(1, memberVO.getMemEmail());
+			pstmt.setString(2, memberVO.getMemPw());
+			pstmt.setInt(3, memberVO.getMemberType());
+			pstmt.setInt(4, memberVO.getMemLv());
+			pstmt.setInt(5, memberVO.getMemExp());
+			pstmt.setInt(6, memberVO.getMemPt());
+			pstmt.setString(7, memberVO.getMemName());
+			pstmt.setInt(8, memberVO.getMemGender());
+			pstmt.setDate(9, memberVO.getMemBD());
+			pstmt.setInt(10, memberVO.getMemPhone());
+			pstmt.setBytes(11, memberVO.getMemAvatar());
+			pstmt.setDate(12, memberVO.getMemJoinDate());
+			pstmt.setInt(13, memberVO.getMemLoginNum());
+			pstmt.setString(14, memberVO.getMemLocBorn());
+			pstmt.setString(15, memberVO.getMemLocLive());
+			pstmt.setString(16, memberVO.getMemInt());
+			pstmt.setDouble(17, memberVO.getMemLong());
+			pstmt.setDouble(18, memberVO.getMemLat());
+			pstmt.setDouble(19, memberVO.getMemPriv());
+			pstmt.setInt(20, memberVO.getMemStatus());
 
 			pstmt.executeUpdate();
 
@@ -96,27 +99,26 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setInt(1, memberVO.getMemID());
-			pstmt.setString(2, memberVO.getMemEmail());
-			pstmt.setString(3, memberVO.getMemPw());
-			pstmt.setInt(4, memberVO.getMemberType());
-			pstmt.setInt(5, memberVO.getMemLv());
-			pstmt.setInt(6, memberVO.getMemExp());
-			pstmt.setInt(7, memberVO.getMemPt());
-			pstmt.setString(8, memberVO.getMemName());
-			pstmt.setInt(9, memberVO.getMemGender());
-			pstmt.setDate(10, memberVO.getMemBD());
-			pstmt.setInt(11, memberVO.getMemPhone());
-			pstmt.setBytes(12, memberVO.getMemAvatar());
-			pstmt.setDate(13, memberVO.getMemJoinDate());
-			pstmt.setInt(14, memberVO.getMemLoginNum());
-			pstmt.setString(15, memberVO.getMemLocBorn());
-			pstmt.setString(16, memberVO.getMemLocLive());
-			pstmt.setString(17, memberVO.getMemInt());
-			pstmt.setDouble(18, memberVO.getMemLong());	
-			pstmt.setDouble(19, memberVO.getMemLat());	
-			pstmt.setInt(20, memberVO.getMemPriv());	
-			pstmt.setInt(21, memberVO.getMemStatus());	
+			pstmt.setString(1, memberVO.getMemEmail());
+			pstmt.setString(2, memberVO.getMemPw());
+			pstmt.setInt(3, memberVO.getMemberType());
+			pstmt.setInt(4, memberVO.getMemLv());
+			pstmt.setInt(5, memberVO.getMemExp());
+			pstmt.setInt(6, memberVO.getMemPt());
+			pstmt.setString(7, memberVO.getMemName());
+			pstmt.setInt(8, memberVO.getMemGender());
+			pstmt.setDate(9, memberVO.getMemBD());
+			pstmt.setInt(10, memberVO.getMemPhone());
+			pstmt.setBytes(11, memberVO.getMemAvatar());
+			pstmt.setDate(12, memberVO.getMemJoinDate());
+			pstmt.setInt(13, memberVO.getMemLoginNum());
+			pstmt.setString(14, memberVO.getMemLocBorn());
+			pstmt.setString(15, memberVO.getMemLocLive());
+			pstmt.setString(16, memberVO.getMemInt());
+			pstmt.setDouble(17, memberVO.getMemLong());
+			pstmt.setDouble(18, memberVO.getMemLat());
+			pstmt.setDouble(19, memberVO.getMemPriv());
+			pstmt.setInt(20, memberVO.getMemStatus());
 
 			pstmt.executeUpdate();
 
@@ -211,7 +213,6 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// MemberVO 涔熺ū鐐� Domain objects
 				memberVO = new MemberVO();
 				memberVO.setMemID(rs.getInt("memID"));
 				memberVO.setMemEmail(rs.getString("memEmail"));
@@ -288,7 +289,6 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// MemberVO 涔熺ū鐐� Domain objects
 				memberVO = new MemberVO();
 				memberVO.setMemID(rs.getInt("memID"));
 				memberVO.setMemEmail(rs.getString("memEmail"));
@@ -349,21 +349,38 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 		return list;
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ParseException {
 
 		MemberJDBCDAO dao = new MemberJDBCDAO();
 
-		// 鏂板
-//		MemberVO MemberVO1 = new MemberVO();
-//		MemberVO1.setEname("鍚虫案蹇�1");
-//		MemberVO1.setJob("MANAGER");
-//		MemberVO1.setHiredate(java.sql.Date.valueOf("2005-01-01"));
-//		MemberVO1.setSal(new Double(50000));
-//		MemberVO1.setComm(new Double(500));
-//		MemberVO1.setDeptno(10);
-//		dao.insert(MemberVO1);
+		// 新增
+//		MemberVO memberVO2 = new MemberVO();
+//		memberVO2.setMemEmail("ggpower@hotmail.com");
+//		memberVO2.setMemPw("PPww");
+//		memberVO2.setMemberType(1);
+//		memberVO2.setMemLv(10);
+//		memberVO2.setMemExp(300);
+//		memberVO2.setMemPt(5900);
+//		memberVO2.setMemName("GodGG");
+//		memberVO2.setMemGender(1);
+//		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+//        Date parsed = format.parse("20110210");
+//        java.sql.Date sql = new java.sql.Date(parsed.getTime());
+//		memberVO2.setMemBD(sql);
+//		memberVO2.setMemPhone(12345678);
+//		memberVO2.setMemAvatar(null);
+//		memberVO2.setMemJoinDate(sql);
+//		memberVO2.setMemLoginNum(5);
+//		memberVO2.setMemLocBorn(null);
+//		memberVO2.setMemLocLive(null);
+//		memberVO2.setMemInt("歡迎歡迎");
+//		memberVO2.setMemLong(1.2);
+//		memberVO2.setMemLat(3.4);
+//		memberVO2.setMemPriv(1);
+//		memberVO2.setMemStatus(1);
+//		dao.insert(memberVO2);
 
-//		// 淇敼
+//		// 更新
 //		MemberVO MemberVO2 = new MemberVO();
 //		MemberVO2.setEmpno(7001);
 //		MemberVO2.setEname("鍚虫案蹇�2");
@@ -374,10 +391,10 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 //		MemberVO2.setDeptno(20);
 //		dao.update(MemberVO2);
 
-		// 鍒櫎
+		// 刪除
 //		dao.delete(7014);
 
-		// 鏌ヨ
+		// 查詢特定一筆
 //		MemberVO memberVO3 = dao.findByPrimaryKey(1);
 //		System.out.print(memberVO3.getMemID() + ",");
 //		System.out.print(memberVO3.getMemEmail() + ",");
@@ -402,33 +419,33 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 //		System.out.print(memberVO3.getMemStatus());
 //		System.out.println("---------------------");
 
-		// 鏌ヨ
-		List<MemberVO> list = dao.getAll();
-		for (MemberVO member : list) {
-			System.out.print(member.getMemID() + ",");
-			System.out.print(member.getMemEmail() + ",");
-			System.out.print(member.getMemPw() + ",");
-			System.out.print(member.getMemberType() + ",");
-			System.out.print(member.getMemLv() + ",");
-			System.out.print(member.getMemExp() + ",");
-			System.out.print(member.getMemPt());
-			System.out.print(member.getMemName() + ",");
-			System.out.print(member.getMemGender() + ",");
-			System.out.print(member.getMemBD() + ",");
-			System.out.print(member.getMemPhone() + ",");
-			System.out.print(member.getMemAvatar() + ",");
-			System.out.print(member.getMemJoinDate() + ",");
-			System.out.print(member.getMemLoginNum());
-			System.out.print(member.getMemLocBorn() + ",");
-			System.out.print(member.getMemLocLive() + ",");
-			System.out.print(member.getMemInt() + ",");
-			System.out.print(member.getMemLong() + ",");
-			System.out.print(member.getMemLat() + ",");
-			System.out.print(member.getMemPriv() + ",");
-			System.out.print(member.getMemStatus());
-			System.out.println("---------------------");
-			System.out.println();
-		}
+		//查詢全部
+//		List<MemberVO> list = dao.getAll();
+//		for (MemberVO member : list) {
+//			System.out.print(member.getMemID() + ",");
+//			System.out.print(member.getMemEmail() + ",");
+//			System.out.print(member.getMemPw() + ",");
+//			System.out.print(member.getMemberType() + ",");
+//			System.out.print(member.getMemLv() + ",");
+//			System.out.print(member.getMemExp() + ",");
+//			System.out.print(member.getMemPt());
+//			System.out.print(member.getMemName() + ",");
+//			System.out.print(member.getMemGender() + ",");
+//			System.out.print(member.getMemBD() + ",");
+//			System.out.print(member.getMemPhone() + ",");
+//			System.out.print(member.getMemAvatar() + ",");
+//			System.out.print(member.getMemJoinDate() + ",");
+//			System.out.print(member.getMemLoginNum());
+//			System.out.print(member.getMemLocBorn() + ",");
+//			System.out.print(member.getMemLocLive() + ",");
+//			System.out.print(member.getMemInt() + ",");
+//			System.out.print(member.getMemLong() + ",");
+//			System.out.print(member.getMemLat() + ",");
+//			System.out.print(member.getMemPriv() + ",");
+//			System.out.print(member.getMemStatus());
+//			System.out.println("---------------------");
+//			System.out.println();
+//		}
 	}
 
 	@Override

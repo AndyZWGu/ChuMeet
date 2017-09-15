@@ -3,12 +3,12 @@ package com.member.model;
 import java.util.List;
 
 public interface MemRewardDAO_interface {
-    public void insert(RemRewardVO memRewardVO);
-    public void update(RemRewardVO memRewardVO);
-    //pkÌŽÀíÒ»ÏÂ
+    public void insert(MemRewardVO memRewardVO);
+    public void update(MemRewardVO memRewardVO);
+    //pkÌŽï¿½ï¿½Ò»ï¿½ï¿½
     public void delete(Integer empno);
-    public RemRewardVO findByPrimaryKey(Integer empno);
-    public List<RemRewardVO> getAll();
-    //ÈfÓÃÑ}ºÏ²éÔƒ(‚÷Èë…¢”µÐÍ‘BMap)(»Ø‚÷ List)
+    public MemRewardVO findByPrimaryKey(Integer empno);
+    public List<MemRewardVO> getAll();
+    //ï¿½fï¿½ï¿½ï¿½}ï¿½Ï²ï¿½Ôƒ(ï¿½ï¿½ï¿½ë…¢ï¿½ï¿½ï¿½Í‘BMap)(ï¿½Ø‚ï¿½ List)
 //  public List<memRewardVO> getAll(Map<String, String[]> map); 
 }

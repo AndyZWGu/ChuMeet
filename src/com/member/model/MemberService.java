@@ -1,6 +1,7 @@
 package com.member.model;
 
-import java.sql.Timestamp;
+import java.sql.Blob;
+import java.sql.Date;
 import java.util.List;
 
 public class MemberService {
@@ -11,7 +12,7 @@ public class MemberService {
 		dao = new MemberDAO();
 	}
 
-	public MemberVO addMember(Integer memID,
+	public MemberVO addMember(
 			String memEmail,
 			String memPw,
 			Integer memberType,
@@ -20,20 +21,21 @@ public class MemberService {
 			Integer memPt,
 			String memName,
 			Integer memGender,
-			Timestamp memBD, 
+			Date memBD, 
 			Integer memPhone, 
 			byte[] memAvatar,
-			Timestamp memJoinDate,
+			Date memJoinDate,
 			Integer memLoginNum,
 			String memLocBorn,
 			String memLocLive,
 			String memInt,
+			Double memLong,
+			Double memLat,
 		 	Integer memPriv,
 			Integer memStatus) {
 
 		MemberVO memberVO = new MemberVO();
 
-		memberVO.setMemID(memID);
 		memberVO.setMemEmail(memEmail);
 		memberVO.setMemPw(memPw);
 		memberVO.setMemberType(memberType);
@@ -50,6 +52,8 @@ public class MemberService {
 		memberVO.setMemLocBorn(memLocBorn);
 		memberVO.setMemLocLive(memLocLive);
 		memberVO.setMemInt(memInt);
+		memberVO.setMemLong(memLong);
+		memberVO.setMemLat(memLat);
 		memberVO.setMemPriv(memPriv);
 		memberVO.setMemStatus(memStatus);
 		dao.insert(memberVO);
@@ -66,14 +70,16 @@ public class MemberService {
 			Integer memPt,
 			String memName,
 			Integer memGender,
-			Timestamp memBD, 
+			Date memBD, 
 			Integer memPhone, 
 			byte[] memAvatar,
-			Timestamp memJoinDate,
+			Date memJoinDate,
 			Integer memLoginNum,
 			String memLocBorn,
 			String memLocLive,
 			String memInt,
+			Double memLong,
+			Double memLat,
 		 	Integer memPriv,
 			Integer memStatus) {
 
@@ -96,6 +102,8 @@ public class MemberService {
 		memberVO.setMemLocBorn(memLocBorn);
 		memberVO.setMemLocLive(memLocLive);
 		memberVO.setMemInt(memInt);
+		memberVO.setMemLong(memLong);
+		memberVO.setMemLat(memLat);
 		memberVO.setMemPriv(memPriv);
 		memberVO.setMemStatus(memStatus);
 		dao.update(memberVO);

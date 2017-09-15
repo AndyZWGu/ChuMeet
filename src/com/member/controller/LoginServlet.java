@@ -68,7 +68,7 @@ public class LoginServlet extends HttpServlet {
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("login.jsp");
 					failureView.forward(req, res);
-					return;//��ʽ�Д�
+					return;
 				}
 				
 				String formatMemEmail = null;

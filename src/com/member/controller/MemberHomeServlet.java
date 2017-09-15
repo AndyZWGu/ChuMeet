@@ -43,7 +43,7 @@ public class MemberHomeServlet extends HttpServlet {
 		String action = req.getParameter("action");
 //		String action = "login";
 		
-		if ("login".equals(action)) { // í×Ôlogin.jspµÄÕˆÇó
+		if ("login".equals(action)) { // ä¾†è‡ªlogin.jspçš„è«‹æ±‚
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -51,23 +51,23 @@ public class MemberHomeServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 			
 			try {
-				/***************************1.½ÓÊÕÕˆÇó…¢”µ - İ”Èë¸ñÊ½µÄåeÕ`ÌÀí**********************/
+				/***************************1.æ¥æ”¶è«‹æ±‚åƒæ•¸ - è¼¸å…¥æ ¼å¼çš„éŒ¯èª¤è™•ç†**********************/
 				String memEmail = req.getParameter("memEmail");
 				String memPw = req.getParameter("memPw");
 //				String memEmail = "adm@gmail";
 //				String memPw = "Master";
 				if (memEmail == null || (memEmail.trim()).length() == 0) {
-					errorMsgs.add("Õˆİ”Èë•ş†T¤Ì–");
+					errorMsgs.add("è«‹è¼¸å…¥æœƒå“¡å¸³è™Ÿ");
 				}
 				if (memPw == null || (memPw.trim()).length() == 0) {
-					errorMsgs.add("Õˆİ”Èë•ş†TÃÜ´a");
+					errorMsgs.add("è«‹è¼¸å…¥æœƒå“¡å¯†ç¢¼");
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/member/login.jsp");
 					failureView.forward(req, res);
-					return;//³ÌÊ½ÖĞ”à
+					return;//ç¨‹å¼ä¸­æ–·
 				}
 				
 				String formatMemEmail = null;
@@ -76,44 +76,44 @@ public class MemberHomeServlet extends HttpServlet {
 					formatMemEmail = new String();
 					formatMemPw = new String();
 				} catch (Exception e) {
-					errorMsgs.add("İ”Èë¸ñÊ½²»Õı´_");
+					errorMsgs.add("è¼¸å…¥æ ¼å¼ä¸æ­£ç¢º");
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/emp/select_page2.jsp");
 					failureView.forward(req, res);
-					return;//³ÌÊ½ÖĞ”à
+					return;//ç¨‹å¼ä¸­æ–·
 				}
 				
-				/***************************2.é_Ê¼²éÔƒÙYÁÏ*****************************************/
+				/***************************2.é–‹å§‹æŸ¥è©¢è³‡æ–™*****************************************/
 				MemberService memSvc = new MemberService();
 				MemberVO memVO = memSvc.getMemberByMemEmail(memEmail);
 				if (memVO == null) {
-					errorMsgs.add("²éŸo¤Ì–»òÃÜ´a,ÕˆÖØĞÂµÇÈë");
+					errorMsgs.add("æŸ¥ç„¡å¸³è™Ÿæˆ–å¯†ç¢¼,è«‹é‡æ–°ç™»å…¥");
 				}
 				MemberVO memVO2 = memSvc.getMemberByMemPw(memPw);
 				if (memVO2 == null) {
 					errorMsgs.clear();
-					errorMsgs.add("Äúİ”ÈëµÄÃÜ´aÓĞÕ`,Õˆ´_ÕJ");
+					errorMsgs.add("æ‚¨è¼¸å…¥çš„å¯†ç¢¼æœ‰èª¤,è«‹ç¢ºèª");
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/member/login.jsp");
 					failureView.forward(req, res);
-					return;//³ÌÊ½ÖĞ”à
+					return;//ç¨‹å¼ä¸­æ–·
 				}
 				
-				/***************************3.²éÔƒÍê³É,œÊ‚äŞD½»(Send the Success view)*************/
-				req.setAttribute("memVO", memVO); // ÙYÁÏìÈ¡³öµÄempVOÎï¼ş,´æÈëreq
+				/***************************3.æŸ¥è©¢å®Œæˆ,æº–å‚™è½‰äº¤(Send the Success view)*************/
+				req.setAttribute("memVO", memVO); // è³‡æ–™åº«å–å‡ºçš„empVOç‰©ä»¶,å­˜å…¥req
 				String url = "/member/memHome.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // ³É¹¦ŞD½» listOneEmp.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url); // æˆåŠŸè½‰äº¤ listOneEmp.jsp
 				successView.forward(req, res);
 
-				/***************************ÆäËû¿ÉÄÜµÄåeÕ`ÌÀí*************************************/
+				/***************************å…¶ä»–å¯èƒ½çš„éŒ¯èª¤è™•ç†*************************************/
 			} catch (Exception e) {
-				errorMsgs.add("Ÿo·¨È¡µÃÙYÁÏ:" + e.getMessage());
+				errorMsgs.add("ç„¡æ³•å–å¾—è³‡æ–™:" + e.getMessage());
 				req.setAttribute("errorMsgs", errorMsgs);
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/member/login.jsp");
@@ -128,51 +128,51 @@ public class MemberHomeServlet extends HttpServlet {
 		
 		
 		/**************************************************************
-		 *  *******************ÎÒµÄ„Ó‘B*******************************
+		 *  *******************æˆ‘çš„å‹•æ…‹*******************************
 		 * *************************************************************/
-		if ("memNF".equals(action)) { // í×ÔmemHome.jspµÄÕˆÇó
+		if ("memNF".equals(action)) { // ä¾†è‡ªmemHome.jspçš„è«‹æ±‚
 			
 		}
 		/**************************************************************
-		 *  *******************ÎÒµÄµÈ¼‰·e·Ö*******************************
+		 *  *******************æˆ‘çš„ç­‰ç´šç©åˆ†*******************************
 		 * *************************************************************/
-		if ("memLevel".equals(action)) { // í×ÔmemHome.jspµÄÕˆÇó
+		if ("memLevel".equals(action)) { // ä¾†è‡ªmemHome.jspçš„è«‹æ±‚
 			
 		}
 		/**************************************************************
-		 *  *******************ÎÒµÄ»ù±¾ÙYÓ*******************************
+		 *  *******************æˆ‘çš„åŸºæœ¬è³‡è¨Š*******************************
 		 * *************************************************************/
-		if ("memInfo".equals(action)) { // í×ÔmemHome.jspµÄÕˆÇó
+		if ("memInfo".equals(action)) { // ä¾†è‡ªmemHome.jspçš„è«‹æ±‚
 			
 		}
 		/**************************************************************
-		 *  *******************ÎÒµÄ³É¾Í*******************************
+		 *  *******************æˆ‘çš„æˆå°±*******************************
 		 * *************************************************************/
-		if ("memAch".equals(action)) { // í×ÔmemHome.jspµÄÕˆÇó
+		if ("memAch".equals(action)) { // ä¾†è‡ªmemHome.jspçš„è«‹æ±‚
 			
 		}
 		/**************************************************************
-		 *  *******************ÎÒµÄÔuƒr*******************************
+		 *  *******************æˆ‘çš„è©•åƒ¹*******************************
 		 * *************************************************************/
-		if ("memOpinion".equals(action)) { // í×ÔmemHome.jspµÄÕˆÇó
+		if ("memOpinion".equals(action)) { // ä¾†è‡ªmemHome.jspçš„è«‹æ±‚
 			
 		}
 		/**************************************************************
-		 *  *******************ÎÒµÄ‚€ÈËí“ÃæÔO¶¨*******************************
+		 *  *******************æˆ‘çš„å€‹äººé é¢è¨­å®š*******************************
 		 * *************************************************************/
-		if ("memSeeting".equals(action)) { // í×ÔmemHome.jspµÄÕˆÇó
+		if ("memSeeting".equals(action)) { // ä¾†è‡ªmemHome.jspçš„è«‹æ±‚
 			
 		}
 		/**************************************************************
-		 *  *******************•ş†T„Ó‘B*******************************
+		 *  *******************æœƒå“¡å‹•æ…‹*******************************
 		 * *************************************************************/
-		if ("memLevel".equals(action)) { // í×ÔmemHome.jspµÄÕˆÇó
+		if ("memLevel".equals(action)) { // ä¾†è‡ªmemHome.jspçš„è«‹æ±‚
 			
 		}
 		/**************************************************************
-		 *  *******************•ş†T„Ó‘B*******************************
+		 *  *******************æœƒå“¡å‹•æ…‹*******************************
 		 * *************************************************************/
-		if ("memLevel".equals(action)) { // í×ÔmemHome.jspµÄÕˆÇó
+		if ("memLevel".equals(action)) { // ä¾†è‡ªmemHome.jspçš„è«‹æ±‚
 			
 		}
 		//doPost
