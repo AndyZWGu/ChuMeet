@@ -18,7 +18,27 @@
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
-   
+    <style>
+    .table,
+    .table th,
+    .table td,
+    .table select {
+        text-align: center;
+        vertical-align: middle;
+        line-height: 1em;
+    }
+
+    .table>tbody>tr>td {
+        line-height: 1em;
+        padding: .3em;
+    }
+
+    .table>thead>tr>th {
+        padding: .5em;
+        font-weight: bold;
+        line-height: 1.5em;
+    }
+    </style>
 </head>
 
 <body>
@@ -125,7 +145,7 @@
             </div>
         </div>
         <div class="main-panel">
-            <nav class="navbar navbar-transparent navbar-absolute">
+            <nav class="navbar navbar-transparent ">
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
@@ -150,14 +170,6 @@
               <p class="hidden-lg hidden-md">Profile</p>
               </a> </li>
                         </ul>
-                        <form class="navbar-form navbar-right" role="search">
-                            <div class="form-group  is-empty">
-                                <input type="text" class="form-control" placeholder="Search">
-                                <span class="material-input"></span> </div>
-                            <button type="submit" class="btn btn-white btn-round btn-just-icon"> <i class="material-icons">search</i>
-                                <div class="ripple-container"></div>
-                            </button>
-                        </form>
                     </div>
                 </div>
             </nav>
@@ -166,287 +178,276 @@
             <!--/////////////////////////////////////////////////////////////////////////////-->
             <!--/////////////////////////////////////////////////////////////////////////////-->
             <!--/////////////////////////////////////////////////////////////////////////////-->
-            <div class="content">
-                <p>管理員權限管理</p>
-                <div class="card-content table-responsive table-full-width">
-                    <table class="table">
-                        <thead class="text-danger">
-                        <tr>
-                            <th>編號</th>
-                            <th>網頁管理</th>
-                            <th>姓名</th>
-                            <th>帳號</th>
-                            <th>密碼</th>
-                            <th>權限</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                          
-                           <tr>
-                        <td>NO.1</td>
-                        <td>網業管理</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                        <div class="checkbox">
-    <label>
-        <input type="checkbox" name="optionsCheckboxes">
-        
-    </label>
-</div>  
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>NO.2</td>
-                        <td>公告管理</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                         <div class="checkbox">
-    <label>
-        <input type="checkbox" name="optionsCheckboxes">
-        
-    </label>
-</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>NO.3</td>
-                        <td>App推播管理</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                         <div class="checkbox">
-    <label>
-        <input type="checkbox" name="optionsCheckboxes">
-        
-    </label>
-</div>   
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>NO.4</td>
-                        <td>照片管理</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                         <div class="checkbox">
-    <label>
-        <input type="checkbox" name="optionsCheckboxes">
-        
-    </label>
-</div>   
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>NO.5</td>
-                        <td>留言版檢舉</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                         <div class="checkbox">
-    <label>
-        <input type="checkbox" name="optionsCheckboxes">
-        
-    </label>
-</div>   
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>NO.6</td>
-                        <td>會員檢舉</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                         <div class="checkbox">
-    <label>
-        <input type="checkbox" name="optionsCheckboxes">
-        
-    </label>
-</div>   
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>NO.7</td>
-                        <td>社團檢舉</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                         <div class="checkbox">
-    <label>
-        <input type="checkbox" name="optionsCheckboxes">
-        
-    </label>
-</div>   
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>NO.8</td>
-                        <td>廣告檢舉</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                         <div class="checkbox">
-    <label>
-        <input type="checkbox" name="optionsCheckboxes">
-        
-    </label>
-</div>   
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>NO.9</td>
-                        <td>活動檢舉</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                         <div class="checkbox">
-    <label>
-        <input type="checkbox" name="optionsCheckboxes">
-        
-    </label>
-</div>   
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>NO.10</td>
-                        <td>獎賞管理</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                         <div class="checkbox">
-    <label>
-        <input type="checkbox" name="optionsCheckboxes">
-        
-    </label>
-</div>   
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>NO.11</td>
-                        <td>會員資料管理</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                         <div class="checkbox">
-    <label>
-        <input type="checkbox" name="optionsCheckboxes">
-        
-    </label>
-</div>   
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>NO.12</td>
-                        <td>成就資料管理</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                          <div class="checkbox">
-    <label>
-        <input type="checkbox" name="optionsCheckboxes">
-       
-    </label>
-</div>  
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>NO.13</td>
-                        <td>活動分類管理</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                         <div class="checkbox">
-    <label>
-        <input type="checkbox" name="optionsCheckboxes">
-        
-    </label>
-</div>   
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>NO.14</td>
-                        <td>活動內容模板管理</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                        <div class="checkbox">
-    <label>
-        <input type="checkbox" name="optionsCheckboxes">
-        
-    </label>
-</div>   
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>NO.15</td>
-                        <td>活動資料管理</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                         <div class="checkbox">
-    <label>
-        <input type="checkbox" name="optionsCheckboxes">
-        
-    </label>
-</div>   
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>NO.16</td>
-                        <td>社團資料管理</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                         <div class="checkbox">
-    <label>
-        <input type="checkbox" name="optionsCheckboxes">
-        
-    </label>
-</div>   
-                        </td>
-                    </tr>
-
-                       <tr>
-                        <td>NO.17</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-
-                        </tbody>
-                    </table>
-
- 
-<button class="btn btn-success">新增</button>
-<button class="btn btn-danger">刪除</button>
-
+            <div class="container">
+                <form class="navbar-form navbar-right" role="search">
+                    <div class="form-group  is-empty">
+                        <input type="text" class="form-control" placeholder="搜索">
+                        <span class="material-input"></span> </div>
+                    <button type="submit" class="btn btn-white btn-round btn-just-icon"> <i class="material-icons">search</i>
+                        <div class="ripple-container"></div>
+                    </button>
+                </form>
+                <div class="tab-content">
+                    <div class="tab-pane fade in active">
+                        <h2>管理員權限管理</h2>
+                        
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr class="bg-danger">
+                                        <th class="col-md-1">編號</th>
+                                        <th class="col-md-1">網頁管理</th>
+                                        <th class="col-md-1">姓名</th>
+                                        <th class="col-md-1">帳號</th>
+                                        <th class="col-md-1">密碼</th>
+                                        <th class="col-md-1">權限</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>NO.1</td>
+                                        <td>網業管理</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>NO.2</td>
+                                        <td>公告管理</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>NO.3</td>
+                                        <td>App推播管理</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>NO.4</td>
+                                        <td>照片管理</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>NO.5</td>
+                                        <td>留言版檢舉</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>NO.6</td>
+                                        <td>會員檢舉</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>NO.7</td>
+                                        <td>社團檢舉</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>NO.8</td>
+                                        <td>廣告檢舉</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>NO.9</td>
+                                        <td>活動檢舉</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>NO.10</td>
+                                        <td>獎賞管理</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>NO.11</td>
+                                        <td>會員資料管理</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>NO.12</td>
+                                        <td>成就資料管理</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>NO.13</td>
+                                        <td>活動分類管理</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>NO.14</td>
+                                        <td>活動內容模板管理</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>NO.15</td>
+                                        <td>活動資料管理</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>NO.16</td>
+                                        <td>社團資料管理</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>NO.17</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button class="btn btn-success">新增</button>
+                            <button class="btn btn-danger">取消</button>
+                        </div>
+                    </div>
                 </div>
+                <!--/////////////////////////////////////////////////////////////////////////////-->
+                <!--/////////////////////////////////////////////////////////////////////////////-->
+                <!--/////////////////////////////////////////////////////////////////////////////-->
+                <!--/////////////////////////////////////////////////////////////////////////////-->
             </div>
-        <!--/////////////////////////////////////////////////////////////////////////////-->
-        <!--/////////////////////////////////////////////////////////////////////////////-->
-        <!--/////////////////////////////////////////////////////////////////////////////-->
-        <!--/////////////////////////////////////////////////////////////////////////////-->
-    </div>
-    </div>
+        </div>
 </body>
 <!--   Core JS Files   -->
 <script src="../assets/js/jquery-3.1.0.min.js" type="text/javascript"></script>

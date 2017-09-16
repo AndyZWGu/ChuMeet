@@ -615,7 +615,6 @@
     });
   </script>
   <script src="<%=request.getContextPath()%>/HTML/assets/plugins/components/wow.min.js" type="text/javascript"></script>
-=======
  <c:import url="/front-end/publicJS.jsp">
 </c:import>
   	<!-- 共用Js -->

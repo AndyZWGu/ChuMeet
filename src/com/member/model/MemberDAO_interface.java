@@ -8,9 +8,11 @@ public interface MemberDAO_interface {
     public void update(MemberVO memberVO);
     public void delete(Integer memID);
     public MemberVO findByPrimaryKey(Integer memID);
-    //會員登入用
+    //會員用
     public MemberVO findByMemEmail(String memEmail);
     public MemberVO findByMemPw(String memPw);
+    //會員拿照片用
+    public List<String> getAvatarByMemID(Integer memID);
     //會員註冊用
 //    public void registerMember(MemberVO memberVO);
 //    public void updateInfo(MemberVO memberVO);

@@ -118,6 +118,10 @@ public class MemberService {
 	public MemberVO getOneMember(Integer memID) {
 		return dao.findByPrimaryKey(memID);
 	}
+	
+	public List<String> getAvatar(Integer memID) {
+		return dao.getAvatarByMemID(memID);
+	}
 
 	public List<MemberVO> getAll() {
 		return dao.getAll();

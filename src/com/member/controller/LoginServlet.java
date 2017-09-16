@@ -112,10 +112,11 @@ public class LoginServlet extends HttpServlet {
 //				String url = "/member/memHome.jsp"; 
 //				RequestDispatcher successView = req.getRequestDispatcher(url); 
 //				successView.forward(req, res);
+				
 				//正式處理Session
 				HttpSession session = req.getSession();
 				session.setAttribute("memVO", memVO);
-				res.sendRedirect("../index.jsp");
+				res.sendRedirect("/ChuMeetWebsite/front-end/index.jsp");
 
 				/***************************其他可能的錯誤處理*************************************/
 			} catch (Exception e) {

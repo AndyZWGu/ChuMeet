@@ -34,7 +34,60 @@
 		   font-weight: bold;
 		   line-height: 1.5em;
 		}
+	   .radio i{
+		   color:red;
+	   }
+	   
+	   .input[type='radio']:checked i{
+		   color:yellow;
+	   }
+	   
+	   
+input[type=checkbox]{
+	height: 0;
+	width: 0;
+	visibility: hidden;
+}
 
+
+.cclabel {
+	cursor: pointer;
+	text-indent: -9999px;
+	width: 40px;
+	height: 20px;
+	background: grey;
+	display: block;
+	border-radius: 20px;
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.cclabel:after {
+	content: '';
+	position: absolute;
+	top: 0px;
+	left: 2px;
+	width: 20px;
+	height: 20px;
+	background: #fff;
+	border-radius: 20px;
+	transition: 0.3s;
+}
+
+input:checked + .cclabel {
+	background: #bada55;
+}
+
+input:checked + .cclabel:after {
+	left: calc(100% - 2px);
+	transform: translateX(-100%);
+}
+
+.cclabel:active:after {
+	width: 20px;
+}
+	   
 	</style>
 </head>
 
@@ -204,9 +257,10 @@
 									<th class="col-md-1">代碼</th>
 									<th class="col-md-2">舉辦人</th>
 									<th class="col-md-1">建立時間</th>
-									<th class="col-md-2">活動名稱</th>
+									<th class="col-md-3">活動名稱</th>
 									<th class="col-md-1">狀態</th>
-									<th class="col-md-3">設定</th>
+									<th class="col-md-1">設定</th>
+									<th class="col-md-1">HOT</th>
 									<th class="col-md-1">地區</th>
 									<th class="col-md-1">詳細</th>
 								</tr>
@@ -219,11 +273,18 @@
 									<td>actName</td>
 									<td>未開始</td>
 									<td>
-										<span class="btn-group">
-											  <button type="button" class="btn btn-danger btn-sm statbtn" name="actStatID" value="5">停權</button>
-											  <button type="button" class="btn btn-danger btn-sm statbtn" name="actStatID" value="6">暫停</button>
-											</span>
-											<button class="btn btn-sm btn-warning">熱推</button>
+												<div class="radio">
+												  <label><input type="radio" name="optradio" value="0" checked><i class="fa fa-check-square" aria-hidden="true"></i></label>
+												</div>
+												<div class="radio">
+												  <label><input type="radio" name="optradio" value="4"><i class="fa fa-ban" aria-hidden="true"></i></label>
+												</div>
+												<div class="radio">
+												  <label><input type="radio" name="optradio" value="5"><i class="fa fa-question-circle" aria-hidden="true"></i></label>
+												</div>
+									</td>
+									<td>
+											<input type="checkbox" id="switch" /><label class="cclabel" for="switch">推</label>
 									</td>
 									<td>actAddr</td>
 									<td><button class="btn btn-info btn-sm">Detail</button></td>

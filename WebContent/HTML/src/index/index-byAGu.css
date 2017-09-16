@@ -1,15 +1,3 @@
-.btn-link{
-  border:none;
-  outline:none;
-  background:none;
-  cursor:pointer;
-  color:#0000EE;
-  padding:0;
-  text-decoration:underline;
-  font-family:inherit;
-  font-size:inherit;
-}
-
 .poi-btn {
     text-align: center;
     margin-top: 20px;
@@ -145,7 +133,7 @@
     width: 4em;
     height: 2.5em;
     margin-top: 0.5em;
-    font-size: 50px!important;
+    font-size: 40px!important;
 }
 
 .photo-stream .btn {

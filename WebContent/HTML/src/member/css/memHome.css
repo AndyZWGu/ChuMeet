@@ -1,3 +1,39 @@
+/* ==========================================================================
+    01. 功能
+========================================================================== */
+.panel-heading{
+	text-align:right;
+}
+.panel-footer{
+	text-align:center;
+}
+
+/* ==========================================================================
+    01. 活動足跡
+========================================================================== */
+.img-rounded{
+	margin-top:6em;
+}
+
+/* ==========================================================================
+    06. 內容
+========================================================================== */
+.blog-item .introduction{
+	text-align: center;
+	font-size: 24px;
+	padding:2em;
+}
+
+.blog-item h2{
+	margin-top:1em;
+	text-align: center;
+}
+
+
+/* ==========================================================================
+    06. 內容
+========================================================================== */
+
 /* CSS Document */
 
 body {
@@ -18,20 +54,21 @@ body {
 	color: red;
 }
 .profile-sidebar {
-	padding: 20px 0 10px 0;
 	background: #fff;
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
 	border-bottom-left-radius: 10px;
 	border-bottom-right-radius: 10px;
 }
+
 .profile-userpic img {
+	margin-top: 3em;
     margin-left: 20%;
 	width: 60%;
-	height: 50%;
-	-webkit-border-radius: 50% !important;
-	-moz-border-radius: 50% !important;
-	border-radius: 50% !important;
+	height: 60%;
+	-webkit-border-radius: 10px !important;
+	-moz-border-radius: 10px !important;
+	border-radius: 10px !important;
 }
 .profile-usertitle {
 	text-align: center;
@@ -100,6 +137,10 @@ body {
 	margin-left: -2px;
 }
 
+.overvie{
+	padding:2em;
+}
+
 .overvie h5 {
 	font-weight: 300;
 	margin-top: 15px;
@@ -130,9 +171,7 @@ div.tags:hover {
 	background-color: #f6f9fb;
 	color: #e02222;
 }
-.introduction {
-	font-size: 18px;
-}
+
 .mb {
 	padding: 10px;
 }

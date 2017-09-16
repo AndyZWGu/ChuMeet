@@ -37,6 +37,9 @@ public class MemberDAO implements MemberDAO_interface {
 			"SELECT memID,memEmail,memPw,memberType,memLv,memExp,memPt,memName,memGender,memBD,memPhone,memAvatar,memJoinDate,memLoginNum,memLocBorn,memLocLive,memInt,memLong,memLat,memPriv,memStatus FROM member where memEmail = ?";
 	private static final String GET_ONE_STMT_BY_MEMPW = 
 			"SELECT memID,memEmail,memPw,memberType,memLv,memExp,memPt,memName,memGender,memBD,memPhone,memAvatar,memJoinDate,memLoginNum,memLocBorn,memLocLive,memInt,memLong,memLat,memPriv,memStatus FROM member where memPw = ?";
+	//拿照片用
+	private static final String GET_AVATAR_STMT_BY_MEMID = 
+			"SELECT memAvatar FROM member where memID = ?";
 
 	@Override
 	public void insert(MemberVO memberVO) {
@@ -264,6 +267,60 @@ public class MemberDAO implements MemberDAO_interface {
 			}
 		}
 		return memberVO;
+	}
+	
+	@Override
+	public List<String> getAvatarByMemID(Integer memID) {
+		List<String> list = new ArrayList<String>();
+		MemberVO memberVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_AVATAR_STMT_BY_MEMID);
+			
+			pstmt.setInt(1, memID);
+			
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				byte[] memAvatar = rs.getBytes("memAvatar"); 
+			    list.add(org.apache.commons.codec.binary.Base64.encodeBase64String(memAvatar));
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
 	}
 
 	@Override

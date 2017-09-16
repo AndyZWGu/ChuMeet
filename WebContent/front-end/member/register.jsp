@@ -23,7 +23,7 @@
 <!-- Head END -->
 
 <!-- Body BEGIN -->
-<body class="chumeet">
+<body class="main">
 	<c:import url="/front-end/userHeader.jsp">
 	</c:import>
 	<!-- Header Start -->
@@ -32,7 +32,7 @@
 	<!-- Header END -->
 
 	<!--主頁面要修改的都在這下面-->
-	<div class="main">
+	<div class="">
 
         <div class="container">
             <div class="row">
