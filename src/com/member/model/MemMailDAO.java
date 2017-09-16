@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 
 public class MemMailDAO implements MemMailDAO_interface {
 
-	// Ò»‚€‘ªÓÃ³ÌÊ½ÖÐ,á˜Œ¦Ò»‚€ÙYÁÏŽì ,¹²ÓÃÒ»‚€DataSource¼´¿É
+	// ä¸€å€‹æ‡‰ç”¨ç¨‹å¼ä¸­,é‡å°ä¸€å€‹è³‡æ–™åº« ,å…±ç”¨ä¸€å€‹DataSourceå³å¯
 	private static DataSource ds = null;
 	static {
 		try {
@@ -21,16 +21,16 @@ public class MemMailDAO implements MemMailDAO_interface {
 		}
 	}
 
-	private static final String INSERT_STMT = 
-		"INSERT INTO emp2 (empno,ename,job,hiredate,sal,comm,deptno) VALUES (emp2_seq.NEXTVAL, ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = 
-		"SELECT empno,ename,job,to_char(hiredate,'yyyy-mm-dd') hiredate,sal,comm,deptno FROM emp2 order by empno";
-	private static final String GET_ONE_STMT = 
-		"SELECT empno,ename,job,to_char(hiredate,'yyyy-mm-dd') hiredate,sal,comm,deptno FROM emp2 where empno = ?";
-	private static final String DELETE = 
-		"DELETE FROM emp2 where empno = ?";
-	private static final String UPDATE = 
-		"UPDATE emp2 set ename=?, job=?, hiredate=?, sal=?, comm=?, deptno=? where empno = ?";
+		private static final String INSERT_STMT = 
+			"INSERT INTO memMail VALUES (MEMMAIL_SEQ.NEXTVAL,?,?,?,?,?)";
+		private static final String GET_ALL_STMT = 
+			"SELECT * FROM memMail";
+		private static final String GET_ONE_STMT = 
+			"SELECT * FROM memMail where memMailID = ?";
+		private static final String DELETE = 
+			"DELETE FROM memMail where memMailID = ?";
+		private static final String UPDATE = 
+			"UPDATE memMail set mailTitle=?,mailDate=?,mailContent=? where memMailID = ?";
 
 	@Override
 	public void insert(MemMailVO memMailVO) {
@@ -43,12 +43,11 @@ public class MemMailDAO implements MemMailDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setString(1, memMailVO.getachID());
-			pstmt.setString(2, memMailVO.getJob());
-			pstmt.setDate(3, memMailVO.getHiredate());
-			pstmt.setDouble(4, memMailVO.getSal());
-			pstmt.setDouble(5, memMailVO.getComm());
-			pstmt.setInt(6, memMailVO.getDeptno());
+			pstmt.setInt(1, memMailVO.getReceiver());
+			pstmt.setInt(2, memMailVO.getAuthor());
+			pstmt.setString(3, memMailVO.getMailTitle());
+			pstmt.setDate(4, memMailVO.getMailDate());
+			pstmt.setString(5, memMailVO.getMailContent());
 
 			pstmt.executeUpdate();
 
@@ -87,13 +86,10 @@ public class MemMailDAO implements MemMailDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setString(1, memMailVO.getEname());
-			pstmt.setString(2, memMailVO.getJob());
-			pstmt.setDate(3, memMailVO.getHiredate());
-			pstmt.setDouble(4, memMailVO.getSal());
-			pstmt.setDouble(5, memMailVO.getComm());
-			pstmt.setInt(6, memMailVO.getDeptno());
-			pstmt.setInt(7, memMailVO.getEmpno());
+			pstmt.setString(1, memMailVO.getMailTitle());
+			pstmt.setDate(2, memMailVO.getMailDate());
+			pstmt.setString(3, memMailVO.getMailContent());
+			pstmt.setInt(4, memMailVO.getMemMailID());
 
 			pstmt.executeUpdate();
 
@@ -122,7 +118,7 @@ public class MemMailDAO implements MemMailDAO_interface {
 	}
 
 	@Override
-	public void delete(Integer empno) {
+	public void delete(Integer memMailID) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -132,7 +128,7 @@ public class MemMailDAO implements MemMailDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, empno);
+			pstmt.setInt(1, memMailID);
 
 			pstmt.executeUpdate();
 
@@ -161,7 +157,7 @@ public class MemMailDAO implements MemMailDAO_interface {
 	}
 
 	@Override
-	public MemMailVO findByPrimaryKey(Integer empno) {
+	public MemMailVO findByPrimaryKey(Integer memMailID) {
 
 		MemMailVO memMailVO = null;
 		Connection con = null;
@@ -173,20 +169,18 @@ public class MemMailDAO implements MemMailDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, empno);
+			pstmt.setInt(1, memMailID);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// memMailVO Ò²·Qžé Domain objects
 				memMailVO = new MemMailVO();
-				memMailVO.setEmpno(rs.getInt("empno"));
-				memMailVO.setEname(rs.getString("ename"));
-				memMailVO.setJob(rs.getString("job"));
-				memMailVO.setHiredate(rs.getDate("hiredate"));
-				memMailVO.setSal(rs.getDouble("sal"));
-				memMailVO.setComm(rs.getDouble("comm"));
-				memMailVO.setDeptno(rs.getInt("deptno"));
+				memMailVO.setMemMailID(rs.getInt("memMailID"));
+				memMailVO.setReceiver(rs.getInt("memID1"));
+				memMailVO.setAuthor(rs.getInt("memID2"));
+				memMailVO.setMailTitle(rs.getString("mailTitle"));
+				memMailVO.setMailDate(rs.getDate("mailDate"));
+				memMailVO.setMailContent(rs.getString("mailContent"));
 			}
 
 			// Handle any driver errors
@@ -236,15 +230,13 @@ public class MemMailDAO implements MemMailDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// memMailVO Ò²·Qžé Domain objects
 				memMailVO = new MemMailVO();
-				memMailVO.setEmpno(rs.getInt("empno"));
-				memMailVO.setEname(rs.getString("ename"));
-				memMailVO.setJob(rs.getString("job"));
-				memMailVO.setHiredate(rs.getDate("hiredate"));
-				memMailVO.setSal(rs.getDouble("sal"));
-				memMailVO.setComm(rs.getDouble("comm"));
-				memMailVO.setDeptno(rs.getInt("deptno"));
+				memMailVO.setMemMailID(rs.getInt("memMailID"));
+				memMailVO.setReceiver(rs.getInt("memID1"));
+				memMailVO.setAuthor(rs.getInt("memID2"));
+				memMailVO.setMailTitle(rs.getString("mailTitle"));
+				memMailVO.setMailDate(rs.getDate("mailDate"));
+				memMailVO.setMailContent(rs.getString("mailContent"));
 				list.add(memMailVO); // Store the row in the list
 			}
 

@@ -2,7 +2,7 @@ package com.member.model;
 
 public class AchVO implements java.io.Serializable{
 	private Integer achID;
-	private String rewID;
+	private Integer rewID;
 	private String achName;
 	private String achDesc;
 	private Integer achStatus;
@@ -13,10 +13,10 @@ public class AchVO implements java.io.Serializable{
 	public void setAchID(Integer achID) {
 		this.achID = achID;
 	}
-	public String getRewID() {
+	public Integer getRewID() {
 		return rewID;
 	}
-	public void setRewID(String rewID) {
+	public void setRewID(Integer rewID) {
 		this.rewID = rewID;
 	}
 	public String getAchName() {

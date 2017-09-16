@@ -1,14 +1,16 @@
 package com.member.model;
 
 import java.util.List;
+import java.util.Map;
 
 public interface MemMBDAO_interface {
     public void insert(MemMBVO memMBVO);
     public void update(MemMBVO memMBVO);
-    //pk處理一下
-    public void delete(Integer empno);
-    public MemMBVO findByPrimaryKey(Integer empno);
+    
+    public void delete(Integer memID);
+    
+    public MemMBVO findByPrimaryKey(Integer memID);
     public List<MemMBVO> getAll();
-    //萬用複合查詢(傳入參數型態Map)(回傳 List)
-//  public List<memMBVO> getAll(Map<String, String[]> map); 
+    //钀敤瑜囧悎鏌ヨ(鍌冲叆鍙冩暩鍨嬫厠Map)(鍥炲偝 List)
+//    public List<MemMBVO> getAll(Map<String, String[]> map); 
 }

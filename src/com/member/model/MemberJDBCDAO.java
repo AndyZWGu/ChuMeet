@@ -459,4 +459,10 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<String> getAvatarByMemID(Integer memID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -22,15 +22,15 @@ public class AchDAO implements AchDAO_interface {
 	}
 
 	private static final String INSERT_STMT = 
-		"INSERT INTO ach VALUES (emp2_seq.NEXTVAL, ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = 
-		"SELECT empno,ename,job,to_char(hiredate,'yyyy-mm-dd') hiredate,sal,comm,deptno FROM emp2 order by empno";
-	private static final String GET_ONE_STMT = 
-		"SELECT empno,ename,job,to_char(hiredate,'yyyy-mm-dd') hiredate,sal,comm,deptno FROM emp2 where empno = ?";
-	private static final String DELETE = 
-		"DELETE FROM emp2 where empno = ?";
-	private static final String UPDATE = 
-		"UPDATE emp2 set ename=?, job=?, hiredate=?, sal=?, comm=?, deptno=? where empno = ?";
+			"INSERT INTO ach VALUES (?, ?, ?, ?, ?)";
+		private static final String GET_ALL_STMT = 
+			"SELECT * FROM ach";
+		private static final String GET_ONE_STMT = 
+			"SELECT * FROM ach where achID = ?";
+		private static final String DELETE = 
+			"DELETE FROM ach where achID = ?";
+		private static final String UPDATE = 
+			"UPDATE ach set rewID=?, achName=?, achDesc=?, achStatus=? where achID = ?";
 
 	@Override
 	public void insert(AchVO achVO) {
@@ -43,13 +43,11 @@ public class AchDAO implements AchDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setString(1, achVO.getachID());
-			pstmt.setString(2, achVO.getJob());
-			pstmt.setDate(3, achVO.getHiredate());
-			pstmt.setDouble(4, achVO.getSal());
-			pstmt.setDouble(5, achVO.getComm());
-			pstmt.setInt(6, achVO.getDeptno());
-
+			pstmt.setInt(1, achVO.getAchID());
+			pstmt.setInt(2, achVO.getRewID());
+			pstmt.setString(3, achVO.getAchName());
+			pstmt.setString(4, achVO.getAchDesc());
+			pstmt.setInt(5, achVO.getAchStatus());
 			pstmt.executeUpdate();
 
 			// Handle any SQL errors
@@ -87,13 +85,11 @@ public class AchDAO implements AchDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setString(1, achVO.getEname());
-			pstmt.setString(2, achVO.getJob());
-			pstmt.setDate(3, achVO.getHiredate());
-			pstmt.setDouble(4, achVO.getSal());
-			pstmt.setDouble(5, achVO.getComm());
-			pstmt.setInt(6, achVO.getDeptno());
-			pstmt.setInt(7, achVO.getEmpno());
+			pstmt.setInt(1, achVO.getRewID());
+			pstmt.setString(2, achVO.getAchName());
+			pstmt.setString(3, achVO.getAchDesc());
+			pstmt.setInt(4, achVO.getAchStatus());
+			pstmt.setInt(5, achVO.getAchID());
 
 			pstmt.executeUpdate();
 
@@ -122,7 +118,7 @@ public class AchDAO implements AchDAO_interface {
 	}
 
 	@Override
-	public void delete(Integer empno) {
+	public void delete(Integer achID) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -132,7 +128,7 @@ public class AchDAO implements AchDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, empno);
+			pstmt.setInt(1, achID);
 
 			pstmt.executeUpdate();
 
@@ -161,7 +157,7 @@ public class AchDAO implements AchDAO_interface {
 	}
 
 	@Override
-	public AchVO findByPrimaryKey(Integer empno) {
+	public AchVO findByPrimaryKey(Integer achID) {
 
 		AchVO achVO = null;
 		Connection con = null;
@@ -173,20 +169,17 @@ public class AchDAO implements AchDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, empno);
+			pstmt.setInt(1, achID);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// achVO Ҳ�Q�� Domain objects
 				achVO = new AchVO();
-				achVO.setEmpno(rs.getInt("empno"));
-				achVO.setEname(rs.getString("ename"));
-				achVO.setJob(rs.getString("job"));
-				achVO.setHiredate(rs.getDate("hiredate"));
-				achVO.setSal(rs.getDouble("sal"));
-				achVO.setComm(rs.getDouble("comm"));
-				achVO.setDeptno(rs.getInt("deptno"));
+				achVO.setAchID(rs.getInt("achID"));
+				achVO.setRewID(rs.getInt("rewID"));
+				achVO.setAchName(rs.getString("achName"));
+				achVO.setAchDesc(rs.getString("achDesc"));
+				achVO.setAchStatus(rs.getInt("achStatus"));
 			}
 
 			// Handle any driver errors
@@ -236,15 +229,12 @@ public class AchDAO implements AchDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// achVO Ҳ�Q�� Domain objects
 				achVO = new AchVO();
-				achVO.setEmpno(rs.getInt("empno"));
-				achVO.setEname(rs.getString("ename"));
-				achVO.setJob(rs.getString("job"));
-				achVO.setHiredate(rs.getDate("hiredate"));
-				achVO.setSal(rs.getDouble("sal"));
-				achVO.setComm(rs.getDouble("comm"));
-				achVO.setDeptno(rs.getInt("deptno"));
+				achVO.setAchID(rs.getInt("achID"));
+				achVO.setRewID(rs.getInt("rewID"));
+				achVO.setAchName(rs.getString("achName"));
+				achVO.setAchDesc(rs.getString("achDesc"));
+				achVO.setAchStatus(rs.getInt("achStatus"));
 				list.add(achVO); // Store the row in the list
 			}
 

@@ -133,4 +133,5 @@ public class MemberService {
 	public MemberVO getMemberByMemPw(String memPw) {
 		return dao.findByMemPw(memPw);
 	}
+
 }

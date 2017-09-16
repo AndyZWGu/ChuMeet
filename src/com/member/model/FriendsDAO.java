@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 
 public class FriendsDAO implements FriendsDAO_interface {
 
-	// Ò»‚€‘ªÓÃ³ÌÊ½ÖÐ,á˜Œ¦Ò»‚€ÙYÁÏŽì ,¹²ÓÃÒ»‚€DataSource¼´¿É
+	// ä¸€å€‹æ‡‰ç”¨ç¨‹å¼ä¸­,é‡å°ä¸€å€‹è³‡æ–™åº« ,å…±ç”¨ä¸€å€‹DataSourceå³å¯
 	private static DataSource ds = null;
 	static {
 		try {
@@ -22,15 +22,15 @@ public class FriendsDAO implements FriendsDAO_interface {
 	}
 
 	private static final String INSERT_STMT = 
-		"INSERT INTO emp2 (empno,ename,job,hiredate,sal,comm,deptno) VALUES (emp2_seq.NEXTVAL, ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = 
-		"SELECT empno,ename,job,to_char(hiredate,'yyyy-mm-dd') hiredate,sal,comm,deptno FROM emp2 order by empno";
-	private static final String GET_ONE_STMT = 
-		"SELECT empno,ename,job,to_char(hiredate,'yyyy-mm-dd') hiredate,sal,comm,deptno FROM emp2 where empno = ?";
-	private static final String DELETE = 
-		"DELETE FROM emp2 where empno = ?";
-	private static final String UPDATE = 
-		"UPDATE emp2 set ename=?, job=?, hiredate=?, sal=?, comm=?, deptno=? where empno = ?";
+			"INSERT INTO friends VALUES (?, ?, ?, ?)";
+		private static final String GET_ALL_STMT = 
+			"SELECT * FROM friends";
+		private static final String GET_ONE_STMT = 
+			"SELECT * FROM friends where friMem1 = ?";
+		private static final String DELETE = 
+			"DELETE FROM friends where friMem1 = ?";
+		private static final String UPDATE = 
+			"UPDATE friends set friendType= ?,friendDate=? where friMem1 = ?";
 
 	@Override
 	public void insert(FriendsVO friendsVO) {
@@ -43,12 +43,10 @@ public class FriendsDAO implements FriendsDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setString(1, friendsVO.getachID());
-			pstmt.setString(2, friendsVO.getJob());
-			pstmt.setDate(3, friendsVO.getHiredate());
-			pstmt.setDouble(4, friendsVO.getSal());
-			pstmt.setDouble(5, friendsVO.getComm());
-			pstmt.setInt(6, friendsVO.getDeptno());
+			pstmt.setInt(1, friendsVO.getFriMem1());
+			pstmt.setInt(2, friendsVO.getFriMem2());
+			pstmt.setString(3, friendsVO.getFriendType());
+			pstmt.setDate(4, friendsVO.getFriendDate());
 
 			pstmt.executeUpdate();
 
@@ -87,13 +85,10 @@ public class FriendsDAO implements FriendsDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setString(1, friendsVO.getEname());
-			pstmt.setString(2, friendsVO.getJob());
-			pstmt.setDate(3, friendsVO.getHiredate());
-			pstmt.setDouble(4, friendsVO.getSal());
-			pstmt.setDouble(5, friendsVO.getComm());
-			pstmt.setInt(6, friendsVO.getDeptno());
-			pstmt.setInt(7, friendsVO.getEmpno());
+			pstmt.setInt(1, friendsVO.getFriMem1());
+			pstmt.setInt(2, friendsVO.getFriMem2());
+			pstmt.setString(3, friendsVO.getFriendType());
+			pstmt.setDate(4, friendsVO.getFriendDate());
 
 			pstmt.executeUpdate();
 
@@ -122,7 +117,7 @@ public class FriendsDAO implements FriendsDAO_interface {
 	}
 
 	@Override
-	public void delete(Integer empno) {
+	public void delete(Integer friMem1) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -132,7 +127,7 @@ public class FriendsDAO implements FriendsDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, empno);
+			pstmt.setInt(1, friMem1);
 
 			pstmt.executeUpdate();
 
@@ -161,7 +156,7 @@ public class FriendsDAO implements FriendsDAO_interface {
 	}
 
 	@Override
-	public FriendsVO findByPrimaryKey(Integer empno) {
+	public FriendsVO findByPrimaryKey(Integer friMem1) {
 
 		FriendsVO friendsVO = null;
 		Connection con = null;
@@ -173,20 +168,16 @@ public class FriendsDAO implements FriendsDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, empno);
+			pstmt.setInt(1, friMem1);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// friendsVO Ò²·Qžé Domain objects
 				friendsVO = new FriendsVO();
-				friendsVO.setEmpno(rs.getInt("empno"));
-				friendsVO.setEname(rs.getString("ename"));
-				friendsVO.setJob(rs.getString("job"));
-				friendsVO.setHiredate(rs.getDate("hiredate"));
-				friendsVO.setSal(rs.getDouble("sal"));
-				friendsVO.setComm(rs.getDouble("comm"));
-				friendsVO.setDeptno(rs.getInt("deptno"));
+				friendsVO.setFriMem1(rs.getInt("memID1"));
+				friendsVO.setFriMem2(rs.getInt("memID2"));
+				friendsVO.setFriendType(rs.getString("friendType"));
+				friendsVO.setFriendDate(rs.getDate("friendDate"));
 			}
 
 			// Handle any driver errors
@@ -236,15 +227,11 @@ public class FriendsDAO implements FriendsDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// friendsVO Ò²·Qžé Domain objects
 				friendsVO = new FriendsVO();
-				friendsVO.setEmpno(rs.getInt("empno"));
-				friendsVO.setEname(rs.getString("ename"));
-				friendsVO.setJob(rs.getString("job"));
-				friendsVO.setHiredate(rs.getDate("hiredate"));
-				friendsVO.setSal(rs.getDouble("sal"));
-				friendsVO.setComm(rs.getDouble("comm"));
-				friendsVO.setDeptno(rs.getInt("deptno"));
+				friendsVO.setFriMem1(rs.getInt("memID1"));
+				friendsVO.setFriMem2(rs.getInt("memID2"));
+				friendsVO.setFriendType(rs.getString("friendType"));
+				friendsVO.setFriendDate(rs.getDate("friendDate"));
 				list.add(friendsVO); // Store the row in the list
 			}
 

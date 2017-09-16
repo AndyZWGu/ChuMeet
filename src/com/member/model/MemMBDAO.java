@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 
 public class MemMBDAO implements MemMBDAO_interface {
 
-	// Ò»‚€‘ªÓÃ³ÌÊ½ÖÐ,á˜Œ¦Ò»‚€ÙYÁÏŽì ,¹²ÓÃÒ»‚€DataSource¼´¿É
+	// ä¸€å€‹æ‡‰ç”¨ç¨‹å¼ä¸­,é‡å°ä¸€å€‹è³‡æ–™åº« ,å…±ç”¨ä¸€å€‹DataSourceå³å¯
 	private static DataSource ds = null;
 	static {
 		try {
@@ -22,15 +22,15 @@ public class MemMBDAO implements MemMBDAO_interface {
 	}
 
 	private static final String INSERT_STMT = 
-		"INSERT INTO emp2 (empno,ename,job,hiredate,sal,comm,deptno) VALUES (emp2_seq.NEXTVAL, ?, ?, ?, ?, ?, ?)";
+		"INSERT INTO memMB VALUES (MEMMB_SEQ.NEXTVAL, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
-		"SELECT empno,ename,job,to_char(hiredate,'yyyy-mm-dd') hiredate,sal,comm,deptno FROM emp2 order by empno";
+		"select * from memMB";
 	private static final String GET_ONE_STMT = 
-		"SELECT empno,ename,job,to_char(hiredate,'yyyy-mm-dd') hiredate,sal,comm,deptno FROM emp2 where empno = ?";
+		"select * from memMB where memID = ?";
 	private static final String DELETE = 
-		"DELETE FROM emp2 where empno = ?";
+		"DELETE FROM memMB where memID = ?";
 	private static final String UPDATE = 
-		"UPDATE emp2 set ename=?, job=?, hiredate=?, sal=?, comm=?, deptno=? where empno = ?";
+		"UPDATE memMB set mbContent=?, mbDate=?, mbStatus = ? where memID=?";
 
 	@Override
 	public void insert(MemMBVO memMBVO) {
@@ -43,12 +43,11 @@ public class MemMBDAO implements MemMBDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setString(1, memMBVO.getachID());
-			pstmt.setString(2, memMBVO.getJob());
-			pstmt.setDate(3, memMBVO.getHiredate());
-			pstmt.setDouble(4, memMBVO.getSal());
-			pstmt.setDouble(5, memMBVO.getComm());
-			pstmt.setInt(6, memMBVO.getDeptno());
+			pstmt.setInt(1, memMBVO.getMemNFID());
+			pstmt.setInt(2, memMBVO.getMemID());
+			pstmt.setString(3, memMBVO.getMbContent());
+			pstmt.setDate(4, memMBVO.getMbDate());
+			pstmt.setInt(5, memMBVO.getMbStatus());
 
 			pstmt.executeUpdate();
 
@@ -87,13 +86,10 @@ public class MemMBDAO implements MemMBDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setString(1, memMBVO.getEname());
-			pstmt.setString(2, memMBVO.getJob());
-			pstmt.setDate(3, memMBVO.getHiredate());
-			pstmt.setDouble(4, memMBVO.getSal());
-			pstmt.setDouble(5, memMBVO.getComm());
-			pstmt.setInt(6, memMBVO.getDeptno());
-			pstmt.setInt(7, memMBVO.getEmpno());
+			pstmt.setString(1, memMBVO.getMbContent());
+			pstmt.setDate(2, memMBVO.getMbDate());
+			pstmt.setInt(3, memMBVO.getMbStatus());
+			pstmt.setInt(4, memMBVO.getMemID());
 
 			pstmt.executeUpdate();
 
@@ -122,7 +118,7 @@ public class MemMBDAO implements MemMBDAO_interface {
 	}
 
 	@Override
-	public void delete(Integer empno) {
+	public void delete(Integer memID) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -132,7 +128,7 @@ public class MemMBDAO implements MemMBDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, empno);
+			pstmt.setInt(1, memID);
 
 			pstmt.executeUpdate();
 
@@ -161,7 +157,7 @@ public class MemMBDAO implements MemMBDAO_interface {
 	}
 
 	@Override
-	public MemMBVO findByPrimaryKey(Integer empno) {
+	public MemMBVO findByPrimaryKey(Integer memID) {
 
 		MemMBVO memMBVO = null;
 		Connection con = null;
@@ -173,20 +169,18 @@ public class MemMBDAO implements MemMBDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, empno);
+			pstmt.setInt(1, memID);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// memMBVO Ò²·Qžé Domain objects
 				memMBVO = new MemMBVO();
-				memMBVO.setEmpno(rs.getInt("empno"));
-				memMBVO.setEname(rs.getString("ename"));
-				memMBVO.setJob(rs.getString("job"));
-				memMBVO.setHiredate(rs.getDate("hiredate"));
-				memMBVO.setSal(rs.getDouble("sal"));
-				memMBVO.setComm(rs.getDouble("comm"));
-				memMBVO.setDeptno(rs.getInt("deptno"));
+				memMBVO.setMemMBID(rs.getInt("memMBID"));
+				memMBVO.setMemNFID(rs.getInt("memNFID"));
+				memMBVO.setMemID(rs.getInt("memID"));
+				memMBVO.setMbContent(rs.getString("mbContent"));
+				memMBVO.setMbDate(rs.getDate("mbDate"));
+				memMBVO.setMbStatus(rs.getInt("mbStatus"));
 			}
 
 			// Handle any driver errors
@@ -236,15 +230,14 @@ public class MemMBDAO implements MemMBDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// memMBVO Ò²·Qžé Domain objects
+				// memMBVO Ò²ï¿½Qï¿½ï¿½ Domain objects
 				memMBVO = new MemMBVO();
-				memMBVO.setEmpno(rs.getInt("empno"));
-				memMBVO.setEname(rs.getString("ename"));
-				memMBVO.setJob(rs.getString("job"));
-				memMBVO.setHiredate(rs.getDate("hiredate"));
-				memMBVO.setSal(rs.getDouble("sal"));
-				memMBVO.setComm(rs.getDouble("comm"));
-				memMBVO.setDeptno(rs.getInt("deptno"));
+				memMBVO.setMemMBID(rs.getInt("memMBID"));
+				memMBVO.setMemNFID(rs.getInt("memNFID"));
+				memMBVO.setMemID(rs.getInt("memID"));
+				memMBVO.setMbContent(rs.getString("mbContent"));
+				memMBVO.setMbDate(rs.getDate("mbDate"));
+				memMBVO.setMbStatus(rs.getInt("mbStatus"));
 				list.add(memMBVO); // Store the row in the list
 			}
 

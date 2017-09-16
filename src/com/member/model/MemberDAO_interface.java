@@ -19,6 +19,6 @@ public interface MemberDAO_interface {
     
     
     public List<MemberVO> getAll();
-    //�f���}�ϲ�ԃ(���녢���͑BMap)(�؂� List)
+    //萬用複合查詢(傳入參數型態Map)(回傳 List)
 //  public List<memberVO> getAll(Map<String, String[]> map); 
 }

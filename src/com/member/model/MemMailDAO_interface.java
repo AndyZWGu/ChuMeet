@@ -5,10 +5,10 @@ import java.util.List;
 public interface MemMailDAO_interface {
     public void insert(MemMailVO memMailVO);
     public void update(MemMailVO memMailVO);
-    //pk處理一下
-    public void delete(Integer empno);
-    public MemMailVO findByPrimaryKey(Integer empno);
+    
+    public void delete(Integer memMailID);
+    public MemMailVO findByPrimaryKey(Integer memMailID);
     public List<MemMailVO> getAll();
-    //萬用複合查詢(傳入參數型態Map)(回傳 List)
+    //钀敤瑜囧悎鏌ヨ(鍌冲叆鍙冩暩鍨嬫厠Map)(鍥炲偝 List)
 //  public List<memMailVO> getAll(Map<String, String[]> map); 
 }

@@ -1,10 +1,12 @@
 package com.member.model;
 
+import java.sql.Date;
+
 public class FriendsVO implements java.io.Serializable {
 	private Integer friMem1;
 	private Integer friMem2;
 	private String friendType;
-	private String FriendDate;
+	private Date FriendDate;
 	
 	public Integer getFriMem1() {
 		return friMem1;
@@ -24,10 +26,10 @@ public class FriendsVO implements java.io.Serializable {
 	public void setFriendType(String friendType) {
 		this.friendType = friendType;
 	}
-	public String getFriendDate() {
+	public Date getFriendDate() {
 		return FriendDate;
 	}
-	public void setFriendDate(String friendDate) {
+	public void setFriendDate(Date friendDate) {
 		FriendDate = friendDate;
 	}
 	
