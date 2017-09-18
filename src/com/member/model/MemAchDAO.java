@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 
 public class MemAchDAO implements MemAchDAO_interface {
 
-	// Ò»‚€‘ªÓÃ³ÌÊ½ÖÐ,á˜Œ¦Ò»‚€ÙYÁÏŽì ,¹²ÓÃÒ»‚€DataSource¼´¿É
+	// ä¸€å€‹æ‡‰ç”¨ç¨‹å¼ä¸­,é‡å°ä¸€å€‹è³‡æ–™åº« ,å…±ç”¨ä¸€å€‹DataSourceå³å¯
 	private static DataSource ds = null;
 	static {
 		try {
@@ -22,15 +22,15 @@ public class MemAchDAO implements MemAchDAO_interface {
 	}
 
 	private static final String INSERT_STMT = 
-		"INSERT INTO emp2 (empno,ename,job,hiredate,sal,comm,deptno) VALUES (emp2_seq.NEXTVAL, ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = 
-		"SELECT empno,ename,job,to_char(hiredate,'yyyy-mm-dd') hiredate,sal,comm,deptno FROM emp2 order by empno";
-	private static final String GET_ONE_STMT = 
-		"SELECT empno,ename,job,to_char(hiredate,'yyyy-mm-dd') hiredate,sal,comm,deptno FROM emp2 where empno = ?";
-	private static final String DELETE = 
-		"DELETE FROM emp2 where empno = ?";
-	private static final String UPDATE = 
-		"UPDATE emp2 set ename=?, job=?, hiredate=?, sal=?, comm=?, deptno=? where empno = ?";
+			"INSERT INTO memAch VALUES (?, ?, ?)";
+		private static final String GET_ALL_STMT = 
+			"SELECT * FROM memAch";
+		private static final String GET_ONE_STMT = 
+			"SELECT  * FROM memAch where memID = ?";
+		private static final String DELETE = 
+			"DELETE FROM memAch where memID = ?";
+		private static final String UPDATE = 
+			"UPDATE memAch set acquireDate =? where memID = ? and achID=?";
 
 	@Override
 	public void insert(MemAchVO memAchVO) {
@@ -43,12 +43,9 @@ public class MemAchDAO implements MemAchDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setString(1, memAchVO.getachID());
-			pstmt.setString(2, memAchVO.getJob());
-			pstmt.setDate(3, memAchVO.getHiredate());
-			pstmt.setDouble(4, memAchVO.getSal());
-			pstmt.setDouble(5, memAchVO.getComm());
-			pstmt.setInt(6, memAchVO.getDeptno());
+			pstmt.setInt(1, memAchVO.getMemID());
+			pstmt.setInt(2, memAchVO.getAchID());
+			pstmt.setDate(3, memAchVO.getAcquireDate());
 
 			pstmt.executeUpdate();
 
@@ -87,13 +84,9 @@ public class MemAchDAO implements MemAchDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setString(1, memAchVO.getEname());
-			pstmt.setString(2, memAchVO.getJob());
-			pstmt.setDate(3, memAchVO.getHiredate());
-			pstmt.setDouble(4, memAchVO.getSal());
-			pstmt.setDouble(5, memAchVO.getComm());
-			pstmt.setInt(6, memAchVO.getDeptno());
-			pstmt.setInt(7, memAchVO.getEmpno());
+			pstmt.setDate(1, memAchVO.getAcquireDate());
+			pstmt.setInt(2, memAchVO.getMemID());
+			pstmt.setInt(3, memAchVO.getAchID());
 
 			pstmt.executeUpdate();
 
@@ -122,7 +115,7 @@ public class MemAchDAO implements MemAchDAO_interface {
 	}
 
 	@Override
-	public void delete(Integer empno) {
+	public void delete(Integer memID) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -132,7 +125,7 @@ public class MemAchDAO implements MemAchDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, empno);
+			pstmt.setInt(1, memID);
 
 			pstmt.executeUpdate();
 
@@ -161,7 +154,7 @@ public class MemAchDAO implements MemAchDAO_interface {
 	}
 
 	@Override
-	public MemAchVO findByPrimaryKey(Integer empno) {
+	public MemAchVO findByPrimaryKey(Integer memID) {
 
 		MemAchVO memAchVO = null;
 		Connection con = null;
@@ -173,20 +166,15 @@ public class MemAchDAO implements MemAchDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, empno);
+			pstmt.setInt(1, memID);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// memAchVO Ò²·Qžé Domain objects
 				memAchVO = new MemAchVO();
-				memAchVO.setEmpno(rs.getInt("empno"));
-				memAchVO.setEname(rs.getString("ename"));
-				memAchVO.setJob(rs.getString("job"));
-				memAchVO.setHiredate(rs.getDate("hiredate"));
-				memAchVO.setSal(rs.getDouble("sal"));
-				memAchVO.setComm(rs.getDouble("comm"));
-				memAchVO.setDeptno(rs.getInt("deptno"));
+				memAchVO.setMemID(rs.getInt("memID"));
+				memAchVO.setAchID(rs.getInt("achID"));
+				memAchVO.setAcquireDate(rs.getDate("acquireDate"));
 			}
 
 			// Handle any driver errors
@@ -236,15 +224,10 @@ public class MemAchDAO implements MemAchDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// memAchVO Ò²·Qžé Domain objects
 				memAchVO = new MemAchVO();
-				memAchVO.setEmpno(rs.getInt("empno"));
-				memAchVO.setEname(rs.getString("ename"));
-				memAchVO.setJob(rs.getString("job"));
-				memAchVO.setHiredate(rs.getDate("hiredate"));
-				memAchVO.setSal(rs.getDouble("sal"));
-				memAchVO.setComm(rs.getDouble("comm"));
-				memAchVO.setDeptno(rs.getInt("deptno"));
+				memAchVO.setMemID(rs.getInt("memID"));
+				memAchVO.setAchID(rs.getInt("achID"));
+				memAchVO.setAcquireDate(rs.getDate("acquireDate"));
 				list.add(memAchVO); // Store the row in the list
 			}
 

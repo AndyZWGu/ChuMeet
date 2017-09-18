@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 
 public class MemRewardDAO implements MemRewardDAO_interface {
 
-	// һ�����ó�ʽ��,ᘌ�һ���Y�ώ� ,����һ��DataSource����
+	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
 	private static DataSource ds = null;
 	static {
 		try {
@@ -22,15 +22,15 @@ public class MemRewardDAO implements MemRewardDAO_interface {
 	}
 
 	private static final String INSERT_STMT = 
-		"INSERT INTO emp2 (empno,ename,job,hiredate,sal,comm,deptno) VALUES (emp2_seq.NEXTVAL, ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = 
-		"SELECT empno,ename,job,to_char(hiredate,'yyyy-mm-dd') hiredate,sal,comm,deptno FROM emp2 order by empno";
-	private static final String GET_ONE_STMT = 
-		"SELECT empno,ename,job,to_char(hiredate,'yyyy-mm-dd') hiredate,sal,comm,deptno FROM emp2 where empno = ?";
-	private static final String DELETE = 
-		"DELETE FROM emp2 where empno = ?";
-	private static final String UPDATE = 
-		"UPDATE emp2 set ename=?, job=?, hiredate=?, sal=?, comm=?, deptno=? where empno = ?";
+			"INSERT INTO memReward VALUES (MEMREWARD_SEQ.NEXTVAL, ?, ?, ?, ?)";
+		private static final String GET_ALL_STMT = 
+			"SELECT * FROM memReward";
+		private static final String GET_ONE_STMT = 
+			"SELECT * FROM memReward where memRew = ?";
+		private static final String DELETE = 
+			"DELETE FROM memReward where memRewID = ?";
+		private static final String UPDATE = 
+			"UPDATE memReward set rewDate=?, acquireType=? where memRewID = ?";
 
 	@Override
 	public void insert(MemRewardVO memRewardVO) {
@@ -43,12 +43,11 @@ public class MemRewardDAO implements MemRewardDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setString(1, memRewardVO.getachID());
-			pstmt.setString(2, memRewardVO.getJob());
-			pstmt.setDate(3, memRewardVO.getHiredate());
-			pstmt.setDouble(4, memRewardVO.getSal());
-			pstmt.setDouble(5, memRewardVO.getComm());
-			pstmt.setInt(6, memRewardVO.getDeptno());
+			pstmt.setInt(1, memRewardVO.getMemRewID());
+			pstmt.setInt(2, memRewardVO.getMemID());
+			pstmt.setInt(3, memRewardVO.getRewID());
+			pstmt.setDate(4, memRewardVO.getRewDate());
+			pstmt.setString(5, memRewardVO.getAcquireType());
 
 			pstmt.executeUpdate();
 
@@ -87,13 +86,10 @@ public class MemRewardDAO implements MemRewardDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setString(1, memRewardVO.getEname());
-			pstmt.setString(2, memRewardVO.getJob());
-			pstmt.setDate(3, memRewardVO.getHiredate());
-			pstmt.setDouble(4, memRewardVO.getSal());
-			pstmt.setDouble(5, memRewardVO.getComm());
-			pstmt.setInt(6, memRewardVO.getDeptno());
-			pstmt.setInt(7, memRewardVO.getEmpno());
+			pstmt.setInt(1, memRewardVO.getMemID());
+			pstmt.setInt(2, memRewardVO.getRewID());
+			pstmt.setInt(3, memRewardVO.getMemRewID());
+
 
 			pstmt.executeUpdate();
 
@@ -122,7 +118,7 @@ public class MemRewardDAO implements MemRewardDAO_interface {
 	}
 
 	@Override
-	public void delete(Integer empno) {
+	public void delete(Integer memRewID) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -132,7 +128,7 @@ public class MemRewardDAO implements MemRewardDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, empno);
+			pstmt.setInt(1, memRewID);
 
 			pstmt.executeUpdate();
 
@@ -161,7 +157,7 @@ public class MemRewardDAO implements MemRewardDAO_interface {
 	}
 
 	@Override
-	public MemRewardVO findByPrimaryKey(Integer empno) {
+	public MemRewardVO findByPrimaryKey(Integer memRewID) {
 
 		MemRewardVO memRewardVO = null;
 		Connection con = null;
@@ -173,20 +169,17 @@ public class MemRewardDAO implements MemRewardDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, empno);
+			pstmt.setInt(1, memRewID);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// memRewardVO Ҳ�Q�� Domain objects
 				memRewardVO = new MemRewardVO();
-				memRewardVO.setEmpno(rs.getInt("empno"));
-				memRewardVO.setEname(rs.getString("ename"));
-				memRewardVO.setJob(rs.getString("job"));
-				memRewardVO.setHiredate(rs.getDate("hiredate"));
-				memRewardVO.setSal(rs.getDouble("sal"));
-				memRewardVO.setComm(rs.getDouble("comm"));
-				memRewardVO.setDeptno(rs.getInt("deptno"));
+				memRewardVO.setMemRewID(rs.getInt("memRewID"));
+				memRewardVO.setMemID(rs.getInt("memID"));
+				memRewardVO.setRewID(rs.getInt("rewID"));
+				memRewardVO.setRewDate(rs.getDate("rewDate"));
+				memRewardVO.setAcquireType(rs.getString("acquireType"));
 			}
 
 			// Handle any driver errors
@@ -236,15 +229,12 @@ public class MemRewardDAO implements MemRewardDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// memRewardVO Ҳ�Q�� Domain objects
 				memRewardVO = new MemRewardVO();
-				memRewardVO.setEmpno(rs.getInt("empno"));
-				memRewardVO.setEname(rs.getString("ename"));
-				memRewardVO.setJob(rs.getString("job"));
-				memRewardVO.setHiredate(rs.getDate("hiredate"));
-				memRewardVO.setSal(rs.getDouble("sal"));
-				memRewardVO.setComm(rs.getDouble("comm"));
-				memRewardVO.setDeptno(rs.getInt("deptno"));
+				memRewardVO.setMemRewID(rs.getInt("memRewID"));
+				memRewardVO.setMemID(rs.getInt("memID"));
+				memRewardVO.setRewID(rs.getInt("rewID"));
+				memRewardVO.setRewDate(rs.getDate("rewDate"));
+				memRewardVO.setAcquireType(rs.getString("acquireType"));
 				list.add(memRewardVO); // Store the row in the list
 			}
 

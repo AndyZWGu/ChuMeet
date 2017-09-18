@@ -5,10 +5,9 @@ import java.util.List;
 public interface MemAchDAO_interface {
     public void insert(MemAchVO memAchVO);
     public void update(MemAchVO memAchVO);
-    //pk處理一下
-    public void delete(Integer empno);
-    public MemAchVO findByPrimaryKey(Integer empno);
+    public void delete(Integer memID);
+    public MemAchVO findByPrimaryKey(Integer memID);
     public List<MemAchVO> getAll();
-    //萬用複合查詢(傳入參數型態Map)(回傳 List)
+    //钀敤瑜囧悎鏌ヨ(鍌冲叆鍙冩暩鍨嬫厠Map)(鍥炲偝 List)
 //  public List<memAchVO> getAll(Map<String, String[]> map); 
 }

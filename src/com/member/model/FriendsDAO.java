@@ -30,7 +30,7 @@ public class FriendsDAO implements FriendsDAO_interface {
 		private static final String DELETE = 
 			"DELETE FROM friends where friMem1 = ?";
 		private static final String UPDATE = 
-			"UPDATE friends set friendType= ?,friendDate=? where friMem1 = ?";
+			"UPDATE friends set friendType= ?,friendDate=? where friMem1 = ? and friMem2=?";
 
 	@Override
 	public void insert(FriendsVO friendsVO) {
@@ -85,10 +85,10 @@ public class FriendsDAO implements FriendsDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setInt(1, friendsVO.getFriMem1());
-			pstmt.setInt(2, friendsVO.getFriMem2());
-			pstmt.setString(3, friendsVO.getFriendType());
-			pstmt.setDate(4, friendsVO.getFriendDate());
+			pstmt.setString(1, friendsVO.getFriendType());
+			pstmt.setDate(2, friendsVO.getFriendDate());
+			pstmt.setInt(3, friendsVO.getFriMem1());
+			pstmt.setInt(4, friendsVO.getFriMem2());
 
 			pstmt.executeUpdate();
 

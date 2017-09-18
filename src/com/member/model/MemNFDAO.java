@@ -22,15 +22,15 @@ public class MemNFDAO implements MemNFDAO_interface {
 	}
 
 	private static final String INSERT_STMT = 
-		"INSERT INTO memNF VALUES (MEMNF_SEQ.NEXTVAL,?,?,?,?,?,?,?);";
-	private static final String GET_ALL_STMT = 
-		"SELECT empno,ename,job,to_char(hiredate,'yyyy-mm-dd') hiredate,sal,comm,deptno FROM emp2 order by empno";
-	private static final String GET_ONE_STMT = 
-		"SELECT empno,ename,job,to_char(hiredate,'yyyy-mm-dd') hiredate,sal,comm,deptno FROM emp2 where empno = ?";
-	private static final String DELETE = 
-		"DELETE FROM emp2 where empno = ?";
-	private static final String UPDATE = 
-		"UPDATE emp2 set ename=?, job=?, hiredate=?, sal=?, comm=?, deptno=? where empno = ?";
+			"INSERT INTO memNF VALUES (MEMNF_SEQ.NEXTVAL,?,?,?,?,?,?,?)";
+		private static final String GET_ALL_STMT = 
+			"SELECT * FROM memNF";
+		private static final String GET_ONE_STMT = 
+			"SELECT * FROM memNF where memNFID = ?";
+		private static final String DELETE = 
+			"DELETE FROM memNF where memNFID = ?";
+		private static final String UPDATE = 
+			"UPDATE memNF set nfTitle=?, nfContent=?, nfPic=?, nfDate=?, nfViews=?, nfStatus=? where memNFID = ?";
 
 	@Override
 	public void insert(MemNFVO memNFVO) {
@@ -43,13 +43,13 @@ public class MemNFDAO implements MemNFDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setString(1, memNFVO.getachID());
-			pstmt.setString(2, memNFVO.getJob());
-			pstmt.setDate(3, memNFVO.getHiredate());
-			pstmt.setDouble(4, memNFVO.getSal());
-			pstmt.setDouble(5, memNFVO.getComm());
-			pstmt.setInt(6, memNFVO.getDeptno());
-
+			pstmt.setInt(1, memNFVO.getMemID());
+			pstmt.setString(2, memNFVO.getNfTitle());
+			pstmt.setString(3, memNFVO.getNfContent());
+			pstmt.setBytes(4, memNFVO.getNfPic());
+			pstmt.setDate(5, memNFVO.getNfDate());
+			pstmt.setInt(6, memNFVO.getNfViews());
+			pstmt.setInt(7, memNFVO.getNfStatus());
 			pstmt.executeUpdate();
 
 			// Handle any SQL errors
@@ -87,13 +87,13 @@ public class MemNFDAO implements MemNFDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setString(1, memNFVO.getEname());
-			pstmt.setString(2, memNFVO.getJob());
-			pstmt.setDate(3, memNFVO.getHiredate());
-			pstmt.setDouble(4, memNFVO.getSal());
-			pstmt.setDouble(5, memNFVO.getComm());
-			pstmt.setInt(6, memNFVO.getDeptno());
-			pstmt.setInt(7, memNFVO.getEmpno());
+			pstmt.setString(1, memNFVO.getNfTitle());
+			pstmt.setString(2, memNFVO.getNfContent());
+			pstmt.setBytes(3, memNFVO.getNfPic());
+			pstmt.setDate(4, memNFVO.getNfDate());
+			pstmt.setInt(5, memNFVO.getNfViews());
+			pstmt.setInt(6, memNFVO.getNfStatus());
+			pstmt.setInt(7, memNFVO.getMemNFID());
 
 			pstmt.executeUpdate();
 
@@ -122,7 +122,7 @@ public class MemNFDAO implements MemNFDAO_interface {
 	}
 
 	@Override
-	public void delete(Integer empno) {
+	public void delete(Integer memNFID) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -132,7 +132,7 @@ public class MemNFDAO implements MemNFDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, empno);
+			pstmt.setInt(1, memNFID);
 
 			pstmt.executeUpdate();
 
@@ -161,7 +161,7 @@ public class MemNFDAO implements MemNFDAO_interface {
 	}
 
 	@Override
-	public MemNFVO findByPrimaryKey(Integer empno) {
+	public MemNFVO findByPrimaryKey(Integer memNFID) {
 
 		MemNFVO memNFVO = null;
 		Connection con = null;
@@ -173,20 +173,20 @@ public class MemNFDAO implements MemNFDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, empno);
+			pstmt.setInt(1, memNFID);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// memNFVO Ҳ�Q�� Domain objects
 				memNFVO = new MemNFVO();
-				memNFVO.setEmpno(rs.getInt("empno"));
-				memNFVO.setEname(rs.getString("ename"));
-				memNFVO.setJob(rs.getString("job"));
-				memNFVO.setHiredate(rs.getDate("hiredate"));
-				memNFVO.setSal(rs.getDouble("sal"));
-				memNFVO.setComm(rs.getDouble("comm"));
-				memNFVO.setDeptno(rs.getInt("deptno"));
+				memNFVO.setMemNFID(rs.getInt("memNFID"));
+				memNFVO.setMemID(rs.getInt("memID"));
+				memNFVO.setNfTitle(rs.getString("nfTitle"));
+				memNFVO.setNfContent(rs.getString("nfContent"));
+				memNFVO.setNfPic(rs.getBytes("nfPic"));
+				memNFVO.setNfDate(rs.getDate("nfDate"));
+				memNFVO.setNfViews(rs.getInt("nfViews"));
+				memNFVO.setNfStatus(rs.getInt("nfStatus"));
 			}
 
 			// Handle any driver errors
@@ -236,15 +236,15 @@ public class MemNFDAO implements MemNFDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// memNFVO Ҳ�Q�� Domain objects
 				memNFVO = new MemNFVO();
-				memNFVO.setEmpno(rs.getInt("empno"));
-				memNFVO.setEname(rs.getString("ename"));
-				memNFVO.setJob(rs.getString("job"));
-				memNFVO.setHiredate(rs.getDate("hiredate"));
-				memNFVO.setSal(rs.getDouble("sal"));
-				memNFVO.setComm(rs.getDouble("comm"));
-				memNFVO.setDeptno(rs.getInt("deptno"));
+				memNFVO.setMemNFID(rs.getInt("memNFID"));
+				memNFVO.setMemID(rs.getInt("memID"));
+				memNFVO.setNfTitle(rs.getString("nfTitle"));
+				memNFVO.setNfContent(rs.getString("nfContent"));
+				memNFVO.setNfPic(rs.getBytes("nfPic"));
+				memNFVO.setNfDate(rs.getDate("nfDate"));
+				memNFVO.setNfViews(rs.getInt("nfViews"));
+				memNFVO.setNfStatus(rs.getInt("nfStatus"));
 				list.add(memNFVO); // Store the row in the list
 			}
 

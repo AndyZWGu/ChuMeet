@@ -5,10 +5,10 @@ import java.util.List;
 public interface MemRewardDAO_interface {
     public void insert(MemRewardVO memRewardVO);
     public void update(MemRewardVO memRewardVO);
-    //pk̎��һ��
-    public void delete(Integer empno);
-    public MemRewardVO findByPrimaryKey(Integer empno);
+    
+    public void delete(Integer memRewID);
+    public MemRewardVO findByPrimaryKey(Integer memRewID);
     public List<MemRewardVO> getAll();
-    //�f���}�ϲ�ԃ(���녢���͑BMap)(�؂� List)
+    //萬用複合查詢(傳入參數型態Map)(回傳 List)
 //  public List<memRewardVO> getAll(Map<String, String[]> map); 
 }

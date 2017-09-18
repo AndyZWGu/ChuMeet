@@ -5,10 +5,10 @@ import java.util.List;
 public interface RewardDAO_interface {
     public void insert(RewardVO rewardVO);
     public void update(RewardVO rewardVO);
-    //pk處理一下
-    public void delete(Integer empno);
-    public RewardVO findByPrimaryKey(Integer empno);
+
+    public void delete(Integer rewID);
+    public RewardVO findByPrimaryKey(Integer rewID);
     public List<RewardVO> getAll();
-    //萬用複合查詢(傳入參數型態Map)(回傳 List)
+    //钀敤瑜囧悎鏌ヨ(鍌冲叆鍙冩暩鍨嬫厠Map)(鍥炲偝 List)
 //  public List<rewardVO> getAll(Map<String, String[]> map); 
 }

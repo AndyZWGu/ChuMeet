@@ -8,6 +8,6 @@ public interface MemNFDAO_interface {
     public void delete(Integer memNFID);
     public MemNFVO findByPrimaryKey(Integer memNFID);
     public List<MemNFVO> getAll();
-    //�f���}�ϲ�ԃ(���녢���͑BMap)(�؂� List)
+    //萬用複合查詢(傳入參數型態Map)(回傳 List)
 //  public List<memNFVO> getAll(Map<String, String[]> map); 
 }

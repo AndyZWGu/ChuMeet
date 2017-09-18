@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 
 public class RewardDAO implements RewardDAO_interface {
 
-	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
+	// 涓�鍊嬫噳鐢ㄧ▼寮忎腑,閲濆皪涓�鍊嬭硣鏂欏韩 ,鍏辩敤涓�鍊婦ataSource鍗冲彲
 	private static DataSource ds = null;
 	static {
 		try {
@@ -22,15 +22,15 @@ public class RewardDAO implements RewardDAO_interface {
 	}
 
 	private static final String INSERT_STMT = 
-		"INSERT INTO emp2 (empno,ename,job,hiredate,sal,comm,deptno) VALUES (emp2_seq.NEXTVAL, ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = 
-		"SELECT empno,ename,job,to_char(hiredate,'yyyy-mm-dd') hiredate,sal,comm,deptno FROM emp2 order by empno";
-	private static final String GET_ONE_STMT = 
-		"SELECT empno,ename,job,to_char(hiredate,'yyyy-mm-dd') hiredate,sal,comm,deptno FROM emp2 where empno = ?";
-	private static final String DELETE = 
-		"DELETE FROM emp2 where empno = ?";
-	private static final String UPDATE = 
-		"UPDATE emp2 set ename=?, job=?, hiredate=?, sal=?, comm=?, deptno=? where empno = ?";
+			"INSERT INTO reward VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		private static final String GET_ALL_STMT = 
+			"SELECT * FROM reward";
+		private static final String GET_ONE_STMT = 
+			"SELECT * FROM reward where rewID = ?";
+		private static final String DELETE = 
+			"DELETE FROM reward where rewID = ?";
+		private static final String UPDATE = 
+			"UPDATE reward set rewName=?, rewContent=?, rewExp=?, rewPt=?, rewDesc=?, rewType=?, rewStatus=? where rewID = ?";
 
 	@Override
 	public void insert(RewardVO rewardVO) {
@@ -43,12 +43,14 @@ public class RewardDAO implements RewardDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setString(1, rewardVO.getachID());
-			pstmt.setString(2, rewardVO.getJob());
-			pstmt.setDate(3, rewardVO.getHiredate());
-			pstmt.setDouble(4, rewardVO.getSal());
-			pstmt.setDouble(5, rewardVO.getComm());
-			pstmt.setInt(6, rewardVO.getDeptno());
+			pstmt.setInt(1, rewardVO.getRewID());
+			pstmt.setString(2, rewardVO.getRewName());
+			pstmt.setBytes(3, rewardVO.getRewContent());
+			pstmt.setDouble(4, rewardVO.getRewExp());
+			pstmt.setDouble(5, rewardVO.getRewPt());
+			pstmt.setString(6, rewardVO.getRewDesc());
+			pstmt.setString(7, rewardVO.getRewType());
+			pstmt.setInt(8, rewardVO.getRewStatus());
 
 			pstmt.executeUpdate();
 
@@ -87,13 +89,14 @@ public class RewardDAO implements RewardDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setString(1, rewardVO.getEname());
-			pstmt.setString(2, rewardVO.getJob());
-			pstmt.setDate(3, rewardVO.getHiredate());
-			pstmt.setDouble(4, rewardVO.getSal());
-			pstmt.setDouble(5, rewardVO.getComm());
-			pstmt.setInt(6, rewardVO.getDeptno());
-			pstmt.setInt(7, rewardVO.getEmpno());
+			pstmt.setString(1, rewardVO.getRewName());
+			pstmt.setBytes(2, rewardVO.getRewContent());
+			pstmt.setDouble(3, rewardVO.getRewExp());
+			pstmt.setDouble(4, rewardVO.getRewPt());
+			pstmt.setString(5, rewardVO.getRewDesc());
+			pstmt.setString(6, rewardVO.getRewType());
+			pstmt.setInt(7, rewardVO.getRewStatus());
+			pstmt.setInt(8, rewardVO.getRewID());
 
 			pstmt.executeUpdate();
 
@@ -122,7 +125,7 @@ public class RewardDAO implements RewardDAO_interface {
 	}
 
 	@Override
-	public void delete(Integer empno) {
+	public void delete(Integer rewID) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -132,7 +135,7 @@ public class RewardDAO implements RewardDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, empno);
+			pstmt.setInt(1, rewID);
 
 			pstmt.executeUpdate();
 
@@ -161,7 +164,7 @@ public class RewardDAO implements RewardDAO_interface {
 	}
 
 	@Override
-	public RewardVO findByPrimaryKey(Integer empno) {
+	public RewardVO findByPrimaryKey(Integer rewID) {
 
 		RewardVO rewardVO = null;
 		Connection con = null;
@@ -173,20 +176,20 @@ public class RewardDAO implements RewardDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, empno);
+			pstmt.setInt(1, rewID);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// rewardVO 也稱為 Domain objects
 				rewardVO = new RewardVO();
-				rewardVO.setEmpno(rs.getInt("empno"));
-				rewardVO.setEname(rs.getString("ename"));
-				rewardVO.setJob(rs.getString("job"));
-				rewardVO.setHiredate(rs.getDate("hiredate"));
-				rewardVO.setSal(rs.getDouble("sal"));
-				rewardVO.setComm(rs.getDouble("comm"));
-				rewardVO.setDeptno(rs.getInt("deptno"));
+				rewardVO.setRewID(rs.getInt("rewID"));
+				rewardVO.setRewName(rs.getString("rewName"));
+				rewardVO.setRewContent(rs.getBytes("rewContent"));
+				rewardVO.setRewExp(rs.getInt("rewExp"));
+				rewardVO.setRewPt(rs.getInt("rewPt"));
+				rewardVO.setRewDesc(rs.getString("RewDesc"));
+				rewardVO.setRewType(rs.getString("RewType"));
+				rewardVO.setRewStatus(rs.getInt("RewStatus"));
 			}
 
 			// Handle any driver errors
@@ -236,15 +239,15 @@ public class RewardDAO implements RewardDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// rewardVO 也稱為 Domain objects
 				rewardVO = new RewardVO();
-				rewardVO.setEmpno(rs.getInt("empno"));
-				rewardVO.setEname(rs.getString("ename"));
-				rewardVO.setJob(rs.getString("job"));
-				rewardVO.setHiredate(rs.getDate("hiredate"));
-				rewardVO.setSal(rs.getDouble("sal"));
-				rewardVO.setComm(rs.getDouble("comm"));
-				rewardVO.setDeptno(rs.getInt("deptno"));
+				rewardVO.setRewID(rs.getInt("rewID"));
+				rewardVO.setRewName(rs.getString("rewName"));
+				rewardVO.setRewContent(rs.getBytes("rewContent"));
+				rewardVO.setRewExp(rs.getInt("rewExp"));
+				rewardVO.setRewPt(rs.getInt("rewPt"));
+				rewardVO.setRewDesc(rs.getString("RewDesc"));
+				rewardVO.setRewType(rs.getString("RewType"));
+				rewardVO.setRewStatus(rs.getInt("RewStatus"));
 				list.add(rewardVO); // Store the row in the list
 			}
 
