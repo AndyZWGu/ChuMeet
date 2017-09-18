@@ -270,8 +270,9 @@ public class MemberDAO implements MemberDAO_interface {
 	}
 	
 	@Override
-	public List<String> getAvatarByMemID(Integer memID) {
-		List<String> list = new ArrayList<String>();
+	public ResultSet getAvatarByMemID(Integer memID) {
+//		List<String> base64list = new ArrayList<String>();//base64作法
+		List<byte[]> list = new ArrayList<byte[]>();
 		MemberVO memberVO = null;
 
 		Connection con = null;
@@ -286,11 +287,13 @@ public class MemberDAO implements MemberDAO_interface {
 			pstmt.setInt(1, memID);
 			
 			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				byte[] memAvatar = rs.getBytes("memAvatar"); 
-			    list.add(org.apache.commons.codec.binary.Base64.encodeBase64String(memAvatar));
-			}
+			//base64作法
+//			while (rs.next()) {
+//				byte[] memAvatar = rs.getBytes("memAvatar"); 
+//			    //base64作法
+//				//list.add(org.apache.commons.codec.binary.Base64.encodeBase64String(memAvatar));
+//				list.add(memAvatar);
+//			}
 
 			// Handle any driver errors
 		} catch (SQLException se) {
@@ -320,7 +323,7 @@ public class MemberDAO implements MemberDAO_interface {
 				}
 			}
 		}
-		return list;
+		return rs;
 	}
 
 	@Override

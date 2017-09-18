@@ -32,6 +32,7 @@ public class LogoutServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		doPost(request,response);
 	}
 
 	/**
@@ -44,7 +45,7 @@ public class LogoutServlet extends HttpServlet {
 		String action = req.getParameter("action");
 //		String action = "login";
 		
-		if ("logout".equals(action)) { // 來自login.jsp的請求
+			// 來自login.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -67,7 +68,6 @@ public class LogoutServlet extends HttpServlet {
 						.getRequestDispatcher("/member/error.jsp");
 				failureView.forward(req, res);
 			}
-		}
 		
 	}
 

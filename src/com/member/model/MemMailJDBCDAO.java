@@ -9,6 +9,10 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.member.controller.JdbcUtil_CompositeQuery_Member;
+
+import jdbc.util.CompositeQuery.jdbcUtil_CompositeQuery_Emp2;
+
 public class MemMailJDBCDAO implements MemMailDAO_interface {
 
 	String driver = "oracle.jdbc.driver.OracleDriver";
@@ -383,6 +387,72 @@ public class MemMailJDBCDAO implements MemMailDAO_interface {
 //			System.out.println("---------------------");
 //			System.out.println();
 //		}
+	}
+
+	@Override
+	public List<MemMailVO> getAll(Map<String, String[]> map) {
+		List<MemMailVO> list = new ArrayList<MemMailVO>();
+		MemMailVO memMailVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			String CompositeSQL = "select * from MemMail "
+			          + JdbcUtil_CompositeQuery_Member.get_WhereCondition("MemMail", map)
+			          + "order by empno";
+				pstmt = con.prepareStatement(CompositeSQL);
+				System.out.println("〈〈finalSQL(by DAO) = "+CompositeSQL);
+			pstmt = con.prepareStatement(CompositeSQL);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				memMailVO = new MemMailVO();
+				memMailVO.setMemMailID(rs.getInt("memMailID"));
+				memMailVO.setReceiver(rs.getInt("memID1"));
+				memMailVO.setAuthor(rs.getInt("memID2"));
+				memMailVO.setMailTitle(rs.getString("mailTitle"));
+				memMailVO.setMailDate(rs.getDate("mailDate"));
+				memMailVO.setMailContent(rs.getString("mailContent"));
+				list.add(memMailVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
 	}
 }
 

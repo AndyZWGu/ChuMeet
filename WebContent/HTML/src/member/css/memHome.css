@@ -61,11 +61,11 @@ body {
 	border-bottom-right-radius: 10px;
 }
 
-.profile-userpic img {
-	margin-top: 3em;
+.profile-userpic .avatar {
+	margin-top: 5em;
     margin-left: 20%;
 	width: 60%;
-	height: 60%;
+	height: 5em;
 	-webkit-border-radius: 10px !important;
 	-moz-border-radius: 10px !important;
 	border-radius: 10px !important;

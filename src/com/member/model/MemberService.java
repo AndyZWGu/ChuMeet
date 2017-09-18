@@ -2,6 +2,7 @@ package com.member.model;
 
 import java.sql.Blob;
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.util.List;
 
 public class MemberService {
@@ -119,7 +120,7 @@ public class MemberService {
 		return dao.findByPrimaryKey(memID);
 	}
 	
-	public List<String> getAvatar(Integer memID) {
+	public ResultSet getAvatar(Integer memID) {
 		return dao.getAvatarByMemID(memID);
 	}
 

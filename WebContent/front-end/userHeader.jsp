@@ -29,14 +29,14 @@ MemberVO memVO = (MemberVO) session.getAttribute("memVO"); //EmpServlet.java(Con
         <div class="col-md-6 col-sm-6 additional-nav">
           <ul class="list-unstyled list-inline pull-right">
             <li><span>哈囉，${memVO.memName}</span> <a href="<%=request.getContextPath()%>/front-end/member/memberHome.do"><i class="fa fa-cog" aria-hidden="true"></i>會員首頁</a></li>
-            <!-- <li><a href="member/logout.jsp"><i class="fa fa-sign-out" aria-hidden="true"></i>登出</a></li> -->
+            <li><a href="<%=request.getContextPath()%>/front-end/member/memberLogout.do"><i class="fa fa-sign-out" aria-hidden="true"></i>登出</a></li>
             <!--  偽裝CSS請用btn-link-->
-            <li>
+<%--             <li>
             	<form action="<%=request.getContextPath()%>/front-end/member/memberLogout.do" method="post">
             	<i class="fa fa-sign-out" aria-hidden="true"></i><input type="submit" value="登出" class="btn-link">
 				<input type="hidden" name="action" value="logout"> 
             	</form>
-            </li>
+            </li> --%>
             <li><a href="member/mail.jsp"><i class="fa fa-envelope-o" aria-hidden="true"></i>消息</a></li>
           </ul>
         </div>

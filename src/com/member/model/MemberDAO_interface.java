@@ -1,5 +1,6 @@
 package com.member.model;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 public interface MemberDAO_interface {
@@ -12,7 +13,8 @@ public interface MemberDAO_interface {
     public MemberVO findByMemEmail(String memEmail);
     public MemberVO findByMemPw(String memPw);
     //會員拿照片用
-    public List<String> getAvatarByMemID(Integer memID);
+//    public List<byte[]> getAvatarByMemID(Integer memID);//base64作法
+    public ResultSet getAvatarByMemID(Integer memID);
     //會員註冊用
 //    public void registerMember(MemberVO memberVO);
 //    public void updateInfo(MemberVO memberVO);

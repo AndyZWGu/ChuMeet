@@ -461,7 +461,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 	}
 
 	@Override
-	public List<String> getAvatarByMemID(Integer memID) {
+	public ResultSet getAvatarByMemID(Integer memID) {
 		// TODO Auto-generated method stub
 		return null;
 	}

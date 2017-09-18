@@ -4,7 +4,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="javax.servlet.http.HttpSession"%>
 <%@ page import="com.member.model.*"%>
-
+<%
+MemberVO memVO = (MemberVO) session.getAttribute("memVO");
+%>
 <html>
 
 <!-- Head BEGIN -->
@@ -41,9 +43,12 @@
         <div class="col-md-3 wow fadeInLeft" data-wow-delay=".05s" data-wow-duration=".1">
           <div class="profile-sidebar">
             <!-- SIDEBAR USERPIC -->
-            <c:forEach items="${pictureList}" var="picture">
+          <%-- base64 寫法 
+          	<c:forEach items="${pictureList}" var="picture">
             	<div class="profile-userpic"> <img src="data:image/jpg;base64,${picture}" class="" alt=""> </div>
             </c:forEach>
+            --%>
+            	<div class="profile-userpic"> <img src="<%=request.getContextPath()%>/front-end/member/memberHome/avatar.do?memID=${memVO.memID}" class="avatar" alt=""> </div>
             <!-- END SIDEBAR USERPIC -->
             <!-- SIDEBAR USER TITLE -->
             <div class="profile-usertitle">
