@@ -46,6 +46,7 @@ public class AvatarServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
+		System.out.println("avatar");
 	    req.setCharacterEncoding("UTF-8");
 			res.setContentType("image/gif");
 			ServletOutputStream out = res.getOutputStream();
@@ -101,7 +102,7 @@ public class AvatarServlet extends HttpServlet {
 	public void init() throws ServletException {
 		try {
 			Context ctx = new javax.naming.InitialContext();
-			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/BA103G2DB");
 			con = (Connection) ds.getConnection();
 		} catch (NamingException e) {
 			e.printStackTrace();

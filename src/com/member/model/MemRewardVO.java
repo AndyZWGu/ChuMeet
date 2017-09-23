@@ -1,12 +1,12 @@
 package com.member.model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class MemRewardVO implements java.io.Serializable{
 	private Integer memRewID;
 	private Integer memID;
 	private Integer rewID;
-	private Date rewDate;
+	private Timestamp rewDate;
 	private String acquireType;
 	
 	public Integer getMemRewID() {
@@ -27,10 +27,10 @@ public class MemRewardVO implements java.io.Serializable{
 	public void setRewID(Integer rewID) {
 		this.rewID = rewID;
 	}
-	public Date getRewDate() {
+	public Timestamp getRewDate() {
 		return rewDate;
 	}
-	public void setRewDate(Date rewDate) {
+	public void setRewDate(Timestamp rewDate) {
 		this.rewDate = rewDate;
 	}
 	public String getAcquireType() {

@@ -15,7 +15,7 @@ public class MemMailDAO implements MemMailDAO_interface {
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/BA103G2DB");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -46,7 +46,7 @@ public class MemMailDAO implements MemMailDAO_interface {
 			pstmt.setInt(1, memMailVO.getReceiver());
 			pstmt.setInt(2, memMailVO.getAuthor());
 			pstmt.setString(3, memMailVO.getMailTitle());
-			pstmt.setDate(4, memMailVO.getMailDate());
+			pstmt.setTimestamp(4, memMailVO.getMailDate());
 			pstmt.setString(5, memMailVO.getMailContent());
 
 			pstmt.executeUpdate();
@@ -87,7 +87,7 @@ public class MemMailDAO implements MemMailDAO_interface {
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setString(1, memMailVO.getMailTitle());
-			pstmt.setDate(2, memMailVO.getMailDate());
+			pstmt.setTimestamp(2, memMailVO.getMailDate());
 			pstmt.setString(3, memMailVO.getMailContent());
 			pstmt.setInt(4, memMailVO.getMemMailID());
 
@@ -179,7 +179,7 @@ public class MemMailDAO implements MemMailDAO_interface {
 				memMailVO.setReceiver(rs.getInt("memID1"));
 				memMailVO.setAuthor(rs.getInt("memID2"));
 				memMailVO.setMailTitle(rs.getString("mailTitle"));
-				memMailVO.setMailDate(rs.getDate("mailDate"));
+				memMailVO.setMailDate(rs.getTimestamp("mailDate"));
 				memMailVO.setMailContent(rs.getString("mailContent"));
 			}
 
@@ -235,7 +235,7 @@ public class MemMailDAO implements MemMailDAO_interface {
 				memMailVO.setReceiver(rs.getInt("memID1"));
 				memMailVO.setAuthor(rs.getInt("memID2"));
 				memMailVO.setMailTitle(rs.getString("mailTitle"));
-				memMailVO.setMailDate(rs.getDate("mailDate"));
+				memMailVO.setMailDate(rs.getTimestamp("mailDate"));
 				memMailVO.setMailContent(rs.getString("mailContent"));
 				list.add(memMailVO); // Store the row in the list
 			}
@@ -269,6 +269,12 @@ public class MemMailDAO implements MemMailDAO_interface {
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public List<MemMailVO> getAll(Map<String, String[]> map) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
 

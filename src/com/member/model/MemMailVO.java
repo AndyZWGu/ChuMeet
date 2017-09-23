@@ -1,13 +1,14 @@
 package com.member.model;
 
-import java.sql.Date;
+
+import java.sql.Timestamp;
 
 public class MemMailVO implements java.io.Serializable {
 	private Integer memMailID;
 	private Integer receiver;
 	private Integer author;
 	private String mailTitle;
-	private Date mailDate;
+	private Timestamp mailDate;
 	private String mailContent;
 	
 	public Integer getMemMailID() {
@@ -34,10 +35,10 @@ public class MemMailVO implements java.io.Serializable {
 	public void setMailTitle(String mailTitle) {
 		this.mailTitle = mailTitle;
 	}
-	public Date getMailDate() {
+	public Timestamp getMailDate() {
 		return mailDate;
 	}
-	public void setMailDate(Date mailDate) {
+	public void setMailDate(Timestamp mailDate) {
 		this.mailDate = mailDate;
 	}
 	public String getMailContent() {

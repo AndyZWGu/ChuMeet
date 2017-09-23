@@ -58,9 +58,10 @@ public class RegisterServlet extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+		HttpSession session = req.getSession();
 		// String action = "login";
 
-		if ("register".equals(action)) { // 來自register.jsp的請求
+		if ("register".equals(action) || session.getAttribute("memVO")==null) { // 來自register.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -77,7 +78,7 @@ public class RegisterServlet extends HttpServlet {
 				Integer memPhone = Integer.parseInt(req.getParameter("memPhone"));
 				String memLocBorn = req.getParameter("memLocBorn");
 				String memLocLive = req.getParameter("memLocLive");
-				java.sql.Date memBD = java.sql.Date.valueOf(req.getParameter("memBD"));
+				java.sql.Timestamp memBD = java.sql.Timestamp.valueOf(req.getParameter("memBD"));
 				Integer memGender = Integer.parseInt(req.getParameter("memGender"));
 				String memInt = req.getParameter("memInt");
 
@@ -133,14 +134,13 @@ public class RegisterServlet extends HttpServlet {
 				// successView.forward(req, res);
 				// 正式註冊一筆新資料
 				// 時間用
-				java.sql.Date today = todayTime();
+				java.sql.Timestamp today = todayTime();
 				// 大頭照用
 				byte[] byteAvatar = getAvatarByPart(req);
 				// 註冊呼叫Service調用Dao
 				memSvc.addMember(memEmail, memPw, 0, 1, 0, 50, memName, memGender, memBD, memPhone,
 						byteAvatar, today, 1, memLocBorn, memLocLive, memInt, 0.0, 0.0, 2, 1);
 				MemberVO memVO = memSvc.getMemberByMemEmail(memEmail);
-				HttpSession session = req.getSession();
 				session.setAttribute("memVO", memVO);
 				res.sendRedirect("/ChuMeetWebsite/front-end/index.jsp");
 
@@ -159,9 +159,9 @@ public class RegisterServlet extends HttpServlet {
 	}
 
 	// 取得現在時間(java.sql.Date型態)
-	public static java.sql.Date todayTime() {
+	public static java.sql.Timestamp todayTime() {
 		java.util.Date now = new java.util.Date();
-		java.sql.Date sqlDate = new java.sql.Date(now.getTime());
+		java.sql.Timestamp sqlDate = new java.sql.Timestamp(now.getTime());
 
 		return sqlDate;
 	}

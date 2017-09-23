@@ -16,7 +16,7 @@ public class MemberDAO implements MemberDAO_interface {
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/BA103G2DB");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -60,10 +60,10 @@ public class MemberDAO implements MemberDAO_interface {
 			pstmt.setInt(6, memberVO.getMemPt());
 			pstmt.setString(7, memberVO.getMemName());
 			pstmt.setInt(8, memberVO.getMemGender());
-			pstmt.setDate(9, memberVO.getMemBD());
+			pstmt.setTimestamp(9, memberVO.getMemBD());
 			pstmt.setInt(10, memberVO.getMemPhone());
 			pstmt.setBytes(11, memberVO.getMemAvatar());
-			pstmt.setDate(12, memberVO.getMemJoinDate());
+			pstmt.setTimestamp(12, memberVO.getMemJoinDate());
 			pstmt.setInt(13, memberVO.getMemLoginNum());
 			pstmt.setString(14, memberVO.getMemLocBorn());
 			pstmt.setString(15, memberVO.getMemLocLive());
@@ -118,10 +118,10 @@ public class MemberDAO implements MemberDAO_interface {
 			pstmt.setInt(6, memberVO.getMemPt());
 			pstmt.setString(7, memberVO.getMemName());
 			pstmt.setInt(8, memberVO.getMemGender());
-			pstmt.setDate(9, memberVO.getMemBD());
+			pstmt.setTimestamp(9, memberVO.getMemBD());
 			pstmt.setInt(10, memberVO.getMemPhone());
 			pstmt.setBytes(11, memberVO.getMemAvatar());
-			pstmt.setDate(12, memberVO.getMemJoinDate());
+			pstmt.setTimestamp(12, memberVO.getMemJoinDate());
 			pstmt.setInt(13, memberVO.getMemLoginNum());
 			pstmt.setString(14, memberVO.getMemLocBorn());
 			pstmt.setString(15, memberVO.getMemLocLive());
@@ -224,10 +224,10 @@ public class MemberDAO implements MemberDAO_interface {
 				memberVO.setMemPt(rs.getInt("memPt"));
 				memberVO.setMemName(rs.getString("memName"));
 				memberVO.setMemGender(rs.getInt("memGender"));
-				memberVO.setMemBD(rs.getDate("memBD"));
+				memberVO.setMemBD(rs.getTimestamp("memBD"));
 				memberVO.setMemPhone(rs.getInt("memPhone"));
 				memberVO.setMemAvatar(rs.getBytes("memAvatar"));
-				memberVO.setMemJoinDate(rs.getDate("memJoinDate"));
+				memberVO.setMemJoinDate(rs.getTimestamp("memJoinDate"));
 				memberVO.setMemLoginNum(rs.getInt("memLoginNum"));
 				memberVO.setMemLocBorn(rs.getString("memLocBorn"));
 				memberVO.setMemLocLive(rs.getString("memLocLive"));
@@ -352,10 +352,10 @@ public class MemberDAO implements MemberDAO_interface {
 				memberVO.setMemPt(rs.getInt("memPt"));
 				memberVO.setMemName(rs.getString("memName"));
 				memberVO.setMemGender(rs.getInt("memGender"));
-				memberVO.setMemBD(rs.getDate("memBD"));
+				memberVO.setMemBD(rs.getTimestamp("memBD"));
 				memberVO.setMemPhone(rs.getInt("memPhone"));
 				memberVO.setMemAvatar(rs.getBytes("memAvatar"));
-				memberVO.setMemJoinDate(rs.getDate("memJoinDate"));
+				memberVO.setMemJoinDate(rs.getTimestamp("memJoinDate"));
 				memberVO.setMemLoginNum(rs.getInt("memLoginNum"));
 				memberVO.setMemLocBorn(rs.getString("memLocBorn"));
 				memberVO.setMemLocLive(rs.getString("memLocLive"));
@@ -425,10 +425,10 @@ public class MemberDAO implements MemberDAO_interface {
 				memberVO.setMemPt(rs.getInt("memPt"));
 				memberVO.setMemName(rs.getString("memName"));
 				memberVO.setMemGender(rs.getInt("memGender"));
-				memberVO.setMemBD(rs.getDate("memBD"));
+				memberVO.setMemBD(rs.getTimestamp("memBD"));
 				memberVO.setMemPhone(rs.getInt("memPhone"));
 				memberVO.setMemAvatar(rs.getBytes("memAvatar"));
-				memberVO.setMemJoinDate(rs.getDate("memJoinDate"));
+				memberVO.setMemJoinDate(rs.getTimestamp("memJoinDate"));
 				memberVO.setMemLoginNum(rs.getInt("memLoginNum"));
 				memberVO.setMemLocBorn(rs.getString("memLocBorn"));
 				memberVO.setMemLocLive(rs.getString("memLocLive"));
@@ -497,10 +497,10 @@ public class MemberDAO implements MemberDAO_interface {
 				memberVO.setMemPt(rs.getInt("memPt"));
 				memberVO.setMemName(rs.getString("memName"));
 				memberVO.setMemGender(rs.getInt("memGender"));
-				memberVO.setMemBD(rs.getDate("memBD"));
+				memberVO.setMemBD(rs.getTimestamp("memBD"));
 				memberVO.setMemPhone(rs.getInt("memPhone"));
 				memberVO.setMemAvatar(rs.getBytes("memAvatar"));
-				memberVO.setMemJoinDate(rs.getDate("memJoinDate"));
+				memberVO.setMemJoinDate(rs.getTimestamp("memJoinDate"));
 				memberVO.setMemLoginNum(rs.getInt("memLoginNum"));
 				memberVO.setMemLocBorn(rs.getString("memLocBorn"));
 				memberVO.setMemLocLive(rs.getString("memLocLive"));

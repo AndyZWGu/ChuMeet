@@ -32,42 +32,41 @@ public class JdbcUtil_CompositeQuery_Member {
 		}
 		//Friends好友表
 		if (tableName == "Friends") {
-			if ("empno".equals(columnName) || "sal".equals(columnName) || "comm".equals(columnName)
-					|| "deptno".equals(columnName)) // 用於其他
+			if ("friMem1".equals(columnName) || "friMem2".equals(columnName)) // 用於其他
 				aCondition = columnName + "=" + value;
-			else if ("ename".equals(columnName) || "job".equals(columnName)) // 用於varchar
+			else if ("friendType".equals(columnName)) // 用於varchar
 				aCondition = columnName + " like '%" + value + "%'";
-			else if ("hiredate".equals(columnName)) // 用於Oracle的date
+			else if ("friendDate".equals(columnName)) // 用於Oracle的date
 				aCondition = "to_char(" + columnName + ",'yyyy-mm-dd')='" + value + "'";
 		}
 		//MemMail會員郵件表
 		if (tableName == "MemMail") {
-			if ("empno".equals(columnName) || "sal".equals(columnName) || "comm".equals(columnName)
-					|| "deptno".equals(columnName)) // 用於其他
+			if ("memMailID".equals(columnName) || "receiver".equals(columnName) 
+					|| "author".equals(columnName)) // 用於其他
 				aCondition = columnName + "=" + value;
-			else if ("ename".equals(columnName) || "job".equals(columnName)) // 用於varchar
+			else if ("mailTitle".equals(columnName)) // 用於varchar
 				aCondition = columnName + " like '%" + value + "%'";
-			else if ("hiredate".equals(columnName)) // 用於Oracle的date
+			else if ("mailDate".equals(columnName)) // 用於Oracle的date
 				aCondition = "to_char(" + columnName + ",'yyyy-mm-dd')='" + value + "'";
 		}
 		//MemNF會員動態表
 		if (tableName == "MemNF") {
-			if ("empno".equals(columnName) || "sal".equals(columnName) || "comm".equals(columnName)
-					|| "deptno".equals(columnName)) // 用於其他
+			if ("memNFID".equals(columnName) || "memID".equals(columnName) || "nfViews".equals(columnName)
+					|| "nfStatus".equals(columnName)) // 用於其他
 				aCondition = columnName + "=" + value;
-			else if ("ename".equals(columnName) || "job".equals(columnName)) // 用於varchar
+			else if ("nfTitle".equals(columnName)) // 用於varchar
 				aCondition = columnName + " like '%" + value + "%'";
-			else if ("hiredate".equals(columnName)) // 用於Oracle的date
+			else if ("nfDate".equals(columnName)) // 用於Oracle的date
 				aCondition = "to_char(" + columnName + ",'yyyy-mm-dd')='" + value + "'";
 		}
 		//MemMB會員留言表
 		if (tableName == "MemMB") {
-			if ("empno".equals(columnName) || "sal".equals(columnName) || "comm".equals(columnName)
-					|| "deptno".equals(columnName)) // 用於其他
+			if ("memMBID".equals(columnName) || "memNFID".equals(columnName) || "memID".equals(columnName)
+					|| "memStatus".equals(columnName)) // 用於其他
 				aCondition = columnName + "=" + value;
-			else if ("ename".equals(columnName) || "job".equals(columnName)) // 用於varchar
+			else if ("mbContent".equals(columnName)) // 用於varchar
 				aCondition = columnName + " like '%" + value + "%'";
-			else if ("hiredate".equals(columnName)) // 用於Oracle的date
+			else if ("mbDate".equals(columnName)) // 用於Oracle的date
 				aCondition = "to_char(" + columnName + ",'yyyy-mm-dd')='" + value + "'";
 		}
 		//MemPOI會員興趣表
@@ -82,42 +81,42 @@ public class JdbcUtil_CompositeQuery_Member {
 		}
 		//Ach成就表
 		if (tableName == "Ach") {
-			if ("empno".equals(columnName) || "sal".equals(columnName) || "comm".equals(columnName)
-					|| "deptno".equals(columnName)) // 用於其他
+			if ("achID".equals(columnName) || "rewID".equals(columnName) 
+					|| "achStatus".equals(columnName)) // 用於其他
 				aCondition = columnName + "=" + value;
-			else if ("ename".equals(columnName) || "job".equals(columnName)) // 用於varchar
+			else if ("achName".equals(columnName) || "achDesc".equals(columnName)) // 用於varchar
 				aCondition = columnName + " like '%" + value + "%'";
-			else if ("hiredate".equals(columnName)) // 用於Oracle的date
+			else if ("".equals(columnName)) // 用於Oracle的date
 				aCondition = "to_char(" + columnName + ",'yyyy-mm-dd')='" + value + "'";
 		}
 		//MemAch會員成就表
 		if (tableName == "MemAch") {
-			if ("empno".equals(columnName) || "sal".equals(columnName) || "comm".equals(columnName)
-					|| "deptno".equals(columnName)) // 用於其他
+			if ("memID".equals(columnName) || "achID".equals(columnName)) // 用於其他
 				aCondition = columnName + "=" + value;
-			else if ("ename".equals(columnName) || "job".equals(columnName)) // 用於varchar
+			else if ("".equals(columnName) || "".equals(columnName)) // 用於varchar
 				aCondition = columnName + " like '%" + value + "%'";
-			else if ("hiredate".equals(columnName)) // 用於Oracle的date
+			else if ("acquireDate".equals(columnName)) // 用於Oracle的date
 				aCondition = "to_char(" + columnName + ",'yyyy-mm-dd')='" + value + "'";
 		}
 		//Reward獎賞表
 		if (tableName == "Reward") {
-			if ("empno".equals(columnName) || "sal".equals(columnName) || "comm".equals(columnName)
-					|| "deptno".equals(columnName)) // 用於其他
+			if ("rewID".equals(columnName) || "rewExp".equals(columnName) || "rewPt".equals(columnName)
+					|| "rewStatus".equals(columnName)) // 用於其他
 				aCondition = columnName + "=" + value;
-			else if ("ename".equals(columnName) || "job".equals(columnName)) // 用於varchar
+			else if ("rewName".equals(columnName) || "rewDesc".equals(columnName)
+					|| "rewType".equals(columnName)) // 用於varchar
 				aCondition = columnName + " like '%" + value + "%'";
-			else if ("hiredate".equals(columnName)) // 用於Oracle的date
+			else if ("".equals(columnName)) // 用於Oracle的date
 				aCondition = "to_char(" + columnName + ",'yyyy-mm-dd')='" + value + "'";
 		}
 		//MemReward會員獎賞表
 		if (tableName == "MemReward") {
-			if ("empno".equals(columnName) || "sal".equals(columnName) || "comm".equals(columnName)
-					|| "deptno".equals(columnName)) // 用於其他
+			if ("memRewID".equals(columnName) || "memID".equals(columnName) 
+					|| "rewID".equals(columnName)) // 用於其他
 				aCondition = columnName + "=" + value;
-			else if ("ename".equals(columnName) || "job".equals(columnName)) // 用於varchar
+			else if ("acquireType".equals(columnName)) // 用於varchar
 				aCondition = columnName + " like '%" + value + "%'";
-			else if ("hiredate".equals(columnName)) // 用於Oracle的date
+			else if ("rewDate".equals(columnName)) // 用於Oracle的date
 				aCondition = "to_char(" + columnName + ",'yyyy-mm-dd')='" + value + "'";
 		}
 		// if ("empno".equals(columnName) || "sal".equals(columnName) ||
@@ -174,5 +173,19 @@ public class JdbcUtil_CompositeQuery_Member {
 //				+ "order by empno";
 //		System.out.println("●●finalSQL = " + finalSQL);
 
+		//單一會員表複合查詢測試
+		Map<String, String[]> map = new TreeMap<String, String[]>();
+		map.put("memID", new String[] { "7001" });
+		map.put("memEmail", new String[] { "KING" });
+		map.put("memName", new String[] { "PRESIDENT" });
+		map.put("memBD", new String[] { "1981-11-17" });
+		map.put("memPt", new String[] { "5000.5" });
+		map.put("memLong", new String[] { "0.0" });
+		map.put("memLoginNum", new String[] { "10" });
+		map.put("action", new String[] { "getXXX" }); // 注意Map裡面會含有action的key
+		String finalSQL = "select * from member " + JdbcUtil_CompositeQuery_Member.get_WhereCondition("Member",map)
+		+ "order by memID";
+System.out.println("●●finalSQL = " + finalSQL);
+		
 	}
 }

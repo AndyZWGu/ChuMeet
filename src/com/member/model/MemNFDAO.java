@@ -15,7 +15,7 @@ public class MemNFDAO implements MemNFDAO_interface {
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/BA103G2DB");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -47,7 +47,7 @@ public class MemNFDAO implements MemNFDAO_interface {
 			pstmt.setString(2, memNFVO.getNfTitle());
 			pstmt.setString(3, memNFVO.getNfContent());
 			pstmt.setBytes(4, memNFVO.getNfPic());
-			pstmt.setDate(5, memNFVO.getNfDate());
+			pstmt.setTimestamp(5, memNFVO.getNfDate());
 			pstmt.setInt(6, memNFVO.getNfViews());
 			pstmt.setInt(7, memNFVO.getNfStatus());
 			pstmt.executeUpdate();
@@ -90,7 +90,7 @@ public class MemNFDAO implements MemNFDAO_interface {
 			pstmt.setString(1, memNFVO.getNfTitle());
 			pstmt.setString(2, memNFVO.getNfContent());
 			pstmt.setBytes(3, memNFVO.getNfPic());
-			pstmt.setDate(4, memNFVO.getNfDate());
+			pstmt.setTimestamp(4, memNFVO.getNfDate());
 			pstmt.setInt(5, memNFVO.getNfViews());
 			pstmt.setInt(6, memNFVO.getNfStatus());
 			pstmt.setInt(7, memNFVO.getMemNFID());
@@ -184,7 +184,7 @@ public class MemNFDAO implements MemNFDAO_interface {
 				memNFVO.setNfTitle(rs.getString("nfTitle"));
 				memNFVO.setNfContent(rs.getString("nfContent"));
 				memNFVO.setNfPic(rs.getBytes("nfPic"));
-				memNFVO.setNfDate(rs.getDate("nfDate"));
+				memNFVO.setNfDate(rs.getTimestamp("nfDate"));
 				memNFVO.setNfViews(rs.getInt("nfViews"));
 				memNFVO.setNfStatus(rs.getInt("nfStatus"));
 			}
@@ -242,7 +242,7 @@ public class MemNFDAO implements MemNFDAO_interface {
 				memNFVO.setNfTitle(rs.getString("nfTitle"));
 				memNFVO.setNfContent(rs.getString("nfContent"));
 				memNFVO.setNfPic(rs.getBytes("nfPic"));
-				memNFVO.setNfDate(rs.getDate("nfDate"));
+				memNFVO.setNfDate(rs.getTimestamp("nfDate"));
 				memNFVO.setNfViews(rs.getInt("nfViews"));
 				memNFVO.setNfStatus(rs.getInt("nfStatus"));
 				list.add(memNFVO); // Store the row in the list

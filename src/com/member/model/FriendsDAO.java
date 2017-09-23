@@ -15,7 +15,7 @@ public class FriendsDAO implements FriendsDAO_interface {
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/BA103G2DB");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -46,7 +46,7 @@ public class FriendsDAO implements FriendsDAO_interface {
 			pstmt.setInt(1, friendsVO.getFriMem1());
 			pstmt.setInt(2, friendsVO.getFriMem2());
 			pstmt.setString(3, friendsVO.getFriendType());
-			pstmt.setDate(4, friendsVO.getFriendDate());
+			pstmt.setTimestamp(4, friendsVO.getFriendDate());
 
 			pstmt.executeUpdate();
 
@@ -86,7 +86,7 @@ public class FriendsDAO implements FriendsDAO_interface {
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setString(1, friendsVO.getFriendType());
-			pstmt.setDate(2, friendsVO.getFriendDate());
+			pstmt.setTimestamp(2, friendsVO.getFriendDate());
 			pstmt.setInt(3, friendsVO.getFriMem1());
 			pstmt.setInt(4, friendsVO.getFriMem2());
 
@@ -177,7 +177,7 @@ public class FriendsDAO implements FriendsDAO_interface {
 				friendsVO.setFriMem1(rs.getInt("memID1"));
 				friendsVO.setFriMem2(rs.getInt("memID2"));
 				friendsVO.setFriendType(rs.getString("friendType"));
-				friendsVO.setFriendDate(rs.getDate("friendDate"));
+				friendsVO.setFriendDate(rs.getTimestamp("friendDate"));
 			}
 
 			// Handle any driver errors
@@ -231,7 +231,7 @@ public class FriendsDAO implements FriendsDAO_interface {
 				friendsVO.setFriMem1(rs.getInt("memID1"));
 				friendsVO.setFriMem2(rs.getInt("memID2"));
 				friendsVO.setFriendType(rs.getString("friendType"));
-				friendsVO.setFriendDate(rs.getDate("friendDate"));
+				friendsVO.setFriendDate(rs.getTimestamp("friendDate"));
 				list.add(friendsVO); // Store the row in the list
 			}
 

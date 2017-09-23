@@ -4,7 +4,8 @@
 <%@ page import="javax.servlet.http.HttpSession"%>
 <%@ page import="com.member.model.*"%>
 <%
-MemberVO memVO = (MemberVO) session.getAttribute("memVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
+String account = (String)session.getAttribute("account"); //登入帳號
+MemberVO memVO= (MemberVO)session.getAttribute("memVO"); //登入帳號的所有會員資訊
 %>
 <!-- Start TOP BAR 2-->
 <div class="pre-header">
@@ -23,7 +24,7 @@ MemberVO memVO = (MemberVO) session.getAttribute("memVO"); //EmpServlet.java(Con
         <!-- END TOP BAR LEFT PART -->
 
 <!--依據使用者是否登入改變 -->
-<c:if test="${memVO!=null}" var="loginStatus" scope="session" > 
+<c:if test="${account!=null}" var="loginStatus" scope="session" > 
         <!-- 登入時 -->
         <!-- BEGIN TOP BAR MENU -->
         <div class="col-md-6 col-sm-6 additional-nav">
@@ -37,13 +38,13 @@ MemberVO memVO = (MemberVO) session.getAttribute("memVO"); //EmpServlet.java(Con
 				<input type="hidden" name="action" value="logout"> 
             	</form>
             </li> --%>
-            <li><a href="member/mail.jsp"><i class="fa fa-envelope-o" aria-hidden="true"></i>消息</a></li>
+            <li><a href="<%=request.getContextPath()%>/front-end/member/mail.jsp"><i class="fa fa-envelope-o" aria-hidden="true"></i>消息</a></li>
           </ul>
         </div>
         <!-- END TOP BAR MENU -->
 </c:if>
 <!--依據使用者是否登入改變 -->  
-<c:if test="${memVO==null}" var="loginStatus2" scope="session" > 
+<c:if test="${account==null}" var="loginStatus2" scope="session" > 
         <!-- 訪客時 -->
         <div class="col-md-6 col-sm-6 additional-nav">
           <ul class="list-unstyled list-inline pull-right">

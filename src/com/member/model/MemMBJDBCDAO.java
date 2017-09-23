@@ -41,7 +41,7 @@ public class MemMBJDBCDAO implements MemMBDAO_interface {
 			pstmt.setInt(1, memMBVO.getMemNFID());
 			pstmt.setInt(2, memMBVO.getMemID());
 			pstmt.setString(3, memMBVO.getMbContent());
-			pstmt.setDate(4, memMBVO.getMbDate());
+			pstmt.setTimestamp(4, memMBVO.getMbDate());
 			pstmt.setInt(5, memMBVO.getMbStatus());
 
 			pstmt.executeUpdate();
@@ -85,7 +85,7 @@ public class MemMBJDBCDAO implements MemMBDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 
 			pstmt.setString(1, memMBVO.getMbContent());
-			pstmt.setDate(2, memMBVO.getMbDate());
+			pstmt.setTimestamp(2, memMBVO.getMbDate());
 			pstmt.setInt(3, memMBVO.getMbStatus());
 			pstmt.setInt(4, memMBVO.getMemID());
 
@@ -185,7 +185,7 @@ public class MemMBJDBCDAO implements MemMBDAO_interface {
 				memMBVO.setMemNFID(rs.getInt("memNFID"));
 				memMBVO.setMemID(rs.getInt("memID"));
 				memMBVO.setMbContent(rs.getString("mbContent"));
-				memMBVO.setMbDate(rs.getDate("mbDate"));
+				memMBVO.setMbDate(rs.getTimestamp("mbDate"));
 				memMBVO.setMbStatus(rs.getInt("mbStatus"));
 			}
 
@@ -245,7 +245,7 @@ public class MemMBJDBCDAO implements MemMBDAO_interface {
 				memMBVO.setMemNFID(rs.getInt("memNFID"));
 				memMBVO.setMemID(rs.getInt("memID"));
 				memMBVO.setMbContent(rs.getString("mbContent"));
-				memMBVO.setMbDate(rs.getDate("mbDate"));
+				memMBVO.setMbDate(rs.getTimestamp("mbDate"));
 				memMBVO.setMbStatus(rs.getInt("mbStatus"));
 				list.add(memMBVO); // Store the row in the list
 			}

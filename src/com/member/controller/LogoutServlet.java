@@ -57,6 +57,7 @@ public class LogoutServlet extends HttpServlet {
 				/***************************2.開始查詢資料*****************************************/
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				HttpSession session = req.getSession();
+				session.removeAttribute("account");
 				session.removeAttribute("memVO");
 				res.sendRedirect("../index.jsp");
 

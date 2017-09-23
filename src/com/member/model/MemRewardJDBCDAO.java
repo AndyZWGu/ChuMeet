@@ -42,7 +42,7 @@ public class MemRewardJDBCDAO implements MemRewardDAO_interface {
 			pstmt.setInt(1, memRewardVO.getMemRewID());
 			pstmt.setInt(2, memRewardVO.getMemID());
 			pstmt.setInt(3, memRewardVO.getRewID());
-			pstmt.setDate(4, memRewardVO.getRewDate());
+			pstmt.setTimestamp(4, memRewardVO.getRewDate());
 			pstmt.setString(5, memRewardVO.getAcquireType());
 
 			pstmt.executeUpdate();
@@ -185,7 +185,7 @@ public class MemRewardJDBCDAO implements MemRewardDAO_interface {
 				memRewardVO.setMemRewID(rs.getInt("memRewID"));
 				memRewardVO.setMemID(rs.getInt("memID"));
 				memRewardVO.setRewID(rs.getInt("rewID"));
-				memRewardVO.setRewDate(rs.getDate("rewDate"));
+				memRewardVO.setRewDate(rs.getTimestamp("rewDate"));
 				memRewardVO.setAcquireType(rs.getString("acquireType"));
 			}
 
@@ -244,7 +244,7 @@ public class MemRewardJDBCDAO implements MemRewardDAO_interface {
 				memRewardVO.setMemRewID(rs.getInt("memRewID"));
 				memRewardVO.setMemID(rs.getInt("memID"));
 				memRewardVO.setRewID(rs.getInt("rewID"));
-				memRewardVO.setRewDate(rs.getDate("rewDate"));
+				memRewardVO.setRewDate(rs.getTimestamp("rewDate"));
 				memRewardVO.setAcquireType(rs.getString("acquireType"));
 				list.add(memRewardVO); // Store the row in the list
 			}

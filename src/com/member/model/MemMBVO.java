@@ -1,12 +1,13 @@
 package com.member.model;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class MemMBVO implements java.io.Serializable {
 	private Integer memMBID;
 	private Integer memNFID;
 	private Integer memID;
 	private String mbContent;
-	private Date mbDate;
+	private Timestamp mbDate;
 	private Integer mbStatus;
 	
 	public Integer getMemMBID() {
@@ -33,10 +34,10 @@ public class MemMBVO implements java.io.Serializable {
 	public void setMbContent(String mbContent) {
 		this.mbContent = mbContent;
 	}
-	public Date getMbDate() {
+	public Timestamp getMbDate() {
 		return mbDate;
 	}
-	public void setMbDate(Date mbDate) {
+	public void setMbDate(Timestamp mbDate) {
 		this.mbDate = mbDate;
 	}
 	public Integer getMbStatus() {

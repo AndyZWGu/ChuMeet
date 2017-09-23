@@ -1,5 +1,6 @@
 package com.member.model;
-import java.sql.Date;
+
+import java.sql.Timestamp;
 
 public class MemNFVO implements java.io.Serializable{
 	private Integer memNFID;
@@ -7,7 +8,7 @@ public class MemNFVO implements java.io.Serializable{
 	private String nfTitle;
 	private String nfContent;
 	private byte[] nfPic;
-	private Date nfDate;
+	private Timestamp nfDate;
 	private Integer nfViews;
 	private Integer nfStatus;
 	
@@ -41,10 +42,10 @@ public class MemNFVO implements java.io.Serializable{
 	public void setNfPic(byte[] nfPic) {
 		this.nfPic = nfPic;
 	}
-	public Date getNfDate() {
+	public Timestamp getNfDate() {
 		return nfDate;
 	}
-	public void setNfDate(Date nfDate) {
+	public void setNfDate(Timestamp nfDate) {
 		this.nfDate = nfDate;
 	}
 	public Integer getNfViews() {

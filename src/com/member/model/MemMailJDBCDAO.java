@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 
 import com.member.controller.JdbcUtil_CompositeQuery_Member;
 
-import jdbc.util.CompositeQuery.jdbcUtil_CompositeQuery_Emp2;
+
 
 public class MemMailJDBCDAO implements MemMailDAO_interface {
 
@@ -46,7 +46,7 @@ public class MemMailJDBCDAO implements MemMailDAO_interface {
 			pstmt.setInt(1, memMailVO.getReceiver());
 			pstmt.setInt(2, memMailVO.getAuthor());
 			pstmt.setString(3, memMailVO.getMailTitle());
-			pstmt.setDate(4, memMailVO.getMailDate());
+			pstmt.setTimestamp(4, memMailVO.getMailDate());
 			pstmt.setString(5, memMailVO.getMailContent());
 
 			pstmt.executeUpdate();
@@ -91,7 +91,7 @@ public class MemMailJDBCDAO implements MemMailDAO_interface {
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setString(1, memMailVO.getMailTitle());
-			pstmt.setDate(2, memMailVO.getMailDate());
+			pstmt.setTimestamp(2, memMailVO.getMailDate());
 			pstmt.setString(3, memMailVO.getMailContent());
 			pstmt.setInt(4, memMailVO.getMemMailID());
 
@@ -191,7 +191,7 @@ public class MemMailJDBCDAO implements MemMailDAO_interface {
 				memMailVO.setReceiver(rs.getInt("memID1"));
 				memMailVO.setAuthor(rs.getInt("memID2"));
 				memMailVO.setMailTitle(rs.getString("mailTitle"));
-				memMailVO.setMailDate(rs.getDate("mailDate"));
+				memMailVO.setMailDate(rs.getTimestamp("mailDate"));
 				memMailVO.setMailContent(rs.getString("mailContent"));
 			}
 
@@ -251,7 +251,7 @@ public class MemMailJDBCDAO implements MemMailDAO_interface {
 				memMailVO.setReceiver(rs.getInt("memID1"));
 				memMailVO.setAuthor(rs.getInt("memID2"));
 				memMailVO.setMailTitle(rs.getString("mailTitle"));
-				memMailVO.setMailDate(rs.getDate("mailDate"));
+				memMailVO.setMailDate(rs.getTimestamp("mailDate"));
 				memMailVO.setMailContent(rs.getString("mailContent"));
 				list.add(memMailVO); // Store the row in the list
 			}
@@ -416,7 +416,7 @@ public class MemMailJDBCDAO implements MemMailDAO_interface {
 				memMailVO.setReceiver(rs.getInt("memID1"));
 				memMailVO.setAuthor(rs.getInt("memID2"));
 				memMailVO.setMailTitle(rs.getString("mailTitle"));
-				memMailVO.setMailDate(rs.getDate("mailDate"));
+				memMailVO.setMailDate(rs.getTimestamp("mailDate"));
 				memMailVO.setMailContent(rs.getString("mailContent"));
 				list.add(memMailVO); // Store the row in the list
 			}
