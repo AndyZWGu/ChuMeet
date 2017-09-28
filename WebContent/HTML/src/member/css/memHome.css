@@ -1,3 +1,5 @@
+
+
 /* ==========================================================================
     . 隱藏submit
 ========================================================================== */
@@ -101,6 +103,9 @@ body {
     border-top-right-radius: 10px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+}
+.profile-userpic .user-avatar{
+	margin-bottom: 30em !important;
 }
 
 .profile-userpic img {
