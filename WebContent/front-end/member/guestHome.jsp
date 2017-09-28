@@ -24,7 +24,7 @@
 <link href="<%=request.getContextPath()%>/HTML/src/act/css/act.csss"
 	rel="stylesheet">
 <link
-	href="<%=request.getContextPath()%>/HTML/src/member/css/memHome.css"
+	href="<%=request.getContextPath()%>/HTML/src/member/css/guestMemHome.css"
 	rel="stylesheet">
 
 </head>
@@ -84,6 +84,16 @@
 						</div>
 						<!-- END SIDEBAR USER TITLE -->
 						<!-- SIDEBAR MENU -->
+						<!--**************************隱私權判斷範圍(不開)**************************-->
+						<c:if test="${account == null}">
+							<div class="profile-usermenu text-center">
+								<hr>
+								<h4>您未登入會員</h4>
+								<br>
+								<h5>加入會員即可使用會員專屬互動功能</h5>
+							</div>
+						</c:if>
+						<!--**************************隱私權判斷範圍(不開)**************************-->
 						<c:if test="${account != null}">
 						<div class="profile-usermenu">
 							<div class="profile-userbuttons">
@@ -104,7 +114,11 @@
 				<c:if test="${guestVO.memPriv==0 || guestVO.memPriv==1&&guestPriv==0}">
 					<div class="col-md-9 wow fadeInRight" data-wow-delay=".05s"
 						data-wow-duration=".1">
-						<h1>本頁面不公開</h1>
+						<div class="row profile-content blog-item text-center">
+							<h1>不公開的會員頁面</h1>
+							<hr>
+							<h4>您沒有該名會員好友,或是該會員已將頁面設為不公開！</h4>
+						</div>
 					</div>
 				</c:if>
 				<!--**************************隱私權判斷範圍(開或是好友)**************************-->
@@ -120,176 +134,63 @@
 						<h2>關於我</h2>
 						<div class="introduction">${guestVO.memInt}</div>
 						<hr class="colorgraph">
-						<!--********************活動********************-->
-						<h2>活動足跡</h2>
-						<!-- BEGIN SIDEBAR & CONTENT -->
+												<!--********************首頁********************-->
 						<!-- BEGIN CONTENT -->
 						<div class="col-md-12 col-sm-12">
-							<div class="content-page">
-								<div class="row">
+							                                <ul class="nav nav-tabs">
+                                    <li class="active"><a data-toggle="tab" href="#home">參加中的活動</a></li>
+                                    <li><a data-toggle="tab" href="#act">參加的社團</a></li>
+                                    <li><a data-toggle="tab" href="#club">追蹤</a></li>
+                                </ul>
 
-									<!--      1st card          -->
-									<div class="ec wow fadeInLeft" data-wow-delay=".05s"
-										data-wow-duration=".1">
-										<div class="row">
-											<div class="col-md-4 col-sm-4">
-												<a href="actItem.html"><img alt="Person Of Interest"
-													class="img-responsive img-rounded"
-													src="../src/act/img/eventSamples/POI.jpg"></a>
-											</div>
-
-											<div class="col-md-8 col-sm-8">
-												<h2>
-													<a href="actItem.html">一起看Person Of Interest</a>
-												</h2>
-												<ul class="event-info">
-													<li><i class="fa fa-calendar"></i> 2017/7/30起
-														每周五晚上8:00-9:00</li>
-													<li><i class="fa fa-map-marker"></i><a href="#">線上</a></li>
-													<li><i class="fa fa-users"></i>222</li>
-													<li><i class="fa fa-user"></i><a href="#">breadcan</a></li>
-
-												</ul>
-												<div class="ecContent">
-													<p>《疑犯追蹤》（Person of
-														Interest），是美國CBS電視台製作的犯罪電視影集，由強納森·諾蘭（Jonathan
-														Nolan）與J·J·亞柏拉罕（J. J.
-														Abrams）共同打造出劇情架構，全五季共103集。哈洛·芬奇為政府開發了一套稱作「機器」（The
-														Machine），可偵測恐怖攻擊的大規模監控電腦系統。它可預測「有計畫或謀略策劃的犯罪」，諸如911事件之類的大型恐怖攻擊災難，並提供情報讓有關當局防範未然。</p>
-												</div>
-												<div class="row">
-													<span class="col-sm-4"> <a class="more"
-														href="actItem.html">詳細資訊 <i class="icon-angle-right"></i></a></span>
-
-
-													<span class="col-sm-8 ecbtn">
-														<button type="button" class="btn btn-primary mybtns">
-															<i class="fa fa-star" aria-hidden="true"></i> 已追蹤
-														</button>
-														<button type="button" class="btn btn-success mybtns">
-															<i class="fa fa-check-circle" aria-hidden="true"></i> 已參加
-														</button>
-													</span>
-												</div>
-												<div class="blog-tags">
-													<li><a href="#"><i class="fa fa-tags"></i>線上</a></li>
-													<li><a href="#"><i class="fa fa-tag"></i>專業</a></li>
-													<li><a href="#"><i class="fa fa-tag"></i>技術宅</a></li>
-													<li><a href="#"><i class="fa fa-tag"></i>帥</a></li>
-												</div>
-											</div>
-										</div>
-									</div>
-									<!--  end of 1st card         -->
-									<!--  end of 1st card         -->
-									<hr class="event-post-sep">
-
-
-									<!--      2st card          -->
-									<div class="ec wow fadeInLeft" data-wow-delay=".2s"
-										data-wow-duration=".3">
-										<div class="row">
-											<div class="col-md-4 col-sm-4">
-												<a href="#"><img alt="Chulee合唱團"
-													class="img-responsive img-rounded"
-													src="../src/act/img/eventSamples/glee.jpg"></a>
-											</div>
-
-											<div class="col-md-8 col-sm-8">
-												<h2>
-													<a href="../event-item.html">Chulee合唱團</a>
-												</h2>
-												<ul class="event-info">
-													<li><i class="fa fa-calendar"></i> 2017/7/30起
-														每周三晚上8:00-9:00</li>
-													<li><i class="fa fa-map-marker"></i><a href="#">桃園市中壢區</a></li>
-													<li><i class="fa fa-users"></i>17</li>
-													<li><i class="fa fa-user"></i><a href="#">breadcan</a></li>
-
-												</ul>
-												<div class="ecContent">
-													<p>Chulee合唱團是一個美國電視音樂劇兼青春喜劇，由《整形春秋》的創作人萊恩·墨菲等創作，2009年起開始在福斯電視網播放，故事圍繞著學校裡的"New
-														Directions" Glee
-														Club及其團員而展開。本劇獲得專業評論普遍的正面評價。本劇於2015年3月20日全劇終，共六季。</p>
-												</div>
-
-												<div class="row">
-													<span class="col-sm-4"> <a class="more"
-														href="../event-item.html">詳細資訊 <i
-															class="icon-angle-right"></i></a></span> <span
-														class="col-sm-8 ecbtn">
-														<button type="button" class="btn btn-default mybtns">
-															<i class="fa fa-star-o" aria-hidden="true"></i> 追蹤活動
-														</button>
-														<button type="button" class="btn btn-default mybtns">
-															<i class="fa fa-check-circle-o" aria-hidden="true"></i>
-															我要參加
-														</button>
-													</span>
-												</div>
-												<div class="blog-tags">
-													<li><a href="#"><i class="fa fa-tags"></i>唱歌</a></li>
-													<li><a href="#"><i class="fa fa-tag"></i>專業</a></li>
-												</div>
-											</div>
-										</div>
-									</div>
-									<!--  end of 2st card         -->
-									<!--      3nd card          -->
-									<div class="ec wow fadeInLeft" data-wow-delay=".2s"
-										data-wow-duration=".3">
-										<div class="row">
-											<div class="col-md-4 col-sm-4">
-												<a href="#"><img alt="sample"
-													class="img-responsive img-rounded"
-													src="../src/act/img/eventSamples/Cap-Commandos.jpg"></a>
-											</div>
-
-											<div class="col-md-8 col-sm-8">
-												<h2>
-													<a href="../event-item.html">Howling Commandos</a>
-												</h2>
-												<ul class="event-info">
-													<li><i class="fa fa-calendar"></i> 2017/7/30 20:46</li>
-													<li><i class="fa fa-map-marker"></i><a href="#">桃園市中壢區</a></li>
-													<li><i class="fa fa-users"></i>87</li>
-													<li><i class="fa fa-user"></i><a href="#">breadcan</a></li>
-												</ul>
-												<div class="ecContent">
-													<p>inline test failed sammmple</p>
-												</div>
-												<div class="row">
-													<span class="col-sm-4"> <a class="more"
-														href="../event-item.html">詳細資訊 <i
-															class="icon-angle-right"></i></a></span> <span
-														class="col-sm-8 ecbtn">
-														<button type="button" class="btn btn-primary mybtns">
-															<i class="fa fa-star" aria-hidden="true"></i> 已追蹤
-														</button>
-														<button type="button" class="btn btn-info mybtns">
-															<i class="fa fa-check-circle-o" aria-hidden="true"></i>
-															我要參加
-														</button>
-													</span>
-												</div>
-												<div class="blog-tags">
-													<li><a href="#"><i class="fa fa-tags"></i>影視</a></li>
-													<li><a href="#"><i class="fa fa-tag"></i>帥哥</a></li>
-													<li><a href="#"><i class="fa fa-tag"></i>二戰</a></li>
-												</div>
-											</div>
-										</div>
-									</div>
-									<!--  ============== end of 3nd card  ==============   -->
-
-
-
-								</div>
-							</div>
+                                <div class="tab-content">
+                                    <div id="act" class="tab-pane fade in active">
+                                        <div class="container-fluid bg-3 text-center reward">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <img src="<%=request.getContextPath()%>/front-end/member/memberHome/avatar.do?memID=${memVO.memID}" alt="Image" class="img-responsive thumbnail">
+                                                    <p>Lorem ipsum..</p>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <img src="<%=request.getContextPath()%>/front-end/member/memberHome/avatar.do?memID=${memVO.memID}" alt="Image" class="img-responsive thumbnail">
+                                                    <p>Lorem ipsum..</p>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <img src="<%=request.getContextPath()%>/front-end/member/memberHome/avatar.do?memID=${memVO.memID}" alt="Image" class="img-responsive thumbnail">
+                                                    <p>Lorem ipsum..</p>
+                                                </div>
+                                                <div class="row">
+                                                	<a href="http://www.google.com"><input type="button" class="btn btn-primary" value="看更多"></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="club" class="tab-pane fade">
+                                        <div class="container-fluid bg-3 text-center reward">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <img src="<%=request.getContextPath()%>/front-end/member/memberHome/avatar.do?memID=${memVO.memID}" alt="Image" class="img-responsive thumbnail">
+                                                    <p>Lorem ipsum..</p>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <img src="<%=request.getContextPath()%>/front-end/member/memberHome/avatar.do?memID=${memVO.memID}" alt="Image" class="img-responsive thumbnail">
+                                                    <p>Lorem ipsum..</p>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <img src="<%=request.getContextPath()%>/front-end/member/memberHome/avatar.do?memID=${memVO.memID}" alt="Image" class="img-responsive thumbnail">
+                                                    <p>Lorem ipsum..</p>
+                                                </div>
+                                                <div class="row">
+                                                	<a href="http://www.google.com"><input type="button" class="btn btn-primary" value="看更多"></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="colorgraph">
 						</div>
 						<!-- END CONTENT -->
-						<!-- END SIDEBAR & CONTENT -->
-						<!--********************活動********************-->
+						<!--********************首頁********************-->
 						<hr class="colorgraph">
 						<!--**************************留言板**************************-->
 						<h2>留言板</h2>

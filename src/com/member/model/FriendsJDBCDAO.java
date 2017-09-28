@@ -163,7 +163,7 @@ public class FriendsJDBCDAO implements FriendsDAO_interface {
 	}
 
 	@Override
-	public FriendsVO findByPrimaryKey(Integer friMem1) {
+	public FriendsVO findByPrimaryKey(Integer friMem1,Integer friMem2) {
 
 		FriendsVO friendsVO = null;
 		Connection con = null;
@@ -379,5 +379,18 @@ public class FriendsJDBCDAO implements FriendsDAO_interface {
 //			System.out.println();
 //		}
 	}
+
+	@Override
+	public List<FriendsVO> getAll(Map<String, String[]> map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<FriendsVO> findByPrimaryKeyAll(Integer friMem1) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
 

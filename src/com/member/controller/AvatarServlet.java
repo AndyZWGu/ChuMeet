@@ -46,7 +46,6 @@ public class AvatarServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-		System.out.println("avatar");
 	    req.setCharacterEncoding("UTF-8");
 			res.setContentType("image/gif");
 			ServletOutputStream out = res.getOutputStream();
@@ -62,7 +61,7 @@ public class AvatarServlet extends HttpServlet {
 					"SELECT memAvatar FROM member WHERE memID='"+memID2+"'");
 
 				if (rs.next()) {
-					System.out.println("true");
+//					System.out.println("true");
 					BufferedInputStream in = new BufferedInputStream(rs.getBinaryStream("memAvatar"));
 					byte[] buf = new byte[4 * 1024]; // 4K buffer
 					int len;
@@ -72,7 +71,6 @@ public class AvatarServlet extends HttpServlet {
 					in.close();
 				} else {
 					//res.sendError(HttpServletResponse.SC_NOT_FOUND);
-					System.out.println("flase");
 					InputStream in = getServletContext().getResourceAsStream("/HTML/src/member/img/dog-wtf.jpg");
 					byte[] buf = new byte[in.available()];
 					in.read(buf);
@@ -83,7 +81,6 @@ public class AvatarServlet extends HttpServlet {
 				stmt.close();
 			} catch (Exception e) {
 				//System.out.println(e);
-				System.out.println(e);
 				InputStream in = getServletContext().getResourceAsStream("/HTML/src/member/img/god.jpg");
 				byte[] buf = new byte[in.available()];
 				in.read(buf);

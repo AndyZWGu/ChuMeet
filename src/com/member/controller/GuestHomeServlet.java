@@ -53,7 +53,7 @@ public class GuestHomeServlet extends HttpServlet {
 		MemMailVO memMailVO = (MemMailVO) session.getAttribute("memMailVO");
 		RewardVO rewardVO = (RewardVO) session.getAttribute("rewardVO");
 		MemRewardVO memRewardVO = (MemRewardVO) session.getAttribute("memRewardVO");
-		FriendsVO friendsVO = (FriendsVO) session.getAttribute("friendsVO");
+		
 		MemPOIVO memPOIVO = (MemPOIVO) session.getAttribute("memPOIVO");
 		session.setAttribute("memNFVO", memNFVO);
 		session.setAttribute("achVO", achVO);
@@ -61,7 +61,7 @@ public class GuestHomeServlet extends HttpServlet {
 		session.setAttribute("memMailVO", memMailVO);
 		session.setAttribute("rewardVO", rewardVO);
 		session.setAttribute("memRewardVO", memRewardVO);
-		session.setAttribute("friendsVO", friendsVO);
+		
 		session.setAttribute("memPOIVO", memPOIVO);
 		
 		

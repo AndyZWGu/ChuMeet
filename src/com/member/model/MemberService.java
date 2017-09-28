@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 public class MemberService {
 
@@ -24,7 +25,7 @@ public class MemberService {
 			String memName,
 			Integer memGender,
 			Timestamp memBD, 
-			Integer memPhone, 
+			String memPhone, 
 			byte[] memAvatar,
 			Timestamp memJoinDate,
 			Integer memLoginNum,
@@ -73,7 +74,7 @@ public class MemberService {
 			String memName,
 			Integer memGender,
 			Timestamp memBD, 
-			Integer memPhone, 
+			String memPhone, 
 			byte[] memAvatar,
 			Timestamp memJoinDate,
 			Integer memLoginNum,
@@ -127,6 +128,10 @@ public class MemberService {
 
 	public List<MemberVO> getAll() {
 		return dao.getAll();
+	}
+	
+	public List<MemberVO> getAll(Map<String, String[]> map) {
+		return dao.getAll(map);
 	}
 	
 	public MemberVO getMemberByMemEmail(String memEmail) {

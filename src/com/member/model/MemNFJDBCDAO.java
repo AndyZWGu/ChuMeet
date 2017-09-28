@@ -393,6 +393,25 @@ public class MemNFJDBCDAO implements MemNFDAO_interface {
 //			System.out.println();
 //		}
 	}
+
+	@Override
+	public List<MemNFVO> getAll(Map<String, String[]> map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<MemNFVO> findByMemID(Integer memID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String findCountByMemID(Integer memID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
 
 

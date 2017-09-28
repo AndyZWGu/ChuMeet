@@ -4,9 +4,13 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,6 +27,10 @@ import com.member.model.*;
  */
 public class MemberHomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	int friendsNum=0;
+	int followNum=0;
+	int memMBNum=0;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -49,24 +57,97 @@ public class MemberHomeServlet extends HttpServlet {
 		if (session.getAttribute("memVO") == null) {
 			res.sendRedirect("ChuMeetWebsite/front-end/index.jsp");
 		}
-		//複合查詢
-		MemNFVO memNFVO = (MemNFVO) session.getAttribute("memNFVO");
-		AchVO achVO = (AchVO) session.getAttribute("achVO");
-		MemAchVO memAchVO = (MemAchVO) session.getAttribute("memAchVO");
-		// ActStarVO actStar = (ActStarVO) session.getAttribute("actStarVO");
-		MemMailVO memMailVO = (MemMailVO) session.getAttribute("memMailVO");
-		RewardVO rewardVO = (RewardVO) session.getAttribute("rewardVO");
-		MemRewardVO memRewardVO = (MemRewardVO) session.getAttribute("memRewardVO");
-		FriendsVO friendsVO = (FriendsVO) session.getAttribute("friendsVO");
-		MemPOIVO memPOIVO = (MemPOIVO) session.getAttribute("memPOIVO");
-		session.setAttribute("memNFVO", memNFVO);
-		session.setAttribute("achVO", achVO);
-		session.setAttribute("memAchVO", memAchVO);
-		session.setAttribute("memMailVO", memMailVO);
-		session.setAttribute("rewardVO", rewardVO);
-		session.setAttribute("memRewardVO", memRewardVO);
-		session.setAttribute("friendsVO", friendsVO);
-		session.setAttribute("memPOIVO", memPOIVO);
+		
+		/**************************************************************
+		 ********************左邊Sidebar使用****************************
+		 *************************************************************/
+		MemberVO memVO = (MemberVO) session.getAttribute("memVO");
+		System.out.println("當前會員編號"+memVO.getMemID()+"此程式在MemberHomeServlet.java");
+		//好友列表,好友數,跟隨數,平價數...
+		FriendsService friSvc = new FriendsService();
+		 List<FriendsVO> friendsList = friSvc.getAllFriends(memVO.getMemID());
+		 friendsNum=0;
+		 followNum=0;
+		  for (FriendsVO list : friendsList) {
+			  if(list.getFriendType().contains("好友")){
+				  friendsNum++;
+				  followNum++;
+			  }
+//			  System.out.println("編號"+memVO.getMemID()+"的好友"+list.getFriendType());
+		  }
+		//會員名稱,稱號,跟隨,好友數,評分數,揪點,驗證,註冊時間
+//		session.setAttribute("achName", achName);
+		session.setAttribute("followNum", followNum);
+		session.setAttribute("friNum", friendsNum);
+//		session.setAttribute("memStar", memStar);
+		if(memVO.getMemberType()==0){
+			session.setAttribute("isMail", "未驗證");
+			session.setAttribute("isPhone", "未驗證");
+		}
+		else if (memVO.getMemberType()==1){
+			session.setAttribute("isMail", "驗證");
+			session.setAttribute("isPhone", "未驗證");
+		}
+		else if (memVO.getMemberType()==2){
+			session.setAttribute("isMail", "驗證");
+			session.setAttribute("isPhone", "驗證");
+		}
+		MemMBService mbSvc = new MemMBService();
+		String count = mbSvc.getCountByMemID(memVO.getMemID());
+		session.setAttribute("memMBNum", count);
+//		Map<String, String[]> map = new HashMap<String, String[]>();
+//		String[] memVOID = new String[2];
+//		memVOID[0]=memVO.getMemID().toString();
+//		map.put("memID",memVOID);
+//		List<MemMBVO> memMBlist = mbSvc.getAllMB(map);
+//		  for (MemMBVO list : memMBlist) {
+//			  memMBNum++;
+//			  System.out.println("留言數"+memMBNum+"為"+list.getMbContent());
+//			  System.out.println(memMBlist.size());
+//			  System.out.println(list.getMemMBID());
+//		  }
+//		session.setAttribute("memMBNum", memMBNum);
+		session.setAttribute("memJoinDate", timestampToString(memVO.getMemJoinDate()).toString());
+		/**************************************************************
+		 ********************右邊Content使用****************************
+		 *************************************************************/
+		//找首頁動態
+		MemNFService nfSvc = new MemNFService();
+		Map<String, String[]> nfMap = new HashMap<String, String[]>();
+		String[] NFMemID = new String[2];
+		String[] nfStatus = new String[2];
+		NFMemID[0]=memVO.getMemID().toString();
+		nfStatus[0]="2";
+		nfMap.put("memID",NFMemID);
+		nfMap.put("nfStatus",nfStatus);
+		List<MemNFVO> memNFList = nfSvc.getAllNF(nfMap);
+		Integer memNFID = null;
+				  for (MemNFVO list : memNFList) {
+					  memNFID = list.getMemNFID();
+			  }
+		session.setAttribute("memHomeNFID", memNFID);
+		System.out.println(session.getAttribute("memHomeNFID"));
+		//找首頁動態下方的留言
+		Map<String, String[]> mbMap = new HashMap<String, String[]>();
+		String[] memNFIDs = new String[2];
+		memNFIDs[0]= String.valueOf(memNFID);
+		mbMap.put("memNFID",memNFIDs);
+		List<MemMBVO> memMBList = mbSvc.getAllMB(mbMap);
+		session.setAttribute("memMBList", memMBList);
+		//找首頁動態下方留言者的姓名
+		List<MemberVO> mbMemNameList = new ArrayList<MemberVO>();
+		MemberService memSvc = new MemberService();
+		for(MemMBVO list : memMBList){
+			mbMemNameList.add(memSvc.getOneMember(list.getMemID()));
+			System.out.println(list.getMemID());
+		}
+		session.setAttribute("mbMemNameList", mbMemNameList);
+		/*******************轉址用****************************/
+		String url = "/front-end/member/memberHome.jsp";
+		RequestDispatcher successView = req.getRequestDispatcher(url);
+		successView.forward(req, res);
+		/****************************************************/
+		
 		// 拿照片
 		// base64用
 		// List<String> list = new ArrayList<String>();
@@ -76,10 +157,6 @@ public class MemberHomeServlet extends HttpServlet {
 		// req.setAttribute("pictureList", list);
 		// 基本作法
 		//放在另外一隻透過doGet加參數獲取圖片
-
-		String url = "/front-end/member/memberHome.jsp";
-		RequestDispatcher successView = req.getRequestDispatcher(url);
-		successView.forward(req, res);
 		
 		// req.setCharacterEncoding("UTF-8");
 		// String action = req.getParameter("action");
@@ -220,5 +297,22 @@ public class MemberHomeServlet extends HttpServlet {
 		// }
 		// doPost
 	}
+	
+	
+	
+	/*******************額外工具****************************/
+	//Timestamp轉String
+	  public static String timestampToString(Timestamp timestamp){		  
+		  if(timestamp==null){
+			  return "null";
+		  }else{
+			  SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//定义格式，不显示毫秒 
+				 // Timestamp now = new Timestamp(System.currentTimeMillis());//获取系统当前时间 
+				  String str = df.format(timestamp); 
+				  System.out.println(str); 
+			        return str;
+		  }
+	  }
+
 
 }

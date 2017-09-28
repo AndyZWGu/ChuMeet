@@ -8,6 +8,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.member.controller.JdbcUtil_CompositeQuery_Member;
+
 public class MemNFDAO implements MemNFDAO_interface {
 
 	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
@@ -31,6 +33,12 @@ public class MemNFDAO implements MemNFDAO_interface {
 			"DELETE FROM memNF where memNFID = ?";
 		private static final String UPDATE = 
 			"UPDATE memNF set nfTitle=?, nfContent=?, nfPic=?, nfDate=?, nfViews=?, nfStatus=? where memNFID = ?";
+
+		private static final String GET_ALL_BY_MEMID = 
+				"SELECT * FROM memNF where memID = ?";
+		private static final String COUNT_STMT = 
+				"select count(*) as \"count\" from memNF where memID=?";
+		private String count;
 
 	@Override
 	public void insert(MemNFVO memNFVO) {
@@ -277,6 +285,180 @@ public class MemNFDAO implements MemNFDAO_interface {
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public List<MemNFVO> getAll(Map<String, String[]> map) {
+		List<MemNFVO> list = new ArrayList<MemNFVO>();
+		MemNFVO memNFVO = null;
+	
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+	
+		try {
+			
+			con = ds.getConnection();
+			String finalSQL = "select * from memNF "
+		          + JdbcUtil_CompositeQuery_Member.get_WhereCondition("MemNF", map)
+		          ;
+			pstmt = con.prepareStatement(finalSQL);
+			System.out.println("〈〈finalSQL(by DAO) = "+finalSQL);
+			rs = pstmt.executeQuery();
+	
+			while (rs.next()) {
+				memNFVO = new MemNFVO();
+				memNFVO.setMemNFID(rs.getInt("memNFID"));
+				memNFVO.setMemID(rs.getInt("memID"));
+				memNFVO.setNfTitle(rs.getString("nfTitle"));
+				memNFVO.setNfContent(rs.getString("nfContent"));
+				memNFVO.setNfPic(rs.getBytes("nfPic"));
+				memNFVO.setNfDate(rs.getTimestamp("nfDate"));
+				memNFVO.setNfViews(rs.getInt("nfViews"));
+				memNFVO.setNfStatus(rs.getInt("nfStatus"));
+				list.add(memNFVO); // Store the row in the list
+			}
+	
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<MemNFVO> findByMemID(Integer memID) {
+		List<MemNFVO> list = new ArrayList<MemNFVO>();
+		MemNFVO memNFVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ALL_BY_MEMID);
+			pstmt.setInt(1, memID);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				memNFVO = new MemNFVO();
+				memNFVO.setMemNFID(rs.getInt("memNFID"));
+				memNFVO.setMemID(rs.getInt("memID"));
+				memNFVO.setNfTitle(rs.getString("nfTitle"));
+				memNFVO.setNfContent(rs.getString("nfContent"));
+				memNFVO.setNfPic(rs.getBytes("nfPic"));
+				memNFVO.setNfDate(rs.getTimestamp("nfDate"));
+				memNFVO.setNfViews(rs.getInt("nfViews"));
+				memNFVO.setNfStatus(rs.getInt("nfStatus"));
+				list.add(memNFVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public String findCountByMemID(Integer memID) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		count = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(COUNT_STMT);
+
+			pstmt.setInt(1, memID);
+
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				count=rs.getString("count");
+			}
+
+			System.out.println(count);
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return count;
 	}
 }
 

@@ -9,6 +9,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.member.controller.*;
+
 public class MemberDAO implements MemberDAO_interface {
 
 	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
@@ -40,7 +42,11 @@ public class MemberDAO implements MemberDAO_interface {
 	//拿照片用
 	private static final String GET_AVATAR_STMT_BY_MEMID = 
 			"SELECT memAvatar FROM member where memID = ?";
-
+	//其他表透過memID來取用
+	private static final String GET_ALL_BY_TABLE = 
+			"SELECT memAvatar FROM member,? where member.memID = ?.memID";
+	
+	
 	@Override
 	public void insert(MemberVO memberVO) {
 
@@ -61,7 +67,7 @@ public class MemberDAO implements MemberDAO_interface {
 			pstmt.setString(7, memberVO.getMemName());
 			pstmt.setInt(8, memberVO.getMemGender());
 			pstmt.setTimestamp(9, memberVO.getMemBD());
-			pstmt.setInt(10, memberVO.getMemPhone());
+			pstmt.setString(10, memberVO.getMemPhone());
 			pstmt.setBytes(11, memberVO.getMemAvatar());
 			pstmt.setTimestamp(12, memberVO.getMemJoinDate());
 			pstmt.setInt(13, memberVO.getMemLoginNum());
@@ -72,7 +78,6 @@ public class MemberDAO implements MemberDAO_interface {
 			pstmt.setDouble(18, memberVO.getMemLat());
 			pstmt.setDouble(19, memberVO.getMemPriv());
 			pstmt.setInt(20, memberVO.getMemStatus());
-
 			pstmt.executeUpdate();
 
 			// Handle any SQL errors
@@ -119,7 +124,7 @@ public class MemberDAO implements MemberDAO_interface {
 			pstmt.setString(7, memberVO.getMemName());
 			pstmt.setInt(8, memberVO.getMemGender());
 			pstmt.setTimestamp(9, memberVO.getMemBD());
-			pstmt.setInt(10, memberVO.getMemPhone());
+			pstmt.setString(10, memberVO.getMemPhone());
 			pstmt.setBytes(11, memberVO.getMemAvatar());
 			pstmt.setTimestamp(12, memberVO.getMemJoinDate());
 			pstmt.setInt(13, memberVO.getMemLoginNum());
@@ -130,7 +135,7 @@ public class MemberDAO implements MemberDAO_interface {
 			pstmt.setDouble(18, memberVO.getMemLat());
 			pstmt.setDouble(19, memberVO.getMemPriv());
 			pstmt.setInt(20, memberVO.getMemStatus());
-
+			System.out.println(pstmt);
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
@@ -225,7 +230,7 @@ public class MemberDAO implements MemberDAO_interface {
 				memberVO.setMemName(rs.getString("memName"));
 				memberVO.setMemGender(rs.getInt("memGender"));
 				memberVO.setMemBD(rs.getTimestamp("memBD"));
-				memberVO.setMemPhone(rs.getInt("memPhone"));
+				memberVO.setMemPhone(rs.getString("memPhone"));
 				memberVO.setMemAvatar(rs.getBytes("memAvatar"));
 				memberVO.setMemJoinDate(rs.getTimestamp("memJoinDate"));
 				memberVO.setMemLoginNum(rs.getInt("memLoginNum"));
@@ -353,7 +358,7 @@ public class MemberDAO implements MemberDAO_interface {
 				memberVO.setMemName(rs.getString("memName"));
 				memberVO.setMemGender(rs.getInt("memGender"));
 				memberVO.setMemBD(rs.getTimestamp("memBD"));
-				memberVO.setMemPhone(rs.getInt("memPhone"));
+				memberVO.setMemPhone(rs.getString("memPhone"));
 				memberVO.setMemAvatar(rs.getBytes("memAvatar"));
 				memberVO.setMemJoinDate(rs.getTimestamp("memJoinDate"));
 				memberVO.setMemLoginNum(rs.getInt("memLoginNum"));
@@ -426,7 +431,7 @@ public class MemberDAO implements MemberDAO_interface {
 				memberVO.setMemName(rs.getString("memName"));
 				memberVO.setMemGender(rs.getInt("memGender"));
 				memberVO.setMemBD(rs.getTimestamp("memBD"));
-				memberVO.setMemPhone(rs.getInt("memPhone"));
+				memberVO.setMemPhone(rs.getString("memPhone"));
 				memberVO.setMemAvatar(rs.getBytes("memAvatar"));
 				memberVO.setMemJoinDate(rs.getTimestamp("memJoinDate"));
 				memberVO.setMemLoginNum(rs.getInt("memLoginNum"));
@@ -498,7 +503,7 @@ public class MemberDAO implements MemberDAO_interface {
 				memberVO.setMemName(rs.getString("memName"));
 				memberVO.setMemGender(rs.getInt("memGender"));
 				memberVO.setMemBD(rs.getTimestamp("memBD"));
-				memberVO.setMemPhone(rs.getInt("memPhone"));
+				memberVO.setMemPhone(rs.getString("memPhone"));
 				memberVO.setMemAvatar(rs.getBytes("memAvatar"));
 				memberVO.setMemJoinDate(rs.getTimestamp("memJoinDate"));
 				memberVO.setMemLoginNum(rs.getInt("memLoginNum"));
@@ -541,5 +546,81 @@ public class MemberDAO implements MemberDAO_interface {
 		}
 		return memberVO;
 	}
+
+	@Override
+	public List<MemberVO> getAll(Map<String, String[]> map) {
+		List<MemberVO> list = new ArrayList<MemberVO>();
+		MemberVO memberVO = null;
+	
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+	
+		try {
+			
+			con = ds.getConnection();
+			String finalSQL = "select * from member "
+		          + JdbcUtil_CompositeQuery_Member.get_WhereCondition("Member", map)
+		          ;
+			pstmt = con.prepareStatement(finalSQL);
+			System.out.println("〈〈finalSQL(by DAO) = "+finalSQL);
+			rs = pstmt.executeQuery();
+	
+			while (rs.next()) {
+				memberVO = new MemberVO();
+				memberVO.setMemID(rs.getInt("memID"));
+				memberVO.setMemEmail(rs.getString("memEmail"));
+				memberVO.setMemPw(rs.getString("memPw"));
+				memberVO.setMemberType(rs.getInt("memberType"));
+				memberVO.setMemLv(rs.getInt("memLv"));
+				memberVO.setMemExp(rs.getInt("memExp"));
+				memberVO.setMemPt(rs.getInt("memPt"));
+				memberVO.setMemName(rs.getString("memName"));
+				memberVO.setMemGender(rs.getInt("memGender"));
+				memberVO.setMemBD(rs.getTimestamp("memBD"));
+				memberVO.setMemPhone(rs.getString("memPhone"));
+				memberVO.setMemAvatar(rs.getBytes("memAvatar"));
+				memberVO.setMemJoinDate(rs.getTimestamp("memJoinDate"));
+				memberVO.setMemLoginNum(rs.getInt("memLoginNum"));
+				memberVO.setMemLocBorn(rs.getString("memLocBorn"));
+				memberVO.setMemLocLive(rs.getString("memLocLive"));
+				memberVO.setMemInt(rs.getString("memInt"));
+				memberVO.setMemLong(rs.getDouble("memLong"));
+				memberVO.setMemLat(rs.getDouble("memLat"));
+				memberVO.setMemPriv(rs.getInt("memPriv"));
+				memberVO.setMemStatus(rs.getInt("memStatus"));
+				list.add(memberVO); // Store the row in the list
+			}
+	
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
 }
 

@@ -1,14 +1,26 @@
 package com.member.model;
 
 import java.util.List;
+import java.util.Map;
 
 public interface FriendsDAO_interface {
-    public void insert(FriendsVO friendsVO);
-    public void update(FriendsVO friendsVO);
-    //pkÌÀíÒ»ÏÂ
-    public void delete(Integer empno);
-    public FriendsVO findByPrimaryKey(Integer empno);
-    public List<FriendsVO> getAll();
-    //ÈfÓÃÑ}ºÏ²éÔƒ(‚÷Èë…¢”µĞÍ‘BMap)(»Ø‚÷ List)
-//  public List<friendsVO> getAll(Map<String, String[]> map); 
+	public void insert(FriendsVO friendsVO);
+
+	public void update(FriendsVO friendsVO);
+
+	// pkÌï¿½ï¿½Ò»ï¿½ï¿½
+	public void delete(Integer friMem1);
+
+	public List<FriendsVO> getAll();
+
+	// ï¿½fï¿½ï¿½ï¿½}ï¿½Ï²ï¿½Ôƒ(ï¿½ï¿½ï¿½ë…¢ï¿½ï¿½ï¿½Í‘BMap)(ï¿½Ø‚ï¿½ List)
+	public List<FriendsVO> getAll(Map<String, String[]> map);
+
+	
+	//å¤šæ•¸å¥½å‹
+	public List<FriendsVO> findByPrimaryKeyAll(Integer friMem1);
+
+	//ç‰¹å®šå¥½å‹è©³æƒ…
+	FriendsVO findByPrimaryKey(Integer friMem1, Integer friMem2);
+
 }

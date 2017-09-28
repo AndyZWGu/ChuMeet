@@ -29,7 +29,7 @@ MemberVO memVO= (MemberVO)session.getAttribute("memVO"); //登入帳號的所有
         <!-- BEGIN TOP BAR MENU -->
         <div class="col-md-6 col-sm-6 additional-nav">
           <ul class="list-unstyled list-inline pull-right">
-            <li><span>哈囉，${memVO.memName}</span> <a href="<%=request.getContextPath()%>/front-end/member/memberHome.do"><i class="fa fa-cog" aria-hidden="true"></i>會員首頁</a></li>
+            <li><span>哈囉，${memVO.memName}</span> <a href="<%=request.getContextPath()%>/front-end/member/memberHome.do"><i class="fa fa-home" aria-hidden="true"></i>會員首頁</a></li>
             <li><a href="<%=request.getContextPath()%>/front-end/member/memberLogout.do"><i class="fa fa-sign-out" aria-hidden="true"></i>登出</a></li>
             <!--  偽裝CSS請用btn-link-->
 <%--             <li>
@@ -48,8 +48,8 @@ MemberVO memVO= (MemberVO)session.getAttribute("memVO"); //登入帳號的所有
         <!-- 訪客時 -->
         <div class="col-md-6 col-sm-6 additional-nav">
           <ul class="list-unstyled list-inline pull-right">
-            <li><span>親愛的訪客～</span> <a href="<%=request.getContextPath()%>/front-end/member/login.jsp"><i class="fa fa-cog" aria-hidden="true"></i>登入</a></li>
-            <li><a href="<%=request.getContextPath()%>/front-end/member/register.jsp"><i class="fa fa-sign-out" aria-hidden="true"></i>註冊</a></li>
+            <li><span>親愛的訪客～</span><a href="<%=request.getContextPath()%>/front-end/member/login.jsp"><i class="fa fa-sign-in" aria-hidden="true"></i>登入</a></li>
+            <li><a href="<%=request.getContextPath()%>/front-end/member/register.jsp"><i class="fa fa-user-plus" aria-hidden="true"></i>註冊</a></li>
           </ul>
         </div>   
 </c:if> 

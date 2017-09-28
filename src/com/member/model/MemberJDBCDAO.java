@@ -7,6 +7,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
+
 public class MemberJDBCDAO implements MemberDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
@@ -45,7 +47,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 			pstmt.setString(7, memberVO.getMemName());
 			pstmt.setInt(8, memberVO.getMemGender());
 			pstmt.setTimestamp(9, memberVO.getMemBD());
-			pstmt.setInt(10, memberVO.getMemPhone());
+			pstmt.setString(10, memberVO.getMemPhone());
 			pstmt.setBytes(11, memberVO.getMemAvatar());
 			pstmt.setTimestamp(12, memberVO.getMemJoinDate());
 			pstmt.setInt(13, memberVO.getMemLoginNum());
@@ -108,7 +110,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 			pstmt.setString(7, memberVO.getMemName());
 			pstmt.setInt(8, memberVO.getMemGender());
 			pstmt.setTimestamp(9, memberVO.getMemBD());
-			pstmt.setInt(10, memberVO.getMemPhone());
+			pstmt.setString(10, memberVO.getMemPhone());
 			pstmt.setBytes(11, memberVO.getMemAvatar());
 			pstmt.setTimestamp(12, memberVO.getMemJoinDate());
 			pstmt.setInt(13, memberVO.getMemLoginNum());
@@ -224,7 +226,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 				memberVO.setMemName(rs.getString("memName"));
 				memberVO.setMemGender(rs.getInt("memGender"));
 				memberVO.setMemBD(rs.getTimestamp("memBD"));
-				memberVO.setMemPhone(rs.getInt("memPhone"));
+				memberVO.setMemPhone(rs.getString("memPhone"));
 				memberVO.setMemAvatar(rs.getBytes("memAvatar"));
 				memberVO.setMemJoinDate(rs.getTimestamp("memJoinDate"));
 				memberVO.setMemLoginNum(rs.getInt("memLoginNum"));
@@ -300,7 +302,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 				memberVO.setMemName(rs.getString("memName"));
 				memberVO.setMemGender(rs.getInt("memGender"));
 				memberVO.setMemBD(rs.getTimestamp("memBD"));
-				memberVO.setMemPhone(rs.getInt("memPhone"));
+				memberVO.setMemPhone(rs.getString("memPhone"));
 				memberVO.setMemAvatar(rs.getBytes("memAvatar"));
 				memberVO.setMemJoinDate(rs.getTimestamp("memJoinDate"));
 				memberVO.setMemLoginNum(rs.getInt("memLoginNum"));
@@ -354,31 +356,35 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 		MemberJDBCDAO dao = new MemberJDBCDAO();
 
 		// 新增
-//		MemberVO memberVO2 = new MemberVO();
-//		memberVO2.setMemEmail("ggpower@hotmail.com");
-//		memberVO2.setMemPw("PPww");
-//		memberVO2.setMemberType(1);
-//		memberVO2.setMemLv(10);
-//		memberVO2.setMemExp(300);
-//		memberVO2.setMemPt(5900);
-//		memberVO2.setMemName("GodGG");
-//		memberVO2.setMemGender(1);
-//		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-//        Date parsed = format.parse("20110210");
-//        java.sql.Date sql = new java.sql.Date(parsed.getTime());
-//		memberVO2.setMemBD(sql);
-//		memberVO2.setMemPhone(12345678);
-//		memberVO2.setMemAvatar(null);
-//		memberVO2.setMemJoinDate(sql);
-//		memberVO2.setMemLoginNum(5);
-//		memberVO2.setMemLocBorn(null);
-//		memberVO2.setMemLocLive(null);
-//		memberVO2.setMemInt("歡迎歡迎");
-//		memberVO2.setMemLong(1.2);
-//		memberVO2.setMemLat(3.4);
-//		memberVO2.setMemPriv(1);
-//		memberVO2.setMemStatus(1);
-//		dao.insert(memberVO2);
+		MemberVO memberVO2 = new MemberVO();
+		memberVO2.setMemEmail("ggpower@hotmail.com");
+		memberVO2.setMemPw("PPww");
+		memberVO2.setMemberType(1);
+		memberVO2.setMemLv(10);
+		memberVO2.setMemExp(300);
+		memberVO2.setMemPt(5900);
+		memberVO2.setMemName("GodGG");
+		memberVO2.setMemGender(1);
+		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+        Date parsed = format.parse("20110210");
+        java.sql.Timestamp memBD=new java.sql.Timestamp(parsed.getTime());
+		memberVO2.setMemBD(memBD);		
+		memberVO2.setMemPhone("0983354626");
+		memberVO2.setMemAvatar(null);
+		java.util.Date utildate=new java.util.Date();
+		java.sql.Date sqlDate=new java.sql.Date(utildate.getTime());
+		java.sql.Time sTime=new java.sql.Time(utildate.getTime());
+		java.sql.Timestamp stp=new java.sql.Timestamp(utildate.getTime());
+		memberVO2.setMemJoinDate(stp);
+		memberVO2.setMemLoginNum(5);
+		memberVO2.setMemLocBorn(null);
+		memberVO2.setMemLocLive(null);
+		memberVO2.setMemInt("歡迎歡迎");
+		memberVO2.setMemLong(1.2);
+		memberVO2.setMemLat(3.4);
+		memberVO2.setMemPriv(1);
+		memberVO2.setMemStatus(1);
+		dao.insert(memberVO2);
 
 //		// 更新
 //		MemberVO MemberVO2 = new MemberVO();
@@ -465,4 +471,11 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<MemberVO> getAll(Map<String, String[]> map) {
+		return null;
+	}
+
+
 }

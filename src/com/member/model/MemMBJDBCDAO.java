@@ -382,5 +382,23 @@ public class MemMBJDBCDAO implements MemMBDAO_interface {
 //			System.out.println();
 //		}
 	}
+
+	@Override
+	public void insertHomeMB(MemMBVO memMBVO) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<MemMBVO> getAll(Map<String, String[]> map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String findCountByPrimaryKey(Integer memID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
 

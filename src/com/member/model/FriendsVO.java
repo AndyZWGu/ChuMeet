@@ -6,7 +6,7 @@ public class FriendsVO implements java.io.Serializable {
 	private Integer friMem1;
 	private Integer friMem2;
 	private String friendType;
-	private Timestamp FriendDate;
+	private Timestamp friendDate;
 	
 	public Integer getFriMem1() {
 		return friMem1;
@@ -27,10 +27,10 @@ public class FriendsVO implements java.io.Serializable {
 		this.friendType = friendType;
 	}
 	public Timestamp getFriendDate() {
-		return FriendDate;
+		return friendDate;
 	}
 	public void setFriendDate(Timestamp friendDate) {
-		FriendDate = friendDate;
+		friendDate = friendDate;
 	}
 	
 }

@@ -10,25 +10,60 @@ import java.util.*;
 
 public class JdbcUtil_CompositeQuery_Member {
 
+	static String sort = "";
+	
 	public static String get_aCondition_For_Oracle(String tableName, String columnName, String value) {
 
 		String aCondition = null;
 
 		//Member會員表
 		if (tableName == "Member") {
-			if ("memID".equals(columnName) || "memberType".equals(columnName) || "memLv".equals(columnName)
-					|| "memExp".equals(columnName)|| "memPt".equals(columnName)
+			if ("memLv".equals(columnName)|| "memExp".equals(columnName)|| "memPt".equals(columnName)
+					|| "memLoginNum".equals(columnName)|| "memPriv".equals(columnName)) // 用於大於等於
+				aCondition = columnName + ">=" + value;
+			if ("memID".equals(columnName) || "memberType".equals(columnName) 
 					|| "memGender".equals(columnName)|| "memPhone".equals(columnName)
-					|| "memLoginNum".equals(columnName)|| "memLong".equals(columnName)
-					|| "memLat".equals(columnName)|| "memPriv".equals(columnName)
-					|| "memStatus".equals(columnName)) // 用於其他
+					|| "memLong".equals(columnName)|| "memLat".equals(columnName)
+					|| "memPriv".equals(columnName)|| "memStatus".equals(columnName)) // 用於其他
 				aCondition = columnName + "=" + value;
+			//出生地與居住地
+			else if ("county".equals(columnName) || "memLocBorn".equals(columnName)) // 用於varchar
+				aCondition = "memLocBorn" + " like '%" + value + "%'";
+			else if ("county".equals(columnName) || "memLocLive".equals(columnName)) // 用於varchar
+				aCondition = "memLocLive" + " like '%" + value + "%'";
+			//==
 			else if ("memEmail".equals(columnName) || "memPw".equals(columnName)
 					|| "memName".equals(columnName)|| "memLocBorn".equals(columnName)
 					|| "memLocLive".equals(columnName)|| "memInt".equals(columnName)) // 用於varchar
 				aCondition = columnName + " like '%" + value + "%'";
 			else if ("memBD".equals(columnName)|| "memJoinDate".equals(columnName)) // 用於Oracle的date
 				aCondition = "to_char(" + columnName + ",'yyyy-mm-dd')='" + value + "'";
+			//排序
+			else if ("sort".equals(columnName)){ // 用於排序
+				if(value==null)
+					sort=null;
+				else if(value=="追蹤數(升序)")
+					sort = "order by " + "" + value + "%'";
+				else if(value=="追蹤數(降序)")
+					sort = "order by" + " like '%" + value + "%'";
+				else if(value=="好友數排序(升序)")
+					sort = "order by" + " like '%" + value + "%'";
+				else if(value=="好友數排序(降序)")
+					sort = "order by" + " like '%" + value + "%'";
+				else if(value=="評價數排序(升序)")
+					sort = "order by" + " like '%" + value + "%'";
+				else if(value=="評價數排序(降序)")
+					sort = "order by" + " like '%" + value + "%'";
+				else if(value=="加入日期排序(升序)")
+					sort = "order by" + " like '%" + value + "%'";
+				else if(value=="加入日期排序(降序)")
+					sort = "order by" + " like '%" + value + "%'";
+				else if("登入次數排序(升序)".equals(value))
+					sort = "order by memLoginNum Asc";
+				else if("登入次數排序(降序)".equals(value))
+					sort = "order by memLoginNum Desc";
+				aCondition="";
+			}
 		}
 		//Friends好友表
 		if (tableName == "Friends") {
@@ -143,15 +178,15 @@ public class JdbcUtil_CompositeQuery_Member {
 				count++;
 				String aCondition = get_aCondition_For_Oracle(tableName,key, value.trim());
 
-				if (count == 1)
+				if (count == 1 && !" ".equals(aCondition))
 					whereCondition.append(" where " + aCondition);
-				else
+				else if(!" ".equals(aCondition))
 					whereCondition.append(" and " + aCondition);
-
+				System.out.println("aCondition=<"+aCondition+">");
 				System.out.println("有送出查詢資料的欄位數count = " + count);
 			}
 		}
-
+		whereCondition.append(sort);
 		return whereCondition.toString();
 	}
 

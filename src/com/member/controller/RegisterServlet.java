@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -23,8 +24,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import javax.sql.rowset.serial.SerialBlob;
 
-import com.member.model.MemberService;
-import com.member.model.MemberVO;
+import com.member.model.*;
 import com.mysql.jdbc.Blob;
 
 /**
@@ -75,10 +75,11 @@ public class RegisterServlet extends HttpServlet {
 				String memEmail = req.getParameter("memEmail");
 				String memPw = req.getParameter("memPw");
 				String memName = req.getParameter("memName");
-				Integer memPhone = Integer.parseInt(req.getParameter("memPhone"));
+				String memPhone = req.getParameter("memPhone");
 				String memLocBorn = req.getParameter("memLocBorn");
 				String memLocLive = req.getParameter("memLocLive");
-				java.sql.Timestamp memBD = java.sql.Timestamp.valueOf(req.getParameter("memBD"));
+				String memBD = req.getParameter("memBD");
+				System.out.println(memBD);
 				Integer memGender = Integer.parseInt(req.getParameter("memGender"));
 				String memInt = req.getParameter("memInt");
 
@@ -133,39 +134,47 @@ public class RegisterServlet extends HttpServlet {
 				// req.getRequestDispatcher(url);
 				// successView.forward(req, res);
 				// 正式註冊一筆新資料
-				// 時間用
-				java.sql.Timestamp today = todayTime();
+				// 時間用(生日)
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	            Date parsedDate = dateFormat.parse(memBD);
+	            java.sql.Timestamp timestampMemBD = new java.sql.Timestamp(parsedDate.getTime());
+	            // 時間用(加入時間)
+				java.sql.Timestamp today = nowTimestamp();
 				// 大頭照用
 				byte[] byteAvatar = getAvatarByPart(req);
 				// 註冊呼叫Service調用Dao
-				memSvc.addMember(memEmail, memPw, 0, 1, 0, 50, memName, memGender, memBD, memPhone,
+				MemberVO memVO = memSvc.addMember(memEmail, memPw, 0, 1, 0, 50, memName, memGender, timestampMemBD, memPhone,
 						byteAvatar, today, 1, memLocBorn, memLocLive, memInt, 0.0, 0.0, 2, 1);
-				MemberVO memVO = memSvc.getMemberByMemEmail(memEmail);
 				session.setAttribute("memVO", memVO);
+				//自動首頁發表第一篇動態作為收集留言之用途
+				MemNFService nfSvc = new MemNFService();
+				nfSvc.addNFtoHome(memVO.getMemID(),"歡迎加入揪咪大家庭","本動態作為第一次加入並且限定會員首頁顯示及留言之作用", null, today, 0);
 				res.sendRedirect("/ChuMeetWebsite/front-end/index.jsp");
+				
 
 				/*************************** 其他可能的錯誤處理 *************************************/
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				req.setAttribute("errorMsgs", errorMsgs);
-				RequestDispatcher failureView = req.getRequestDispatcher("login.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("register.jsp");
 				failureView.forward(req, res);
 			}
 		} else {
-			RequestDispatcher failureView = req.getRequestDispatcher("front-end/member/login.jsp");
+			RequestDispatcher failureView = req.getRequestDispatcher("front-end/member/register.jsp");
 			failureView.forward(req, res);
 		}
 
 	}
 
 	// 取得現在時間(java.sql.Date型態)
-	public static java.sql.Timestamp todayTime() {
-		java.util.Date now = new java.util.Date();
-		java.sql.Timestamp sqlDate = new java.sql.Timestamp(now.getTime());
-
-		return sqlDate;
-	}
-
+	  public static Timestamp nowTimestamp(){
+		  java.util.Date utildate=new java.util.Date();
+			java.sql.Date sqlDate=new java.sql.Date(utildate.getTime());
+			java.sql.Time sTime=new java.sql.Time(utildate.getTime());
+			java.sql.Timestamp stp=new java.sql.Timestamp(utildate.getTime());
+	       return stp;
+	  }
+	  
 	// 取得上傳照片
 	public byte[] getAvatarByPart(HttpServletRequest req) throws IllegalStateException, IOException, ServletException {
 		byte[] byteAvatar = null;
@@ -188,9 +197,9 @@ public class RegisterServlet extends HttpServlet {
 	// 取出上傳的檔案名稱 (因為API未提供method,所以必須自行撰寫)
 	public String getFileNameFromPart(Part part) {
 		String header = part.getHeader("content-disposition");
-		System.out.println("header=" + header); // 測試用
+//		System.out.println("header=" + header); // 測試用
 		String filename = new File(header.substring(header.lastIndexOf("=") + 2, header.length() - 1)).getName();
-		System.out.println("filename=" + filename); // 測試用
+//		System.out.println("filename=" + filename); // 測試用
 		if (filename.length() == 0) {
 			return null;
 		}
