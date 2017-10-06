@@ -135,6 +135,7 @@ public class MemberDAO implements MemberDAO_interface {
 			pstmt.setDouble(18, memberVO.getMemLat());
 			pstmt.setDouble(19, memberVO.getMemPriv());
 			pstmt.setInt(20, memberVO.getMemStatus());
+			pstmt.setInt(21, memberVO.getMemID());
 			System.out.println(pstmt);
 			pstmt.executeUpdate();
 

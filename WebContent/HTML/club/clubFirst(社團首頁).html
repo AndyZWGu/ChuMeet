@@ -38,23 +38,12 @@
 <!--  my styles  -->
 <!--@@@@@@@@@@@@@@@@@@@@@@@@@@ 自己的CSS用連結寫到這邊 @@@@@@@@@@@@@@@@@@@@@@@@@@@-->
 <!--社團的-->
-<style type="text/css"> 
-  p{font-size:16px!important;}  
+<link href="../src/club/css/clubfirst.css" rel="stylesheet">
 
-#fileselector {
-    margin: 10px; 
-}
-#upload-file-selector {
-    display:none;   
-}
-.margin-correction {
-    margin-right: 10px;   
-}
-</style>  
 <!--!!!!!!!!!!!!!!!!!!!!!!!!!! 放在最後一行優先權越高 !!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
 <!--#################### 單頁CSS路徑統一放在/src/xxx/css/xxx.css ###########-->
 <!--%%%%%%%%%%%%%%%%%% 第一行可以刪掉，那是activity(也就是敏道的活動頁)專用的CSS %%%%%-->
-<link href="../src/act/css/act.css" rel="stylesheet">
+<link href="../src/club/css/act.css" rel="stylesheet">
 </head>
 <!-- Head END -->
 
@@ -90,7 +79,6 @@
   </div>
 </div>
 <!-- END TOP BAR 2--> 
-
 
 
 
@@ -190,8 +178,8 @@
   <div class="col-xs-12 col-sm-6">
     <!--picture-->
 		  <div class="thumbnail">
-  			<a href="image/music.jpg" target="_blank">
-  			  <img src="image/music.jpg" alt="Nature" style="width:100%">
+  			<a href="../src/club/img/music.jpg" target="_blank" >
+  			  <img src="../src/club/img/music.jpg" alt="Nature" class="clubImg" >
   			  <div class="caption">
   			  </div>
   			</a>
@@ -384,7 +372,11 @@
                       </div>		              
                     </div>
                     
-					<div class="col-md-12"><div style="float:right"><button>more</button></div></div>   
+					<div class="col-md-12">
+					<div class="moreBtn">
+					<button>more</button>
+					</div>
+					</div>   
                     
                     <!--start member news -->
                     <h2>成員異動</h2>
@@ -442,7 +434,11 @@
                         <p>2017年12月12日</p>
                       </div>                  
                     </div>
-          <div class="col-md-12"><div style="float:right"><button>more</button></div></div>
+          <div class="col-md-12">
+          <div class="moreBtn">
+          <button>more</button>
+          </div>
+          </div>
                     <!--END社團最近活動-->
                   </div>
                   <!-- END RECENT NEWS -->                            

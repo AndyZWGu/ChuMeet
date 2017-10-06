@@ -310,7 +310,7 @@
             <p class="lead text-center">看看現在熱門的活動有什麼吧！</p>
             <!-- item -->
             <div class="col-md-3">
-                <div class="owl-carousel3">
+                <div class="">
                     <div class="recent-work-item menu-images">
                         <em>
                             <img src="../HTML/src/index/500x314-exactly.jpg" alt="Amazing Project" class="img-responsive">
@@ -325,7 +325,7 @@
             <!-- item -->
             <!-- item -->
             <div class="col-md-3">
-                <div class="owl-carousel3">
+                <div class="">
                     <div class="recent-work-item menu-images">
                         <em>
                                             <img src="../HTML/src/index/500x314-music.jpg" alt="Amazing Project" class="img-responsive">
@@ -341,7 +341,7 @@
             <!-- item -->
             <!-- item -->
             <div class="col-md-3">
-                <div class="owl-carousel3">
+                <div class="">
                     <div class="recent-work-item menu-images">
                         <em>
                                 <img src="../HTML/src/index/img_2/500x300.jpg" alt="Amazing Project" class="img-responsive">
@@ -357,7 +357,7 @@
             <!-- item -->
             <!-- item -->
             <div class="col-md-3">
-                <div class="owl-carousel3">
+                <div class="">
                     <div class="recent-work-item menu-images">
                         <em>
                                 <img src="../HTML/src/index/fisu.jpg" alt="Amazing Project" class="img-responsive">

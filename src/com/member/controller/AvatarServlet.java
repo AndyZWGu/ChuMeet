@@ -27,7 +27,6 @@ import com.member.model.*;
 /**
  * Servlet implementation class AvatarServlet
  */
-@WebServlet("/AvatarServlet")
 public class AvatarServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	

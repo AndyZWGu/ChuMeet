@@ -63,6 +63,114 @@ public class MemberService {
 
 		return memberVO;
 	}
+	
+	public MemberVO updateTypeMember(MemberVO memberVO,Integer memberType) {
+
+		memberVO.setMemID(memberVO.getMemID());
+		memberVO.setMemEmail(memberVO.getMemEmail());
+		memberVO.setMemPw(memberVO.getMemPw());
+		memberVO.setMemberType(memberType);
+		memberVO.setMemLv(memberVO.getMemLv());
+		memberVO.setMemExp(memberVO.getMemExp());
+		memberVO.setMemPt(memberVO.getMemPt());
+		memberVO.setMemName(memberVO.getMemName());
+		memberVO.setMemGender(memberVO.getMemGender());
+		memberVO.setMemBD(memberVO.getMemBD());
+		memberVO.setMemPhone(memberVO.getMemPhone());
+		memberVO.setMemAvatar(memberVO.getMemAvatar());
+		memberVO.setMemJoinDate(memberVO.getMemJoinDate());
+		memberVO.setMemLoginNum(memberVO.getMemLoginNum()+1);
+		memberVO.setMemLocBorn(memberVO.getMemLocBorn());
+		memberVO.setMemLocLive(memberVO.getMemLocLive());
+		memberVO.setMemInt(memberVO.getMemInt());
+		memberVO.setMemLong(memberVO.getMemLong());
+		memberVO.setMemLat(memberVO.getMemLat());
+		memberVO.setMemPriv(memberVO.getMemPriv());
+		memberVO.setMemStatus(memberVO.getMemStatus());
+		dao.update(memberVO);
+		return memberVO;
+	}
+	
+	public MemberVO updateInfoMember(MemberVO memberVO,String memPw,String memName,String memLocBorn,String memLocLive) {
+
+		memberVO.setMemID(memberVO.getMemID());
+		memberVO.setMemEmail(memberVO.getMemEmail());
+		memberVO.setMemPw(memPw);
+		memberVO.setMemberType(memberVO.getMemberType());
+		memberVO.setMemLv(memberVO.getMemLv());
+		memberVO.setMemExp(memberVO.getMemExp());
+		memberVO.setMemPt(memberVO.getMemPt());
+		memberVO.setMemName(memName);
+		memberVO.setMemGender(memberVO.getMemGender());
+		memberVO.setMemBD(memberVO.getMemBD());
+		memberVO.setMemPhone(memberVO.getMemPhone());
+		memberVO.setMemAvatar(memberVO.getMemAvatar());
+		memberVO.setMemJoinDate(memberVO.getMemJoinDate());
+		memberVO.setMemLoginNum(memberVO.getMemLoginNum()+1);
+		memberVO.setMemLocBorn(memLocBorn);
+		memberVO.setMemLocLive(memLocLive);
+		memberVO.setMemInt(memberVO.getMemInt());
+		memberVO.setMemLong(memberVO.getMemLong());
+		memberVO.setMemLat(memberVO.getMemLat());
+		memberVO.setMemPriv(memberVO.getMemPriv());
+		memberVO.setMemStatus(memberVO.getMemStatus());
+		dao.update(memberVO);
+		return memberVO;
+	}
+	
+	public MemberVO updateSettingMember(MemberVO memberVO,String memInt,Integer memPriv) {
+
+		memberVO.setMemID(memberVO.getMemID());
+		memberVO.setMemEmail(memberVO.getMemEmail());
+		memberVO.setMemPw(memberVO.getMemPw());
+		memberVO.setMemberType(memberVO.getMemberType());
+		memberVO.setMemLv(memberVO.getMemLv());
+		memberVO.setMemExp(memberVO.getMemExp());
+		memberVO.setMemPt(memberVO.getMemPt());
+		memberVO.setMemName(memberVO.getMemName());
+		memberVO.setMemGender(memberVO.getMemGender());
+		memberVO.setMemBD(memberVO.getMemBD());
+		memberVO.setMemPhone(memberVO.getMemPhone());
+		memberVO.setMemAvatar(memberVO.getMemAvatar());
+		memberVO.setMemJoinDate(memberVO.getMemJoinDate());
+		memberVO.setMemLoginNum(memberVO.getMemLoginNum()+1);
+		memberVO.setMemLocBorn(memberVO.getMemLocBorn());
+		memberVO.setMemLocLive(memberVO.getMemLocLive());
+		memberVO.setMemInt(memInt);
+		memberVO.setMemLong(memberVO.getMemLong());
+		memberVO.setMemLat(memberVO.getMemLat());
+		memberVO.setMemPriv(memPriv);
+		memberVO.setMemStatus(memberVO.getMemStatus());
+		dao.update(memberVO);
+		return memberVO;
+	}
+	
+	public void updateLoginNumMember(MemberVO memberVO) {
+
+		memberVO.setMemID(memberVO.getMemID());
+		memberVO.setMemEmail(memberVO.getMemEmail());
+		memberVO.setMemPw(memberVO.getMemPw());
+		memberVO.setMemberType(memberVO.getMemberType());
+		memberVO.setMemLv(memberVO.getMemLv());
+		memberVO.setMemExp(memberVO.getMemExp());
+		memberVO.setMemPt(memberVO.getMemPt());
+		memberVO.setMemName(memberVO.getMemName());
+		memberVO.setMemGender(memberVO.getMemGender());
+		memberVO.setMemBD(memberVO.getMemBD());
+		memberVO.setMemPhone(memberVO.getMemPhone());
+		memberVO.setMemAvatar(memberVO.getMemAvatar());
+		memberVO.setMemJoinDate(memberVO.getMemJoinDate());
+		memberVO.setMemLoginNum(memberVO.getMemLoginNum()+1);
+		memberVO.setMemLocBorn(memberVO.getMemLocBorn());
+		memberVO.setMemLocLive(memberVO.getMemLocLive());
+		memberVO.setMemInt(memberVO.getMemInt());
+		memberVO.setMemLong(memberVO.getMemLong());
+		memberVO.setMemLat(memberVO.getMemLat());
+		memberVO.setMemPriv(memberVO.getMemPriv());
+		memberVO.setMemStatus(memberVO.getMemStatus());
+		dao.update(memberVO);
+
+	}
 
 	public MemberVO updateMember(Integer memID,
 			String memEmail,

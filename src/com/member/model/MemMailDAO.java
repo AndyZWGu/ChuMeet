@@ -8,6 +8,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.member.controller.JdbcUtil_CompositeQuery_Member;
+
 public class MemMailDAO implements MemMailDAO_interface {
 
 	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
@@ -176,8 +178,8 @@ public class MemMailDAO implements MemMailDAO_interface {
 			while (rs.next()) {
 				memMailVO = new MemMailVO();
 				memMailVO.setMemMailID(rs.getInt("memMailID"));
-				memMailVO.setReceiver(rs.getInt("memID1"));
-				memMailVO.setAuthor(rs.getInt("memID2"));
+				memMailVO.setReceiver(rs.getInt("receiver"));
+				memMailVO.setAuthor(rs.getInt("author"));
 				memMailVO.setMailTitle(rs.getString("mailTitle"));
 				memMailVO.setMailDate(rs.getTimestamp("mailDate"));
 				memMailVO.setMailContent(rs.getString("mailContent"));
@@ -232,8 +234,8 @@ public class MemMailDAO implements MemMailDAO_interface {
 			while (rs.next()) {
 				memMailVO = new MemMailVO();
 				memMailVO.setMemMailID(rs.getInt("memMailID"));
-				memMailVO.setReceiver(rs.getInt("memID1"));
-				memMailVO.setAuthor(rs.getInt("memID2"));
+				memMailVO.setReceiver(rs.getInt("receiver"));
+				memMailVO.setAuthor(rs.getInt("author"));
 				memMailVO.setMailTitle(rs.getString("mailTitle"));
 				memMailVO.setMailDate(rs.getTimestamp("mailDate"));
 				memMailVO.setMailContent(rs.getString("mailContent"));
@@ -273,8 +275,62 @@ public class MemMailDAO implements MemMailDAO_interface {
 
 	@Override
 	public List<MemMailVO> getAll(Map<String, String[]> map) {
-		// TODO Auto-generated method stub
-		return null;
+		List<MemMailVO> list = new ArrayList<MemMailVO>();
+		MemMailVO memMailVO = null;
+	
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+	
+		try {
+			
+			con = ds.getConnection();
+			String finalSQL = "select * from memMail "
+		          + JdbcUtil_CompositeQuery_Member.get_WhereCondition("MemMail", map)
+		          +"order by mailDate Desc";
+			pstmt = con.prepareStatement(finalSQL);
+			System.out.println("〈〈finalSQL(by DAO) = "+finalSQL);
+			rs = pstmt.executeQuery();
+	
+			while (rs.next()) {
+				memMailVO = new MemMailVO();
+				memMailVO.setMemMailID(rs.getInt("memMailID"));
+				memMailVO.setReceiver(rs.getInt("receiver"));
+				memMailVO.setAuthor(rs.getInt("author"));
+				memMailVO.setMailTitle(rs.getString("mailTitle"));
+				memMailVO.setMailDate(rs.getTimestamp("mailDate"));
+				memMailVO.setMailContent(rs.getString("mailContent"));
+				list.add(memMailVO); // Store the row in the list
+			}
+	
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
 	}
 }
 

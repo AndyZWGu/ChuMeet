@@ -56,15 +56,24 @@
   </filter-mapping>
   <!-- 訪客查看會員頁面filter -->
   <filter>
-    <filter-name>privFilter</filter-name>
+    <filter-name>PrivFilter</filter-name>
     <filter-class>filters.MemPrivFilter</filter-class>
   </filter>
   <filter-mapping>
-    <filter-name>privFilter</filter-name>
+    <filter-name>PrivFilter</filter-name>
     <url-pattern>/front-end/member/guestHome.do</url-pattern>
   </filter-mapping>
   <!-- /////////////////////////////////////////////////////////////////////////// -->
   <!-- **********會員登入登出註冊********** -->
+  <!-- 會員驗證信箱 -->
+    <servlet>
+    <servlet-name>VerifyEmailServlet</servlet-name>
+    <servlet-class>com.member.controller.verifyEmailServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>VerifyEmailServlet</servlet-name>
+    <url-pattern>/front-end/member/verifyEmail.do</url-pattern>
+  </servlet-mapping>
   <!-- 首頁 -->
   <servlet>
     <servlet-name>indexServlet</servlet-name>
@@ -111,6 +120,15 @@
     <servlet-name>MemberGuestServlet</servlet-name>
     <url-pattern>/front-end/member/guestHome.do</url-pattern>
   </servlet-mapping>
+    <!-- **********訪客查看會員動態細節********** -->
+  <servlet>
+    <servlet-name>MemberGuestNFServlet</servlet-name>
+    <servlet-class>com.member.controller.GuestNFServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberGuestNFServlet</servlet-name>
+    <url-pattern>/front-end/member/guestNF.do</url-pattern>
+  </servlet-mapping>
   <!-- /////////////////////////////////////////////////////////////////////////// -->
   <!-- **********會員查看自己頁面********** -->
   <servlet>
@@ -121,6 +139,96 @@
     <servlet-name>MemberHomeServlet</servlet-name>
     <url-pattern>/front-end/member/memberHome.do</url-pattern>
   </servlet-mapping>
+  <!-- 行事曆 -->
+  <servlet>
+    <servlet-name>MemberCalendarServlet</servlet-name>
+    <servlet-class>com.member.controller.MemberHomeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberCalendarServlet</servlet-name>
+    <url-pattern>/front-end/member/memberCalendar.do</url-pattern>
+  </servlet-mapping> 
+  <!-- 信箱 -->
+  <servlet>
+    <servlet-name>MemberMailServlet</servlet-name>
+    <servlet-class>com.member.controller.MemberHomeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberMailServlet</servlet-name>
+    <url-pattern>/front-end/member/memberMail.do</url-pattern>
+  </servlet-mapping>
+  <!-- 動態 -->
+  <servlet>
+    <servlet-name>MemberNFServlet</servlet-name>
+    <servlet-class>com.member.controller.MemberHomeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberNFServlet</servlet-name>
+    <url-pattern>/front-end/member/memberNF.do</url-pattern>
+  </servlet-mapping>
+  <!-- 社群管理 -->
+  <servlet>
+    <servlet-name>MemberCommunityServlet</servlet-name>
+    <servlet-class>com.member.controller.MemberHomeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberCommunityServlet</servlet-name>
+    <url-pattern>/front-end/member/memberCommunity.do</url-pattern>
+  </servlet-mapping>
+  <!-- 等級 -->
+  <servlet>
+    <servlet-name>MemberLvServlet</servlet-name>
+    <servlet-class>com.member.controller.MemberHomeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberLvServlet</servlet-name>
+    <url-pattern>/front-end/member/memberLv.do</url-pattern>
+  </servlet-mapping>
+  <!-- 成就 -->
+  <servlet>
+    <servlet-name>MemberAchServlet</servlet-name>
+    <servlet-class>com.member.controller.MemberHomeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberAchServlet</servlet-name>
+    <url-pattern>/front-end/member/memberAch.do</url-pattern>
+  </servlet-mapping>
+  <!-- 獎賞 -->
+  <servlet>
+    <servlet-name>MemberRewardServlet</servlet-name>
+    <servlet-class>com.member.controller.MemberHomeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberRewardServlet</servlet-name>
+    <url-pattern>/front-end/member/memberReward.do</url-pattern>
+  </servlet-mapping>
+  <!-- 評價 -->
+  <servlet>
+    <servlet-name>MemberStarServlet</servlet-name>
+    <servlet-class>com.member.controller.MemberHomeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberStarServlet</servlet-name>
+    <url-pattern>/front-end/member/memberStar.do</url-pattern>
+  </servlet-mapping>
+  <!-- 個人基本資訊 -->
+  <servlet>
+    <servlet-name>MemberInfoServlet</servlet-name>
+    <servlet-class>com.member.controller.MemberHomeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberInfoServlet</servlet-name>
+    <url-pattern>/front-end/member/memberInfo.do</url-pattern>
+  </servlet-mapping>
+  <!-- 個人頁面設定 -->
+  <servlet>
+    <servlet-name>MemberSettingServlet</servlet-name>
+    <servlet-class>com.member.controller.MemberHomeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberSettingServlet</servlet-name>
+    <url-pattern>/front-end/member/memberSetting.do</url-pattern>
+  </servlet-mapping>
   <!-- /////////////////////////////////////////////////////////////////////////// -->
   <!-- **********搜尋會員********** -->
   <servlet>
@@ -130,6 +238,16 @@
   <servlet-mapping>
     <servlet-name>MemberSearchServlet</servlet-name>
     <url-pattern>/front-end/member/memberSearch.do</url-pattern>
+  </servlet-mapping>
+  <!-- /////////////////////////////////////////////////////////////////////////// -->
+  <!-- **********會員動態首頁********** -->
+  <servlet>
+    <servlet-name>MemberNFSearchServlet</servlet-name>
+    <servlet-class>com.member.controller.MemberNFSearchServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberNFSearchServlet</servlet-name>
+    <url-pattern>/front-end/member/memberNFSearch.do</url-pattern>
   </servlet-mapping>
   <!-- /////////////////////////////////////////////////////////////////////////// -->
   <!-- **********會員大頭貼獲取********** -->
@@ -156,6 +274,15 @@
   <servlet-mapping>
     <servlet-name>MemberSearchAvatarServlet</servlet-name>
     <url-pattern>/front-end/member/memberSearch/avatar.do</url-pattern>
+  </servlet-mapping>
+  <!-- **********動態貼圖獲取********** -->
+   <servlet>
+    <servlet-name>MemberNFSearchAvatarServlet</servlet-name>
+    <servlet-class>com.member.controller.NFAvatarServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberNFSearchAvatarServlet</servlet-name>
+    <url-pattern>/front-end/member/memberNFSearch/avatar.do</url-pattern>
   </servlet-mapping>
    <!-- /////////////////////////////////////////////////////////////////////////// -->
 </web-app>

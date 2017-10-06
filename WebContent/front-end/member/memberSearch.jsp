@@ -62,16 +62,22 @@
 								<h2>進階查詢</h2>
 							</div>
 							<div class="input-group">
-								<h6>查詢時間</h6>
 								<!-- 							<div class="input-daterange input-group" id="datepicker">
 								<input type="text" class="input-sm form-control" name="start"
 									placeholder="起始日" /> <span class="input-group-addon">to</span>
 								<input type="text" class="input-sm form-control" name="end"
 									placeholder="結束日" />
 							</div> -->
-								<input type="date" class="form-control" placeholder="生日"
-									name="memBD"> <input type="date" class="form-control"
-									placeholder="加入日期" name="memJoinDate">
+							<h6>生日</h6>
+								<input type="date" class="input-sm form-control" placeholder="生日"
+									name="memBD">
+							<h6>加入時間範圍</h6>
+							<div class="input-daterange input-group" id="datepicker">
+								<input type="text" class="input-sm form-control" name="start"
+									placeholder="起始日" /> <span class="input-group-addon">to</span>
+								<input type="text" class="input-sm form-control" name="end"
+									placeholder="結束日" />
+							</div>
 							</div>
 							<div class="input-group">
 								<h6>追蹤數：</h6>
@@ -190,10 +196,10 @@
 								</span>
 							</div>
 						</form>
-						<%@ include file="pageMessage.file"%>
+						<%@ include file="memberSearchPageMessage.file"%>
 						<c:forEach items="${memSearchList}" var="memSearch"
 							begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" varStatus="status">
-							<c:if test="${memSearch.memID != memVO.memID}">
+
 							<div class="search-result-item col-sm-12 col-md-12">
 								<div class="col-sm-3 col-md-3">
 									<img
@@ -202,18 +208,21 @@
 								</div>
 								<div class="col-sm-9 col-md-9">
 									<h4>
-										<a
-											href="<%=request.getContextPath()%>/front-end/member/guestHome.do?memID=${memSearch.memID}">${memSearch.memName}</a>
+										<c:if test="${memSearch.memID != memVO.memID}">
+											<a href="<%=request.getContextPath()%>/front-end/member/guestHome.do?memID=${memSearch.memID}">${memSearch.memName}</a>
+										</c:if>
+										<c:if test="${memSearch.memID == memVO.memID}">
+											<a href="<%=request.getContextPath()%>/front-end/member/memberHome.do">${memSearch.memName}</a>
+										</c:if>
 									</h4>
 									<p>${memSearch.memInt}</p>
 								</div>
 							</div>
-							</c:if>
 						</c:forEach>
 					</div>
 				</div>
 			</div>
-			<%@ include file="pagination.file"%>
+			<%@ include file="memberSearchPagination.file"%>
 			<!--Result-->
 			<!--分頁-->
 			<!--             <div class="row">
@@ -244,7 +253,13 @@
 	<c:import url="/front-end/publicJS.jsp">
 	</c:import>
 	<!-- 共用Js -->
-
+			<script src="<%=request.getContextPath()%>/HTML/src/member/js/bootstrap-datepicker.min.js"></script>
+	<script type="text/javascript">
+		$('.input-daterange input').each(function() {
+			$(this).datepicker('clearDates');
+		});
+	</script>
+	
 </body>
 <!-- END BODY -->
 

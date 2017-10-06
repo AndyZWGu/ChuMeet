@@ -5,10 +5,7 @@
 <%@ page import="javax.servlet.http.HttpSession"%>
 <%@ page import="com.member.model.*"%>
 <%@ page import="java.util.*"%>
-<%
-	List<MemMBVO> memMBList = (List) session.getAttribute("memMBList");
-	List<MemberVO> mbMemNameList = (List) session.getAttribute("mbMemNameList");
-%>
+
 <html>
 
 <!-- Head BEGIN -->
@@ -26,7 +23,9 @@
 <link
 	href="<%=request.getContextPath()%>/HTML/src/member/css/memHome.css"
 	rel="stylesheet">
-
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.0/sweetalert2.min.css"
+	rel="stylesheet">
 </head>
 <!-- Head END -->
 
@@ -41,206 +40,82 @@
 
 	<!-- Header END -->
 
-	<!--主頁面要修改的都在這下面-->
+	<!--主頁面-->
 	<div class="main">
 		<div class="container">
 			<div class="row profile">
 				<c:import url="/front-end/member/memberHomeSidebar.jsp">
 				</c:import>
-				<div class="col-md-9 wow fadeInRight" data-wow-delay=".05s"
-					data-wow-duration=".1">
+				<!-- 首頁 -->
+				<c:if test="${checkedSidbar == 'memHome'}">
+					<c:import url="/front-end/member/memberHomeContent.jsp">
+					</c:import>
+				</c:if>
+				<!-- 行事曆 -->
+				<c:if test="${checkedSidbar == 'memCalendar'}">
+					<c:import url="/front-end/member/memberCalendarContent.jsp">
+					</c:import>
+				</c:if>
+				<!-- 收件夾 -->
+				<c:if test="${checkedSidbar == 'memMail'}">
+					<c:import url="/front-end/member/memberMailContent.jsp">
+					</c:import>
+				</c:if>
+				<c:if test="${checkedSidbar == 'memMailDetail'}">
+					<c:import url="/front-end/member/memberMailDetailContent.jsp">
+					</c:import>
+				</c:if>
+				<!-- 我的動態 -->
+				<c:if test="${checkedSidbar == 'memNF'}">
+					<c:import url="/front-end/member/memberNFContent.jsp">
+					</c:import>
+				</c:if>
+				<c:if test="${checkedSidbar == 'memNFDetail'}">
+					<c:import url="/front-end/member/memberNFDetailContent.jsp">
+					</c:import>
+				</c:if>
+				<!-- 社群管理 -->
+				<c:if test="${checkedSidbar == 'memCommunity'}">
+					<c:import url="/front-end/member/memberCommunityContent.jsp">
+					</c:import>
+				</c:if>
+				<!-- 等級 -->
+				<c:if test="${checkedSidbar == 'memLv'}">
+					<c:import url="/front-end/member/memberLvContent.jsp">
+					</c:import>
+				</c:if>
+				<!-- 成就 -->
+				<c:if test="${checkedSidbar == 'memAch'}">
+					<c:import url="/front-end/member/memberAchContent.jsp">
+					</c:import>
+				</c:if>
+				<!-- 獎賞 -->
+				<c:if test="${checkedSidbar == 'memReward'}">
+					<c:import url="/front-end/member/memberRewardContent.jsp">
+					</c:import>
+				</c:if>
+				<!-- 評價 -->
+				<c:if test="${checkedSidbar == 'memStar'}">
+					<c:import url="/front-end/member/memberStarContent.jsp">
+					</c:import>
+				</c:if>
+				<!-- 基本資訊 -->
+				<c:if test="${checkedSidbar == 'memInfo'}">
+					<c:import url="/front-end/member/memberInfoContent.jsp">
+					</c:import>
+				</c:if>
+				<!-- 個人頁面設定 -->
+				<c:if test="${checkedSidbar == 'memSetting'}">
+					<c:import url="/front-end/member/memberSettingContent.jsp">
+					</c:import>
+				</c:if>
 
-					<div class="row profile-content blog-item">
-						<h2>關於我</h2>
-						<div class="introduction">${memVO.memInt}</div>
-						<hr class="colorgraph">
-						<!--********************首頁********************-->
-						<!-- BEGIN CONTENT -->
-						<div class="col-md-12 col-sm-12">
-							<ul class="nav nav-tabs">
-								<li class="active"><a data-toggle="tab" href="#home">參加中的活動</a></li>
-								<li><a data-toggle="tab" href="#act">參加的社團</a></li>
-							</ul>
 
-							<div class="tab-content">
-								<div id="act" class="tab-pane fade in active">
-									<div class="container-fluid bg-3 text-center reward">
-										<div class="row">
-											<div class="col-sm-4">
-												<img
-													src="<%=request.getContextPath()%>/front-end/member/memberHome/avatar.do?memID=${memVO.memID}"
-													alt="Image" class="img-responsive thumbnail">
-												<p>Lorem ipsum..</p>
-											</div>
-											<div class="col-sm-4">
-												<img
-													src="<%=request.getContextPath()%>/front-end/member/memberHome/avatar.do?memID=${memVO.memID}"
-													alt="Image" class="img-responsive thumbnail">
-												<p>Lorem ipsum..</p>
-											</div>
-											<div class="col-sm-4">
-												<img
-													src="<%=request.getContextPath()%>/front-end/member/memberHome/avatar.do?memID=${memVO.memID}"
-													alt="Image" class="img-responsive thumbnail">
-												<p>Lorem ipsum..</p>
-											</div>
-											<div class="row">
-												<a href="http://www.google.com"><input type="button"
-													class="btn btn-primary" value="看更多"></a>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div id="club" class="tab-pane fade">
-									<div class="container-fluid bg-3 text-center reward">
-										<div class="row">
-											<div class="col-sm-4">
-												<img
-													src="<%=request.getContextPath()%>/front-end/member/memberHome/avatar.do?memID=${memVO.memID}"
-													alt="Image" class="img-responsive thumbnail">
-												<p>Lorem ipsum..</p>
-											</div>
-											<div class="col-sm-4">
-												<img
-													src="<%=request.getContextPath()%>/front-end/member/memberHome/avatar.do?memID=${memVO.memID}"
-													alt="Image" class="img-responsive thumbnail">
-												<p>Lorem ipsum..</p>
-											</div>
-											<div class="col-sm-4">
-												<img
-													src="<%=request.getContextPath()%>/front-end/member/memberHome/avatar.do?memID=${memVO.memID}"
-													alt="Image" class="img-responsive thumbnail">
-												<p>Lorem ipsum..</p>
-											</div>
-											<div class="row">
-												<a href="http://www.google.com"><input type="button"
-													class="btn btn-primary" value="看更多"></a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<hr class="colorgraph">
-						</div>
-						<!-- END CONTENT -->
-						<!--********************首頁********************-->
-						<!--**************************留言板**************************-->
-						<h2>留言板</h2>
-						<div class="comments wow fadeInRight" data-wow-delay=".05s"
-							data-wow-duration=".1">
-							<c:forEach items="${memMBList}" var="memMBList"
-								varStatus="status">
-								<div class="media">
-									<c:if
-										test="${mbMemNameList[status.index].memID != memVO.memID}">
-										<a
-											href="<%=request.getContextPath()%>/front-end/member/guestHome.do?memID=${memMBList.memID}"
-											class="pull-left"> <img
-											src="<%=request.getContextPath()%>/front-end/member/guestHome/avatar.do?memID=${memMBList.memID}"
-											alt="" class="media-object">
-											<p>${mbMemNameList[status.index].memName}</p>
-										</a>
-									</c:if>
-									<c:if
-										test="${mbMemNameList[status.index].memID == memVO.memID}">
-										<a
-											href="<%=request.getContextPath()%>/front-end/member/memberHome.do?memID=${memMBList.memID}"
-											class="pull-left"> <img
-											src="<%=request.getContextPath()%>/front-end/member/memberHome/avatar.do?memID=${memMBList.memID}"
-											alt="" class="media-object">
-											<p>${mbMemNameList[status.index].memName}</p>
-										</a>
-									</c:if>
-									<div class="media-body">
-										<p>${memMBList.mbContent}</p>
-										<span>${memMBList.mbDate}</span>
-										<div class="col-sm-12 text-right">
-											<c:if
-												test="${mbMemNameList[status.index].memID != memVO.memID}">
-												<input type="button" value="檢舉"
-													class="btn btn-danger btn-xs">
-											</c:if>
-										</div>
-									</div>
-								</div>
-							</c:forEach>
-							<div class="media">
-								<a href="javascript:;" class="pull-left"> <img
-									src="../src/member/img/avatar/default-avatar.png" alt=""
-									class="media-object">
-									<p>喵星人</p>
-								</a>
-								<div class="media-body">
-									<h4 class="media-heading">
-										歡迎留言<span>5天前 / <input type="button" value="回復"
-											class="btn btn-success btn-sm"></span>
-									</h4>
-									<p>想回或想說甚麼都歡迎囉~</p>
-									<!-- Nested media object -->
-									<div class="media">
-										<a href="javascript:;" class="pull-left"> <img
-											src="../src/member/img/dog-wtf.jpg" alt=""
-											class="media-object">
-											<p>狗本大隊長</p>
-										</a>
-										<div class="media-body">
-											<h4 class="media-heading">
-												ㄟㄟ <span>三小時前 / </span>
-											</h4>
-											<p>邀請你了!記得我好友喔~</p>
-											<div class="col-sm-12 text-right">
-												<input type="button" value="檢舉"
-													class="btn btn-danger btn-xs">
-											</div>
-										</div>
-									</div>
-									<!--end media-->
-									<div class="media">
-										<a href="javascript:;" class="pull-left"> <img
-											src="../src/member/img/god.jpg" alt="" class="media-object">
-											<p>鸚鵡兄弟</p>
-										</a>
-										<div class="media-body">
-											<h4 class="media-heading">
-												跟你說 <span>一小時前o / </span>
-											</h4>
-											<p>鸚鵡seafood最厲害!讚!</p>
-											<div class="col-sm-12 text-right">
-												<input type="button" value="檢舉"
-													class="btn btn-danger btn-xs">
-											</div>
-										</div>
-									</div>
-									<!--end media-->
-								</div>
-							</div>
-							<!--end media-->
-							<div class="media">
-								<a href="javascript:;" class="pull-left"> <img
-									src="../src/member/img/dog-wtf.jpg" alt="" class="media-object">
-									<p>狗本大隊長</p>
-								</a>
-								<div class="media-body">
-									<h4 class="media-heading">
-										安安 <span>July 25,2017 / <input type="button" value="回復"
-											class="btn btn-success btn-sm"></span>
-									</h4>
-									<p>路過到此一遊</p>
-									<div class="col-sm-12 text-right">
-										<input type="button" value="檢舉" class="btn btn-danger btn-xs">
-									</div>
-								</div>
-							</div>
-							<!--end media-->
-						</div>
-						<!--**************************留言版喔喔**************************-->
-					</div>
-				</div>
 			</div>
 		</div>
 		<br> <br>
 	</div>
-	<!--主頁面要修改的都在這上面-->
+	<!--主頁面->
 
 	<!-- BEGIN FOOTER -->
 	<c:import url="/front-end/footer.jsp">
@@ -251,7 +126,155 @@
 	<c:import url="/front-end/publicJS.jsp">
 	</c:import>
 	<!-- 共用Js -->
+	<script
+		src="<%=request.getContextPath()%>/HTML/src/member/js/validator.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.0/sweetalert2.min.js"
+		type="text/javascript"></script>
+	<script type="text/javascript">
+		//***************************確認按鈕***************************
+		//暫時失效
+		$('#ＸＸＸsubmitBtnＸＸＸ').on('click', function() {
+			swal({
+				title : '修改確認',
+				text : "您將修改會員資料!",
+				type : 'info',
+				showCancelButton : true,
+				confirmButtonColor : '#3085d6',
+				cancelButtonColor : '#d33',
+				confirmButtonText : '確定',
+				cancelButtonText : '取消',
+				confirmButtonClass : 'btn btn-success',
+				cancelButtonClass : 'btn btn-danger',
+				buttonsStyling : false
+			}).then(function() {
+				swal('成功!', '您已成功修改會員資料', 'success')
+				resuit("changeInfo");
+			}, function(dismiss) {
+				// dismiss can be 'cancel', 'overlay',
+				// 'close', and 'timer'
+				if (dismiss === 'cancel') {
+					swal('已取消', '點擊OK返回 :)', 'error')
+				}
+			})
+		})
+		//***************************確認按鈕***************************
 
+		function resuit(e) {
+			if (e == "changeInfo") {
+				// alert("追隨");
+				setTimeout(function() {
+					/* memInfoForm.submit(); */
+				}, 1000);
+			}
+		}
+		//AJAX , 以下兩個用在信箱驗證與手機驗證
+
+		/* ajax */
+		var req;
+		var isIE;
+		function doCompletion() {
+			console.log("ajax!!!!");
+			var url = "memberInfo.do?verify=email";
+			req = initRequest();
+			req.open("GET", url, true);
+			/* req.onreadystatechange = callback; */
+			req.send(null);
+		}
+
+		function initRequest() {
+			if (window.XMLHttpRequest) {
+				if (navigator.userAgent.indexOf('MSIE') != -1) {
+					isIE = true;
+				}
+				return new XMLHttpRequest();
+			} else if (window.ActiveXObject) {
+				isIE = true;
+				return new ActiveXObject("Microsoft.XMLHTTP");
+			}
+		}
+		/* ajax */
+		function verifyEMail() {
+			swal({
+				title : '郵件驗證',
+				text : "您將驗證當前信箱!",
+				type : 'info',
+				showCancelButton : true,
+				confirmButtonColor : '#3085d6',
+				cancelButtonColor : '#d33',
+				confirmButtonText : '確定',
+				cancelButtonText : '取消',
+				confirmButtonClass : 'btn btn-success',
+				cancelButtonClass : 'btn btn-danger',
+				buttonsStyling : false
+			}).then(function() {
+				swal('已寄送!', '請至信箱查收驗證信.', 'success')
+				doCompletion();
+			}, function(dismiss) {
+				// dismiss can be 'cancel', 'overlay',
+				// 'close', and 'timer'
+				if (dismiss === 'cancel') {
+					swal('已取消', '點擊OK返回 :)', 'error')
+				}
+			})
+		}
+		
+		function memInfoChange() {
+			var memInfoForm = document.getElementById("memInfoForm");
+			swal({
+				title : '修改確認',
+				text : "您將修改當前會員資料!",
+				type : 'info',
+				showCancelButton : true,
+				confirmButtonColor : '#3085d6',
+				cancelButtonColor : '#d33',
+				confirmButtonText : '確定',
+				cancelButtonText : '取消',
+				confirmButtonClass : 'btn btn-success',
+				cancelButtonClass : 'btn btn-danger',
+				buttonsStyling : false
+			}).then(function() {
+				memInfoForm.submit();
+			}, function(dismiss) {
+				// dismiss can be 'cancel', 'overlay',
+				// 'close', and 'timer'
+				if (dismiss === 'cancel') {
+					swal('已取消', '點擊OK返回 :)', 'error')
+				}
+			})
+		}
+		
+		function memSettingChange() {
+			var memSettingForm = document.getElementById("memSettingForm");
+			swal({
+				title : '修改確認',
+				text : "您將修改當前會員資料!",
+				type : 'info',
+				showCancelButton : true,
+				confirmButtonColor : '#3085d6',
+				cancelButtonColor : '#d33',
+				confirmButtonText : '確定',
+				cancelButtonText : '取消',
+				confirmButtonClass : 'btn btn-success',
+				cancelButtonClass : 'btn btn-danger',
+				buttonsStyling : false
+			}).then(function() {
+				memSettingForm.submit();
+			}, function(dismiss) {
+				// dismiss can be 'cancel', 'overlay',
+				// 'close', and 'timer'
+				if (dismiss === 'cancel') {
+					swal('已取消', '點擊OK返回 :)', 'error')
+				}
+			})
+		}
+
+		function init() {
+			var memInfoForm = document.getElementById("memInfoForm");
+		}
+
+		window.onload = init;
+	</script>
 </body>
 <!-- END BODY -->
 

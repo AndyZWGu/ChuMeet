@@ -26,7 +26,7 @@ public class MemNFDAO implements MemNFDAO_interface {
 	private static final String INSERT_STMT = 
 			"INSERT INTO memNF VALUES (MEMNF_SEQ.NEXTVAL,?,?,?,?,?,?,?)";
 		private static final String GET_ALL_STMT = 
-			"SELECT * FROM memNF";
+			"SELECT * FROM memNF where nfstatus=1 order by nfDate Desc";
 		private static final String GET_ONE_STMT = 
 			"SELECT * FROM memNF where memNFID = ?";
 		private static final String DELETE = 
@@ -35,7 +35,7 @@ public class MemNFDAO implements MemNFDAO_interface {
 			"UPDATE memNF set nfTitle=?, nfContent=?, nfPic=?, nfDate=?, nfViews=?, nfStatus=? where memNFID = ?";
 
 		private static final String GET_ALL_BY_MEMID = 
-				"SELECT * FROM memNF where memID = ?";
+				"SELECT * FROM memNF where memID = ? and nfstatus=1 order by nfDate Desc";
 		private static final String COUNT_STMT = 
 				"select count(*) as \"count\" from memNF where memID=?";
 		private String count;
@@ -429,7 +429,6 @@ public class MemNFDAO implements MemNFDAO_interface {
 				count=rs.getString("count");
 			}
 
-			System.out.println(count);
 			// Handle any driver errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "

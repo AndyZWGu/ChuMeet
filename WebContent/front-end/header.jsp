@@ -13,7 +13,7 @@
           <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="<%=request.getContextPath()%>/member/memNF.html"> 會員中心 </a>
             <ul class="dropdown-menu">
               <li><a href="<%=request.getContextPath()%>/front-end/member/memberSearch.do">搜尋會員</a></li>
-              <li><a href="<%=request.getContextPath()%>/front-end/member/memNF.jsp">會員動態</a></li>
+              <li><a href="<%=request.getContextPath()%>/front-end/member/memberNFSearch.do">會員動態</a></li>
             </ul>
           </li>
           <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="<%=request.getContextPath()%>/act/act.html"> 活動廣場 </a>

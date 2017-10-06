@@ -38,6 +38,21 @@
         font-weight: bold;
         line-height: 1.5em;
     }
+
+    .cclabel:after {
+        content: '';
+        position: absolute;
+        top: 0px;
+        left: 2px;
+        width: 20px;
+        height: 20px;
+        background: #fff;
+        border-radius: 20px;
+        transition: 0.3s;
+    }
+    .cclabel:active:after {
+        width: 20px;
+    }
     </style>
 </head>
 
@@ -49,98 +64,51 @@
 
             Tip 2: you can also add an image using data-image tag
         -->
-            <div class="logo text-center"> <img src="../assets/img/ChuMeet_logo_2.png"> <strong>管理平台</strong> </div>
+             <div class="logo text-center">
+                <img src="../assets/img/ChuMeet_logo_2.png"> <strong>管理平台</strong>
+            </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
-                    <li class=""> <a href="index.html"> <i class="material-icons">home</i>
-          <p><strong>首頁</strong></p>
-          </a> </li>
-                    <li data-toggle="collapse" data-target="#admin"> <a href="#"> <i class="material-icons">person</i>
-          <p><strong>管理員管理</strong></p>
-          </a> </li>
-                    <div id="admin" class="collapse">
-                        <ul>
-                            <li> <a href="admin_admin.html"> <i class="material-icons">edit</i>
-              <p>管理員資料管理</p>
-              </a> </li>
-                            <li> <a href="admin_admPril.html"> <i class="material-icons">vpn_key</i>
-              <p>管理員權限管理</p>
-              </a> </li>
-                        </ul>
-                    </div>
-                    <li data-toggle="collapse" data-target="#info"> <a href="#"> <i class="material-icons">person</i>
-          <p><strong>網站管理</strong></p>
-          </a> </li>
-                    <div id="info" class="collapse">
-                        <ul>
-                            <li> <a href="admin_ad.html"> <i class="material-icons">edit</i>
-              <p>廣告管理</p>
-              </a> </li>
-                            <li> <a href="admin_ann.html"> <i class="material-icons">vpn_key</i>
-              <p>公告管理</p>
-              </a> </li>
-                            <li> <a href="admin_info.html"> <i class="material-icons">vpn_key</i>
-              <p>網站資訊管理</p>
-              </a> </li>
-                        </ul>
-                    </div>
-                    <li> <a href="admin_appAnn.html"> <i class="material-icons">phonelink_ring</i>
-          <p><strong>APP推播管理</strong></p>
-          </a> </li>
-                    <li class="active" data-toggle="collapse" data-target="#member"> <a href="#"> <i class="material-icons text-gray">face</i>
-          <p><strong>會員管理</strong></p>
-          </a> </li>
-                    <div id="member" class="collapse">
-                        <ul>
-                            <li> <a href="admin_member.html"> <i class="material-icons">edit</i>
-              <p>會員資料管理</p>
-              </a> </li>
-                            <li> <a href="admin_reward.html"> <i class="material-icons">vpn_key</i>
-              <p>獎賞管理</p>
-              </a> </li>
-                            <li> <a href="admin_ach.html"> <i class="material-icons">vpn_key</i>
-              <p>成就管理</p>
-              </a> </li>
-                        </ul>
-                    </div>
-                    <li data-toggle="collapse" data-target="#report"> <a href="#"> <i class="material-icons">library_books</i>
-          <p><strong>檢舉管理</strong></p>
-          </a> </li>
-                    <div id="report" class="collapse">
-                        <ul>
-                            <li> <a href="admin_memTicket.html"> <i class="material-icons">edit</i>
-              <p>會員檢舉管理</p>
-              </a> </li>
-                            <li> <a href="admin_mbImgTicket.html"> <i class="material-icons">vpn_key</i>
-              <p>留言/相片檢舉管理</p>
-              </a> </li>
-                            <li> <a href="admin_album.html"> <i class="material-icons">vpn_key</i>
-              <p>相簿檢舉管理</p>
-              </a> </li>
-                            <li> <a href="admin_actClubTicket.html"> <i class="material-icons">vpn_key</i>
-              <p>活動/社團檢舉管理</p>
-              </a> </li>
-                        </ul>
-                    </div>
-                    <li> <a href="admin_POI.html"> <i class="material-icons">location_on</i>
-          <p><strong>活動社團分類管理</strong></p>
-          </a> </li>
-                    <li data-toggle="collapse" data-target="#activity"> <a href="#"> <i class="material-icons text-gray">directions_bike</i>
-          <p><strong>活動管理</strong></p>
-          </a> </li>
-                    <div id="activity" class="collapse">
-                        <ul>
-                            <li> <a href="admin_actCntTemp.html"> <i class="material-icons">edit</i>
-              <p>活動內容模板管理</p>
-              </a> </li>
-                            <li> <a href="admin_act.html"> <i class="material-icons">vpn_key</i>
-              <p>活動資料管理</p>
-              </a> </li>
-                        </ul>
-                    </div>
-                    <li> <a href="admin_club.html"> <i class="material-icons text-gray">wc</i>
-          <p><strong>社團資料管理</strong></p>
-          </a> </li>
+                    <li>
+                        <a href="index.html"><i class="material-icons">home</i>
+                        <p><strong>首頁</strong></p></a>
+                    </li>
+                    <li>
+                        <a href="admin_admin.html"><i class="material-icons">person</i>
+                        <p><strong>管理員管理</strong></p></a>
+                    <li>
+                        <a href="admin_info.html"><i class="material-icons">person</i>
+                        <p><strong>網站管理</strong></p></a>
+                    </li>
+                    <li>
+                        <a href="admin_appAnn.html"><i class="material-icons">phonelink_ring</i>
+                        <p><strong>APP推播管理</strong></p></a>
+                    </li>
+                    <li class="active">
+                        <a href="admin_member.html"><i class="material-icons text-gray">face</i>
+                        <p><strong>會員管理</strong></p></a>
+                    </li>
+                    <li>
+                        <a href="admin_reward.html"><i class="material-icons text-gray">face</i>
+                        <p><strong>成就與獎賞管理</strong></p></a>
+                    </li>
+                    <li>
+                        <a href="admin_memTicket.html"><i class="material-icons">library_books</i>
+                        <p><strong>檢舉管理</strong></p></a>
+                    </li>
+
+                    <li>
+                        <a href="admin_POI.html"><i class="material-icons">location_on</i>
+                        <p><strong>活動社團分類管理</strong></p></a>
+                    </li>
+                    <li >
+                        <a href="admin_act.html"><i class="material-icons text-gray">directions_bike</i>
+                        <p><strong>活動管理</strong></p></a>
+                    </li>
+                    <li>
+                        <a href="admin_club.html"><i class="material-icons text-gray">wc</i>
+                        <p><strong>社團資料管理</strong></p></a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -179,6 +147,15 @@
             <!--/////////////////////////////////////////////////////////////////////////////-->
             <!--/////////////////////////////////////////////////////////////////////////////-->
             <div class="container">
+
+            <h2><strong>會員管理</strong></h2>
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#home">會員資料管理</a></li>
+                    <li><a data-toggle="tab" href="#menu1">獎賞管理</a></li>
+                    <li><a data-toggle="tab" href="#menu2">成就管理</a></li>
+                </ul>
+
+
                 <form class="navbar-form navbar-right" role="search">
                     <div class="form-group  is-empty">
                         <input type="text" class="form-control" placeholder="搜索">

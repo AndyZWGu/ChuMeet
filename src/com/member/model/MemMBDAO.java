@@ -333,7 +333,7 @@ public class MemMBDAO implements MemMBDAO_interface {
 			con = ds.getConnection();
 			String finalSQL = "select * from memMB "
 		          + JdbcUtil_CompositeQuery_Member.get_WhereCondition("MemMB", map)
-		          ;
+		          +"order by mbdate Desc";
 			pstmt = con.prepareStatement(finalSQL);
 			System.out.println("〈〈finalSQL(by DAO) = "+finalSQL);
 			rs = pstmt.executeQuery();
@@ -400,7 +400,6 @@ public class MemMBDAO implements MemMBDAO_interface {
 				count=rs.getString("count");
 			}
 
-			System.out.println(count);
 			// Handle any driver errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "

@@ -17,7 +17,7 @@
 <!-- 全站統一CSS 不要亂動，動了要跟全組說 -->
 
 <!-- Global styles START -->
-<link href="../assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="../assets/pages/css/base.css" rel="stylesheet">
 <!-- Global styles END -->
@@ -40,7 +40,14 @@
 <!--!!!!!!!!!!!!!!!!!!!!!!!!!! 放在最後一行優先權越高 !!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
 <!--#################### 單頁CSS路徑統一放在/src/xxx/css/xxx.css ###########-->
 <!--%%%%%%%%%%%%%%%%%% 第一行可以刪掉，那是activity(也就是敏道的活動頁)專用的CSS %%%%%-->
-<link href="../src/act/css/act.css" rel="stylesheet">
+<link href="act_assets/css/actMain.css" rel="stylesheet">
+<style>
+ #map {
+   width: 100%;
+   height: 300px;
+   background-color: grey;
+ }
+</style>
 </head>
 <!-- Head END -->
 
@@ -156,22 +163,32 @@
               <div class="row">
                 <!-- BEGIN LEFT SIDEBAR -->            
                 <div class="col-md-9 col-sm-9 blog-item">
-                  <div class="blog-item-img">
+                  <div class="row">
+						<div class="col-md-6">   <img src="act_assets/img/eventSamples/POI.jpg" class="img-responsive margin-bottom-30 img-rounded" alt=""></div>
+                        <div class="col-md-6">
+                          		<table  class="table table-hover">
+                          		<tr><th class="text-danger topstat"><i class="fa fa-smile-o"></i></th><th>我的狀態</th><td><span>已參加，等待活動開始</span></td></tr>
+								<tr><th class="text-danger topstat"><i class="fa fa-user"></i></th><th>活動發起人</th><td><span>breadcan</span></td></tr>
+                         		<tr><th class="text-danger topstat"><i class="fa fa-calendar"></i></th><th>活動時間</th><td><span> 2017/7/30 19:00 起至 2017/9/30 20:00</span> <br><span>每周五晚上8:00-9:00</span></td></tr>
+                         		<tr><th class="text-danger topstat"><i class="fa fa-calendar-check-o"></i></th><th>報名時間</th><td><span> 2017/7/30 18:00 起至 2017/9/9 19:00</span></td></tr>
+                         		<tr><th class="text-danger topstat"><i class="fa fa-users"></i></th><th>目前人數</th><td><span>222</span>/<span>300</span></td></tr>
 
+                          		</table>
+									<div class="event-tags">
+									<li><a href="#"><i class="fa fa-tags"></i>法鯊</a></li>
+									<li><a href="#"><i class="fa fa-tag"></i>帥哥</a></li>
+									</div>	
+                     	
+                        	
+                        	
+                        </div>
 
-                            <img src="../src/act/img/sample/1000x300_poi.jpg" class="img-responsive" alt="">
+                         
 
           
                   </div>
-                  <ul class="blog-info">
-                    <li><i class="fa fa-user"></i> breadcan</li>
-                    <li><i class="fa fa-calendar"></i> 2017/7/30起 每周五晚上8:00-9:00</li>
-                    <li><i class="fa fa-users"></i>222</li>
-                    <li><i class="fa fa-comments"></i> 17</li>
-                    <li><i class="fa fa-tags"></i> 線上, 影視, 專業</li>
 
-                  </ul>
-                             <p>哈洛·芬奇（麥可·愛默生飾）是一位深居簡出的億萬富豪，他為政府開發了一套稱作「機器」（The Machine），可偵測恐怖攻擊的大規模監控電腦系統。它可預測「有計畫或謀略策劃的犯罪」，諸如911事件之類的大型恐怖攻擊災難，並提供情報讓有關當局防範未然。它可以偵測一般人的暴力犯罪，於是芬奇將情報區分為重要（relevant）和不重要（irrelevant）兩類，只將重要的清單呈報給有關當局，而不重要清單則會在每天晚上刪除。但芬奇意識到，不重要清單的資料可制止許多犯罪活動和挽救人命。但政府沒有興趣處理不重要清單，芬奇決心要找到一種方法來阻止這些犯罪。他利用程式中的一個後門，取得一項資訊：社會安全號碼。出現這號碼的人將參與即將發生的罪行，芬奇僱用一位被推定死亡的前美國特種部隊綠扁帽隊員、前CIA探員約翰·里斯（吉姆·卡維佐飾），干預犯罪的發生和阻止有人再受傷害。里斯利用在軍方和CIA獲得的技能，保護受害者和阻止肇事者出手，他們必須設法制止犯罪的發生，他們除了讓紐約市警察局腐敗警探萊昂諾·傅斯可（凱文·查普曼飾）重回正軌外，並與警探賈絲·卡特（泰拉姬·漢森飾）合作。</p>
+                             <p><span>哈洛·芬奇（麥可·愛默生飾）是一位深居簡出的億萬富豪，他為政府開發了一套稱作「機器」（The Machine），可偵測恐怖攻擊的大規模監控電腦系統。它可預測「有計畫或謀略策劃的犯罪」，諸如911事件之類的大型恐怖攻擊災難，並提供情報讓有關當局防範未然。它可以偵測一般人的暴力犯罪，於是芬奇將情報區分為重要（relevant）和不重要（irrelevant）兩類，只將重要的清單呈報給有關當局，而不重要清單則會在每天晚上刪除。但芬奇意識到，不重要清單的資料可制止許多犯罪活動和挽救人命。但政府沒有興趣處理不重要清單，芬奇決心要找到一種方法來阻止這些犯罪。他利用程式中的一個後門，取得一項資訊：社會安全號碼。出現這號碼的人將參與即將發生的罪行，芬奇僱用一位被推定死亡的前美國特種部隊綠扁帽隊員、前CIA探員約翰·里斯（吉姆·卡維佐飾），干預犯罪的發生和阻止有人再受傷害。里斯利用在軍方和CIA獲得的技能，保護受害者和阻止肇事者出手，他們必須設法制止犯罪的發生，他們除了讓紐約市警察局腐敗警探萊昂諾·傅斯可（凱文·查普曼飾）重回正軌外，並與警探賈絲·卡特（泰拉姬·漢森飾）合作。</span></p>
                   <blockquote>
                     <p>You are being watched.</p>
                     <small>Someone famous <cite title="Source Title">Source Title</cite></small>
@@ -243,10 +260,34 @@
                 <!-- BEGIN RIGHT SIDEBAR -->            
                 <div class="col-md-3 col-sm-3 blog-sidebar">
 					<div>
-						<button class="btn btn-block btn-primary">我要參加</button>
+						<button class="btn btn-block btn-primary" disabled>我要參加</button>
 						<button class="btn btn-block btn-success">追蹤活動</button>
+						<button class="btn btn-block btn-warning">退出活動</button>
 						<button class="btn btn-block btn-info">管理活動</button>
 					</div>
+                  <!-- BEGIN map -->
+                  <div class="blog-photo-stream margin-bottom-20">
+                    <h2>活動地點</h2>
+					  <div id="map"></div>
+						<script>
+						  function initMap() {
+							var uluru = {lat: 22.970269, lng: 120.227395};
+							var map = new google.maps.Map(document.getElementById('map'), {
+							  zoom: 17,
+							  center: uluru
+							});
+							var marker = new google.maps.Marker({
+							  position: uluru,
+							  map: map
+							});
+						  }
+						</script>
+						<script async defer
+						src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBiHKk-5rL3ARP2SmZvtcQ5poVS97N_7A&callback=initMap">
+						</script>
+                            
+                  </div>
+                  <!-- END BLOG PHOTOS STREAM -->
                   <!-- BEGIN BLOG PHOTOS STREAM -->
                   <div class="blog-photo-stream margin-bottom-20">
                     <h2>已參加的成員</h2>
@@ -262,18 +303,9 @@
                     </ul>                    
                   </div>
                   <!-- END BLOG PHOTOS STREAM -->
-                  <!-- BEGIN BLOG TAGS -->
-                  <div class="blog-tags margin-bottom-20">
-                    <h2>Tags</h2>
-                    <ul>
-                      <li><a href="javascript:;"><i class="fa fa-tags"></i>線上</a></li>
-                      <li><a href="javascript:;"><i class="fa fa-tags"></i>影視</a></li>
-                      <li><a href="javascript:;"><i class="fa fa-tags"></i>專業</a></li>
-                    </ul>
-                  </div>
-                  <!-- END BLOG TAGS -->
+
                   
-                                    <!-- BEGIN RECENT NEWS -->                            
+                 <!-- BEGIN RECENT NEWS -->                            
                   <h2>類似的活動</h2>
                   <div class="recent-news margin-bottom-10">
                    
@@ -281,7 +313,7 @@
 <!--                  card start -->
                     <div class="wow fadeInUp" data-wow-duration=".3" data-wow-delay=".2s">
                         <div class="card">
-							<img class="card-img-top cardImg" src="../src/act/img/eventSamples/Cap-Commandos.jpg" alt="Card image cap">
+							<img class="card-img-top cardImg" src="act_assets/img/eventSamples/Cap-Commandos.jpg" alt="Card image cap">
 							<div class="card-block">
 							  <h4 class="card-title">咆嘯突擊隊</h4>
 							  <small><i class="fa fa-map-marker"></i>中壢, <i class="fa fa-calendar"></i>2017/07/31 12:00</small>
@@ -302,7 +334,7 @@
 <!--                  card start -->
                     <div class="wow fadeInUp" data-wow-duration=".3" data-wow-delay=".2s">
                         <div class="card">
-							<img class="card-img-top cardImg" src="../src/act/img/eventSamples/fess.jpg" alt="Card image cap">
+							<img class="card-img-top cardImg" src="act_assets/img/eventSamples/fess.jpg" alt="Card image cap">
 							<div class="card-block">
 							  <h4 class="card-title">普羅米修斯</h4>
 							  <small><i class="fa fa-map-marker"></i>中壢, <i class="fa fa-calendar"></i>2017/07/31 12:00</small>

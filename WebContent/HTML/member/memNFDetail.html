@@ -42,7 +42,7 @@
     <!--!!!!!!!!!!!!!!!!!!!!!!!!!! 放在最後一行優先權越高 !!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
     <!--#################### 單頁CSS路徑統一放在/src/xxx/css/xxx.css ###########-->
     <!--%%%%%%%%%%%%%%%%%% 第一行可以刪掉，那是activity(也就是敏道的活動頁)專用的CSS %%%%%-->
-    <link href="../src/act/css/act.css" rel="stylesheet">
+
     <link href="../src/member/css/memHome.css" rel="stylesheet">
 </head>
 <!-- Body BEGIN -->
@@ -283,11 +283,12 @@
                                 <li><a href="javascript:;">動態列表</a></li>
                                 <li class="active">動態內容</li>
                             </ul>
-                            <div class="col-md-12 col-sm-12">
+                            <div class="col-md-12 col-sm-12 memNFDetail">
                                 <h1>標題</h1>
+                                <img src="../src/member/img/bg/loginBg.jpg" alt="" class="thumbnail">
                                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat dolorum praesentium tenetur nobis quae! Accusantium, id. Molestiae laborum deleniti facilis inventore, atque dolores debitis molestias perspiciatis labore
                                     earum accusamus sequi!</p>
-                                <img src="../src/member/img/bg/loginBg.jpg" alt="" class="img-responsive thumbnail">
+                                <h4 class="text-right">2017.08.10</h4>
                             </div>
                         </div>
                         <!--********************會員動態細節********************-->
@@ -349,13 +350,26 @@
                             </div>
                             <!--end media-->
                         </div>
-                        <!--**************************留言版喔喔**************************-->
+                        <div class="post-comment padding-top-40">
+                            <h3 class="text-center">留言</h3>
+                            <form role="form">
+                                <div class="form-group">
+                                    <h4>標題</h4><input type="text" name="">
+                                </div>
+                                <div class="form-group">
+                                    <h4>內容</h4><textarea class="form-control" rows="8"></textarea>
+                                </div>
+                                <p><button class="btn btn-primary" type="submit">提交</button></p>
+                            </form>
+                        </div>
                     </div>
+                    <!--**************************留言版喔喔**************************-->
                 </div>
             </div>
         </div>
-        <br>
-        <br>
+    </div>
+    <br>
+    <br>
     </div>
     <!--主頁面要修改的都在這上面-->
 

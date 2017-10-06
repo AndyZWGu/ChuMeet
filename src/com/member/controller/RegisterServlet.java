@@ -22,52 +22,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-import javax.sql.rowset.serial.SerialBlob;
 
 import com.member.model.*;
 import com.mysql.jdbc.Blob;
 
-/**
- * Servlet implementation class LoginServlet
- */
 @MultipartConfig
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public RegisterServlet() {
 		super();
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		HttpSession session = req.getSession();
-		// String action = "login";
-
 		if ("register".equals(action) || session.getAttribute("memVO")==null) { // 來自register.jsp的請求
-
 			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-
 			try {
 				/***************************
 				 * 1.接收請求參數 - 輸入格式的錯誤處理
@@ -82,20 +60,17 @@ public class RegisterServlet extends HttpServlet {
 				System.out.println(memBD);
 				Integer memGender = Integer.parseInt(req.getParameter("memGender"));
 				String memInt = req.getParameter("memInt");
-
 				if (memEmail == null || (memEmail.trim()).length() == 0) {
 					errorMsgs.add("請輸入會員帳號");
 				}
 				if (memPw == null || (memPw.trim()).length() == 0) {
 					errorMsgs.add("請輸入會員密碼");
 				}
-				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req.getRequestDispatcher("register.jsp");
 					failureView.forward(req, res);
 					return;
 				}
-
 				String formatMemEmail = null;
 				String formatMemPw = null;
 				try {
@@ -104,36 +79,24 @@ public class RegisterServlet extends HttpServlet {
 				} catch (Exception e) {
 					errorMsgs.add("輸入格式不正確");
 				}
-				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req.getRequestDispatcher("register.jsp");
 					failureView.forward(req, res);
-					return;//
+					return;
 				}
-
 				/*************************** 2.開始查詢資料 *****************************************/
 				MemberService memSvc = new MemberService();
 				MemberVO memEmailVO = memSvc.getMemberByMemEmail(memEmail);
 				if (memEmailVO != null) {
 					errorMsgs.add("帳號已被使用,請重新輸入新的帳號");
 				}
-				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req.getRequestDispatcher("register.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
 				}
-
-				/***************************
-				 * 3.查詢完成,準備轉交(Send the Success view)
-				 *************/
-				// 測試用
-				// req.setAttribute("memVO", memVO);
-				// String url = "/member/memHome.jsp";
-				// RequestDispatcher successView =
-				// req.getRequestDispatcher(url);
-				// successView.forward(req, res);
-				// 正式註冊一筆新資料
+				/*************************** 3.查詢完成,準備轉交(Send the Success view)*************
+				**************************** 正式註冊一筆新資料 *************************************/
 				// 時間用(生日)
 				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	            Date parsedDate = dateFormat.parse(memBD);
@@ -145,13 +108,14 @@ public class RegisterServlet extends HttpServlet {
 				// 註冊呼叫Service調用Dao
 				MemberVO memVO = memSvc.addMember(memEmail, memPw, 0, 1, 0, 50, memName, memGender, timestampMemBD, memPhone,
 						byteAvatar, today, 1, memLocBorn, memLocLive, memInt, 0.0, 0.0, 2, 1);
+				// 自動登入
 				session.setAttribute("memVO", memVO);
+				session.setAttribute("account", memVO.getMemEmail());
 				//自動首頁發表第一篇動態作為收集留言之用途
 				MemNFService nfSvc = new MemNFService();
-				nfSvc.addNFtoHome(memVO.getMemID(),"歡迎加入揪咪大家庭","本動態作為第一次加入並且限定會員首頁顯示及留言之作用", null, today, 0);
+				nfSvc.addNFtoHome(memVO.getMemID(),"歡迎加入揪咪大家庭","本動態作為第一次加入並且限定會員首頁顯示及留言之作用", null, today, 0);//隱藏Status=2作為辨識用
+				//回首頁
 				res.sendRedirect("/ChuMeetWebsite/front-end/index.jsp");
-				
-
 				/*************************** 其他可能的錯誤處理 *************************************/
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
@@ -163,9 +127,8 @@ public class RegisterServlet extends HttpServlet {
 			RequestDispatcher failureView = req.getRequestDispatcher("front-end/member/register.jsp");
 			failureView.forward(req, res);
 		}
-
 	}
-
+	/*************************** 其他工具方法 *************************************/
 	// 取得現在時間(java.sql.Date型態)
 	  public static Timestamp nowTimestamp(){
 		  java.util.Date utildate=new java.util.Date();
@@ -174,7 +137,6 @@ public class RegisterServlet extends HttpServlet {
 			java.sql.Timestamp stp=new java.sql.Timestamp(utildate.getTime());
 	       return stp;
 	  }
-	  
 	// 取得上傳照片
 	public byte[] getAvatarByPart(HttpServletRequest req) throws IllegalStateException, IOException, ServletException {
 		byte[] byteAvatar = null;
@@ -193,7 +155,6 @@ public class RegisterServlet extends HttpServlet {
 		}
 		return byteAvatar;
 	}
-
 	// 取出上傳的檔案名稱 (因為API未提供method,所以必須自行撰寫)
 	public String getFileNameFromPart(Part part) {
 		String header = part.getHeader("content-disposition");
@@ -205,7 +166,6 @@ public class RegisterServlet extends HttpServlet {
 		}
 		return filename;
 	}
-
 	// 處理回傳null的bug
 	private static String getValue(Part part) throws IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(part.getInputStream(), "UTF-8"));

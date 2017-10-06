@@ -15,23 +15,13 @@ import javax.servlet.http.HttpSession;
 import com.member.model.MemberService;
 import com.member.model.MemberVO;
 
-/**
- * Servlet implementation class memberSearchServlet
- */
 public class MemberSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public MemberSearchServlet() {
 		super();
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		if (req.getParameter("memSearchList") == null) {
@@ -44,18 +34,12 @@ public class MemberSearchServlet extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 		
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		if ("memNameSearch".equals(action)){
-			String memName = req.getParameter("memName");
-			//System.out.println(memName);
 			Map<String, String[]> map = req.getParameterMap();
 			HttpSession session = req.getSession();
 			session.setAttribute("map",map);
@@ -66,7 +50,7 @@ public class MemberSearchServlet extends HttpServlet {
 			req.removeAttribute("memSearchList");
 			req.setAttribute("memSearchList", memSearchList);
 			//導回去
-			RequestDispatcher successView = req.getRequestDispatcher("memberSearch.jsp"); // Θ锣ユlistEmps_ByCompositeQuery.jsp
+			RequestDispatcher successView = req.getRequestDispatcher("memberSearch.jsp"); 
 			successView.forward(req, res);
 			return;
 		}
@@ -82,7 +66,7 @@ public class MemberSearchServlet extends HttpServlet {
 			req.removeAttribute("memSearchList");
 			req.setAttribute("memSearchList", memSearchList);
 			//導回去
-			RequestDispatcher successView = req.getRequestDispatcher("memberSearch.jsp"); // Θ锣ユlistEmps_ByCompositeQuery.jsp
+			RequestDispatcher successView = req.getRequestDispatcher("memberSearch.jsp"); 
 			successView.forward(req, res);
 			return;
 		}
