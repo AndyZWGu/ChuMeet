@@ -4,9 +4,12 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -36,25 +39,7 @@ public class GuestNFServlet extends HttpServlet {
 	 *      response)
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		Integer memNFID = Integer.parseInt(req.getParameter("memNFID"));
-//		System.out.println(memID);
-		HttpSession session = req.getSession();
-		if (session.getAttribute("guestVO") != null) {
-			session.removeAttribute("guestVO");
-		}
-		
-		MemNFService nfSvc = new MemNFService();
-		MemNFVO guestNFVO = (MemNFVO)nfSvc.getOneNF(memNFID);
-		session.setAttribute("guestNFVO", guestNFVO);
-		
-		MemberService memSvc = new MemberService();
-		MemberVO guestVO = (MemberVO)memSvc.getOneMember(guestNFVO.getMemID());
-		session.setAttribute("guestVO", guestVO);
-		
-		String url = "/front-end/member/guestNF.jsp";
-		RequestDispatcher successView = req.getRequestDispatcher(url);
-		successView.forward(req, res);
-		
+		doPost(req,res);
 	}
 
 	/**
@@ -62,160 +47,101 @@ public class GuestNFServlet extends HttpServlet {
 	 *      response)
 	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
+		System.out.println("這裡是動態");
+		HttpSession session = req.getSession();
 		
-		//複合查詢
-
-		// 拿照片
-		// base64用
-		// List<String> list = new ArrayList<String>();
-		// List<byte[]> list = new ArrayList<byte[]>();
-		// MemberService memSvc = new MemberService();
-		// list = memSvc.getAvatar(memVO.getMemID());
-		// req.setAttribute("pictureList", list);
-		// 基本作法
-		//放在另外一隻透過doGet加參數獲取圖片
-
+		if (session.getAttribute("guestVO") != null) {
+			session.removeAttribute("guestVO");
+		}
 		
-		
-		// req.setCharacterEncoding("UTF-8");
-		// String action = req.getParameter("action");
-		// String action = "login";
+		MemberService memSvc = new MemberService();
+		Integer memID = Integer.parseInt(req.getParameter("memID"));
+		MemberVO guestVO = (MemberVO) memSvc.getOneMember(memID);
+		session.setAttribute("guestVO", guestVO);
+		MemberVO memVO = (MemberVO) session.getAttribute("memVO");
+		//好友關係
+		FriendsService friSvc = new FriendsService();
+		FriendsVO friVO = friSvc.getOneFriends(memVO.getMemID(), guestVO.getMemID());
+		FriendsVO friVO2 = friSvc.getOneFriends(guestVO.getMemID(),memVO.getMemID());
+		if(friVO==null||friVO2==null){
+			session.setAttribute("memPriv", 0);
+		} else if(friVO.getFriendType().contains("好友") && friVO2.getFriendType().contains("好友")){
+			session.setAttribute("memPriv", 1);
+		} else {
+			session.setAttribute("memPriv", 0);
+		}
+		MemNFService nfSvc = new MemNFService();
+		MemMBService mbSvc = new MemMBService();
+		String memNFID = req.getParameter("memNFID");
+		if (memNFID == null) {
+			// MemNFService nfSvc = new MemNFService();
+			// list
+			List<MemNFVO> memNFList = nfSvc.getOneNFByMemID(guestVO.getMemID());
+			req.setAttribute("memNFList", memNFList);
+			// 轉址用
+			String url = "/front-end/member/guestNF.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
+			return;			
+		} else {
+			System.out.println("這裡是動態細項");
+			// MemNFVO memNFVO = nfSvc.getOneNF(memNFID);
+			// req.setAttribute("memNFVO", memNFVO);
+			// nfNameList
+				MemNFVO memNFVO = nfSvc.getOneNF(Integer.valueOf(memNFID));
+				//瀏覽數+1
+				nfSvc.updateNFViews(Integer.valueOf(memNFID));
+			// 留言功能如果被使用
+			String action = req.getParameter("action");
+			if ("comment".equals(action)) {
+				System.out.println("留言");
+				String comment = req.getParameter("comment");
+				// String comment2 = new
+				// String(comment.getBytes("ISO-8859-1"),"UTF-8");
+				if (comment == null || (comment.trim()).length() == 0) {
+					System.out.println("留言失敗,不得為空");
+					String url = "/front-end/member/guestNF.do?memID="+memID+"&memNFID="+memNFID;
+					RequestDispatcher successView = req.getRequestDispatcher(url);
+					successView.forward(req, res);
+					return;
+				} else {
+					// get做先後再
+					// System.out.println(comment); //沒處理編碼會亂碼
+					// System.out.println(comment2); //有處理
+					MemMBVO addMBVO = mbSvc.addMB(Integer.valueOf(memNFID), memVO.getMemID(), comment, nowTimestamp(),1);
+				}
+			}
+			// 找動態下方的留言
+			Map<String, String[]> mbMap = new HashMap<String, String[]>();
+			String[] memNFIDs = new String[2];
+			memNFIDs[0] = String.valueOf(memNFID);
+			mbMap.put("memNFID", memNFIDs);
+			List<MemMBVO> memNFMBList = mbSvc.getAllMB(mbMap);
+			req.setAttribute("memNFMBList", memNFMBList);
+			// 找首頁動態下方留言者的姓名
+			List<MemberVO> mbMemNameList = new ArrayList<MemberVO>();
+			MemberService memSvc2 = new MemberService();
+			for (MemMBVO list : memNFMBList) {
+				mbMemNameList.add(memSvc2.getOneMember(list.getMemID()));
+			}
+			req.setAttribute("mbMemNameList", mbMemNameList);
+			// 轉址用
+			String url = "/front-end/member/guestNFDetail.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
+			return;
+		}
 
-		// if ("login".equals(action)) { // 來自login.jsp的請求
-		//
-		// List<String> errorMsgs = new LinkedList<String>();
-		// // Store this set in the request scope, in case we need to
-		// // send the ErrorPage view.
-		// req.setAttribute("errorMsgs", errorMsgs);
-		//
-		// try {
-		// /***************************1.接收請求參數 -
-		// 輸入格式的錯誤處理**********************/
-		// String memEmail = req.getParameter("memEmail");
-		// String memPw = req.getParameter("memPw");
-		//// String memEmail = "adm@gmail";
-		//// String memPw = "Master";
-		// if (memEmail == null || (memEmail.trim()).length() == 0) {
-		// errorMsgs.add("請輸入會員帳號");
-		// }
-		// if (memPw == null || (memPw.trim()).length() == 0) {
-		// errorMsgs.add("請輸入會員密碼");
-		// }
-		// // Send the use back to the form, if there were errors
-		// if (!errorMsgs.isEmpty()) {
-		// RequestDispatcher failureView = req
-		// .getRequestDispatcher("/member/login.jsp");
-		// failureView.forward(req, res);
-		// return;//程式中斷
-		// }
-		//
-		// String formatMemEmail = null;
-		// String formatMemPw = null;
-		// try {
-		// formatMemEmail = new String();
-		// formatMemPw = new String();
-		// } catch (Exception e) {
-		// errorMsgs.add("輸入格式不正確");
-		// }
-		// // Send the use back to the form, if there were errors
-		// if (!errorMsgs.isEmpty()) {
-		// RequestDispatcher failureView = req
-		// .getRequestDispatcher("/emp/select_page2.jsp");
-		// failureView.forward(req, res);
-		// return;//程式中斷
-		// }
-		//
-		// /***************************2.開始查詢資料*****************************************/
-		// MemberService memSvc = new MemberService();
-		// MemberVO memVO = memSvc.getMemberByMemEmail(memEmail);
-		// if (memVO == null) {
-		// errorMsgs.add("查無帳號或密碼,請重新登入");
-		// }
-		// MemberVO memVO2 = memSvc.getMemberByMemPw(memPw);
-		// if (memVO2 == null) {
-		// errorMsgs.clear();
-		// errorMsgs.add("您輸入的密碼有誤,請確認");
-		// }
-		// // Send the use back to the form, if there were errors
-		// if (!errorMsgs.isEmpty()) {
-		// RequestDispatcher failureView = req
-		// .getRequestDispatcher("/member/login.jsp");
-		// failureView.forward(req, res);
-		// return;//程式中斷
-		// }
-		//
-		// /***************************3.查詢完成,準備轉交(Send the Success
-		// view)*************/
-		// req.setAttribute("memVO", memVO); // 資料庫取出的empVO物件,存入req
-		// String url = "/member/memHome.jsp";
-		// RequestDispatcher successView = req.getRequestDispatcher(url); //
-		// 成功轉交 listOneEmp.jsp
-		// successView.forward(req, res);
-		//
-		// /***************************其他可能的錯誤處理*************************************/
-		// } catch (Exception e) {
-		// errorMsgs.add("無法取得資料:" + e.getMessage());
-		// req.setAttribute("errorMsgs", errorMsgs);
-		// RequestDispatcher failureView = req
-		// .getRequestDispatcher("/member/login.jsp");
-		// failureView.forward(req, res);
-		// }
-		// }else{
-		// RequestDispatcher failureView = req
-		// .getRequestDispatcher("/member/login.jsp");
-		// failureView.forward(req, res);
-		// }
-
-		/**************************************************************
-		 * *******************我的動態*******************************
-		 *************************************************************/
-		// if ("memNF".equals(action)) { // 來自memHome.jsp的請求
-		//
-		// }
-		/**************************************************************
-		 * *******************我的等級積分*******************************
-		 *************************************************************/
-		// if ("memLevel".equals(action)) { // 來自memHome.jsp的請求
-		//
-		// }
-		/**************************************************************
-		 * *******************我的基本資訊*******************************
-		 *************************************************************/
-		// if ("memInfo".equals(action)) { // 來自memHome.jsp的請求
-		//
-		// }
-		/**************************************************************
-		 * *******************我的成就*******************************
-		 *************************************************************/
-		// if ("memAch".equals(action)) { // 來自memHome.jsp的請求
-		//
-		// }
-		/**************************************************************
-		 * *******************我的評價*******************************
-		 *************************************************************/
-		// if ("memOpinion".equals(action)) { // 來自memHome.jsp的請求
-		//
-		// }
-		/**************************************************************
-		 * *******************我的個人頁面設定*******************************
-		 *************************************************************/
-		// if ("memSeeting".equals(action)) { // 來自memHome.jsp的請求
-		//
-		// }
-		/**************************************************************
-		 * *******************會員動態*******************************
-		 *************************************************************/
-		// if ("memLevel".equals(action)) { // 來自memHome.jsp的請求
-		//
-		// }
-		/**************************************************************
-		 * *******************會員動態*******************************
-		 *************************************************************/
-		// if ("memLevel".equals(action)) { // 來自memHome.jsp的請求
-		//
-		// }
-		// doPost
+	}
+	
+	/*************************** 其他工具方法 *************************************/
+	// 取得現在時間(java.sql.Date型態)
+	public static Timestamp nowTimestamp() {
+		java.util.Date utildate = new java.util.Date();
+		java.sql.Date sqlDate = new java.sql.Date(utildate.getTime());
+		java.sql.Time sTime = new java.sql.Time(utildate.getTime());
+		java.sql.Timestamp stp = new java.sql.Timestamp(utildate.getTime());
+		return stp;
 	}
 
 }

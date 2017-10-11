@@ -52,7 +52,7 @@
   </filter>
   <filter-mapping>
     <filter-name>loginFilter</filter-name>
-    <url-pattern>/front-end/member/memberHome.jsp</url-pattern>
+    <url-pattern>/front-end/member/memberHome.do</url-pattern>
   </filter-mapping>
   <!-- 訪客查看會員頁面filter -->
   <filter>

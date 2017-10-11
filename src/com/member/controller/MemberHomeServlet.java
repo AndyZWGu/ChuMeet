@@ -1,12 +1,14 @@
 package com.member.controller;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,16 +18,19 @@ import java.util.jar.Attributes.Name;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import com.member.model.*;
 
 /**
  * Servlet implementation class LoginServlet
  */
+@MultipartConfig
 public class MemberHomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -317,6 +322,35 @@ public class MemberHomeServlet extends HttpServlet {
 		/******************** 動態 ********************/
 		if (session.getAttribute("checkedSidbar") == "memNF") {
 			System.out.println("這裡是動態");
+			// 發布動態功能如果被使用
+			String action = req.getParameter("action");
+			System.out.println(action);
+			String action2 = req.getParameter("comment");
+			System.out.println(action2);
+			String action3 = req.getParameter("nfTitle");
+			System.out.println(action3);
+			if ("newNF".equals(action)) {
+				System.out.println("發布一則新動態");
+				String comment = req.getParameter("comment");
+				String nfTitle = req.getParameter("nfTitle");
+				// String comment2 = new
+				// String(comment.getBytes("ISO-8859-1"),"UTF-8");
+				if (comment == null || (comment.trim()).length() == 0 || 
+						nfTitle == null || (nfTitle.trim()).length() == 0) {
+					System.out.println("留言失敗,不得為空");
+					String url = "/front-end/member/memberHome.jsp";
+					RequestDispatcher successView = req.getRequestDispatcher(url);
+					successView.forward(req, res);
+					return;
+				} else {
+					// get做先後再
+					// System.out.println(comment); //沒處理編碼會亂碼
+					// System.out.println(comment2); //有處理
+					// 大頭照用
+					byte[] byteAvatar = getAvatarByPart(req);
+					nfSvc.addNF(memVO.getMemID(), nfTitle, comment, byteAvatar, nowTimestamp(), 0, 1);
+				}
+			}
 			// MemNFService nfSvc = new MemNFService();
 			// list
 			List<MemNFVO> memNFList = nfSvc.getOneNFByMemID(memVO.getMemID());
@@ -653,6 +687,36 @@ public class MemberHomeServlet extends HttpServlet {
 			// System.out.println(str);
 			return str;
 		}
+	}
+	
+	// 取得上傳照片
+	public byte[] getAvatarByPart(HttpServletRequest req) throws IllegalStateException, IOException, ServletException {
+		byte[] byteAvatar = null;
+		// Servlet3.0新增part介面方面檔案上傳
+		Collection<Part> filePart2 = req.getParts();
+		System.out.println("FilePart's Size=" + filePart2.size());
+		for (Part part : filePart2) {
+			if (getFileNameFromPart(part) != null && part.getContentType() != null) {
+				// 寫入功能
+				// 額外測試 InputStream 與 byte[] (幫將來model的VO預作準備)
+				InputStream in = part.getInputStream();// 位元組串流
+				byteAvatar = new byte[in.available()];// 長度
+				in.read(byteAvatar);// 串流寫入byte[]
+				in.close();
+			}
+		}
+		return byteAvatar;
+	}
+	// 取出上傳的檔案名稱 (因為API未提供method,所以必須自行撰寫)
+	public String getFileNameFromPart(Part part) {
+		String header = part.getHeader("content-disposition");
+//		System.out.println("header=" + header); // 測試用
+		String filename = new File(header.substring(header.lastIndexOf("=") + 2, header.length() - 1)).getName();
+//		System.out.println("filename=" + filename); // 測試用
+		if (filename.length() == 0) {
+			return null;
+		}
+		return filename;
 	}
 
 }

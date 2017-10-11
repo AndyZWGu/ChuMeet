@@ -13,4 +13,5 @@ public interface MemNFDAO_interface {
   public List<MemNFVO> getAll(Map<String, String[]> map); 
 	public List<MemNFVO> findByMemID(Integer memID);
 	public String findCountByMemID(Integer memID);
+	public void updateViews(Integer memNFID);
 }

@@ -7,10 +7,12 @@
 <%@ page import="java.util.*"%>
 <%
 	MemberVO guestVO = (MemberVO) session.getAttribute("guestVO");
-MemberVO memVO = (MemberVO) session.getAttribute("memVO");
+	MemberVO memVO = (MemberVO) session.getAttribute("memVO");
 	String account = (String) session.getAttribute("account");
-	Integer guestPriv = (Integer) request.getAttribute("memPriv");
-	List<MemNFVO> memNFList = (List) request.getAttribute("memNFList");
+	Integer guestPriv = (Integer) session.getAttribute("memPriv");
+	MemNFVO memNFVO = (MemNFVO) request.getAttribute("memNFVO");
+	List<MemMBVO> memNFMBList = (List) request.getAttribute("memNFMBList");
+	List<MemberVO> mbMemNameList = (List) request.getAttribute("mbMemNameList");
 %>
 <html>
 
@@ -108,7 +110,7 @@ MemberVO memVO = (MemberVO) session.getAttribute("memVO");
 										<hr>
 										<h3>會員專屬</h3>
 										<div class="form-group">
-											<a href="<%=request.getContextPath()%>/front-end/member/guestNF.do?memID=${guestVO.memID}">
+										<a href="<%=request.getContextPath()%>/front-end/member/guestNF.do?memID=${guestVO.memID}">
 											<input type="button"
 												class="form-control btn btn-primary btn-sm" value="查看動態"
 												name="guestNF"></input></a>
@@ -180,39 +182,96 @@ MemberVO memVO = (MemberVO) session.getAttribute("memVO");
 							<ul class="breadcrumb">
 								<li><a
 									href="<%=request.getContextPath()%>/front-end/member/guestHome.do?memID=${guestVO.memID}">首頁</a></li>
-								<li class="active">動態列表</li>
+								<li><a
+									href="<%=request.getContextPath()%>/front-end/member/guestNF.do?memID=${guestVO.memID}">動態列表</a></li>
+								<li class="active">動態內容</li>
 							</ul>
 							<!--********************會員動態********************-->
-							<div class="list-group">
-								<c:forEach items="${memNFList}" var="memNFList"
-									varStatus="status">
-									<a
-										href="<%=request.getContextPath()%>/front-end/member/guestNF.do?memNFID=${memNFList.memNFID}&memID=${guestVO.memID}"
-										class="list-group-item">${memNFList.nfTitle}
-										<p class="text-right">
-											<fmt:formatDate value="${memNFList.nfDate}"
-												pattern="yyyy/MM/dd" />
-										</p>
-									</a>
-								</c:forEach>
-							</div>
-							<!--********************會員動態********************-->
 							<hr class="colorgraph">
-							<!--**************************分頁**************************-->
 							<div class="row">
-
-								<div class=" col-xs-offset-4 col-md-6 col-sm-6">
-									<ul class="pagination pull-center">
-										<li><a href="javascript:;">«</a></li>
-										<li><a href="javascript:;">1</a></li>
-										<li><span>2</span></li>
-										<li><a href="javascript:;">3</a></li>
-										<li><a href="javascript:;">4</a></li>
-										<li><a href="javascript:;">5</a></li>
-										<li><a href="javascript:;">»</a></li>
-									</ul>
+								<div class="col-md-12 col-sm-12 memNFDetail">
+									<h1>${memNFVO.nfTitle}</h1>
+									<img
+										src="<%=request.getContextPath()%>/front-end/member/memberNFSearch/avatar.do?memID=${memVO.memID}"
+										alt="" class="thumbnail">
+									<p>${memNFVO.nfContent}</p>
+									<h4 class="text-right">
+										<fmt:formatDate value="${memNFVO.nfDate}"
+											pattern="yyyy/MM/dd hh:mm" />
+									</h4>
 								</div>
 							</div>
+							<!--**************************留言板**************************-->
+							<hr class="colorgraph">
+							<div class="row">
+								<c:forEach items="${memNFMBList}" var="memNFMBList"
+									varStatus="status">
+									<div class="media">
+										<c:if
+											test="${mbMemNameList[status.index].memID != memVO.memID}">
+											<a
+												href="<%=request.getContextPath()%>/front-end/member/guestHome.do?memID=${memNFMBList.memID}"
+												class="pull-left"> <img
+												src="<%=request.getContextPath()%>/front-end/member/guestHome/avatar.do?memID=${memNFMBList.memID}"
+												alt="" class="media-object">
+												<p>${mbMemNameList[status.index].memName}</p>
+											</a>
+										</c:if>
+										<c:if
+											test="${mbMemNameList[status.index].memID == memVO.memID}">
+											<a
+												href="<%=request.getContextPath()%>/front-end/member/memberHome.do?memID=${memNFMBList.memID}"
+												class="pull-left"> <img
+												src="<%=request.getContextPath()%>/front-end/member/memberHome/avatar.do?memID=${memNFMBList.memID}"
+												alt="" class="media-object">
+												<p>${mbMemNameList[status.index].memName}</p>
+											</a>
+										</c:if>
+										<div class="media-body">
+											<p>${memNFMBList.mbContent}</p>
+											<span><fmt:formatDate value="${memNFMBList.mbDate}"
+													pattern="yyyy/MM/dd hh:mm" /></span>
+											<div class="col-sm-12 text-right">
+												<c:if
+													test="${mbMemNameList[status.index].memID != memVO.memID}">
+													<input type="button" value="檢舉"
+														class="btn btn-danger btn-xs">
+												</c:if>
+											</div>
+										</div>
+									</div>
+								</c:forEach>
+							</div>
+							<!--**************************留言功能**************************-->
+							<div class="post-comment padding-top-40">
+								<h3>留言</h3>
+								<form role="form" method="post"
+									action="<%=request.getContextPath()%>/front-end/member/guestNF.do?memNFID=${memNFVO.memNFID}&memID=${guestVO.memID}">
+									<div class="form-group">
+										<h4>內容</h4>
+										<textarea class="form-control" rows="10" name="comment"></textarea>
+									</div>
+									<p>
+										<button class="btn btn-primary" type="submit">回覆</button>
+										<input type="hidden" name="action" value="comment">
+									</p>
+								</form>
+							</div>
+							<!--**************************分頁**************************-->
+							<!-- 		<div class="row">
+
+			<div class=" col-xs-offset-5 col-md-6 col-sm-6">
+				<ul class="pagination pull-center">
+					<li><a href="javascript:;">«</a></li>
+					<li><a href="javascript:;">1</a></li>
+					<li><span>2</span></li>
+					<li><a href="javascript:;">3</a></li>
+					<li><a href="javascript:;">4</a></li>
+					<li><a href="javascript:;">5</a></li>
+					<li><a href="javascript:;">»</a></li>
+				</ul>
+			</div>
+		</div> -->
 							<!--**************************分頁**************************-->
 						</div>
 

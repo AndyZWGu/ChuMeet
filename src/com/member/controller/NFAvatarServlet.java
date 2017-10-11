@@ -53,11 +53,13 @@ public class NFAvatarServlet extends HttpServlet {
 				Statement stmt = con.createStatement();
 	      String memID = req.getParameter("memID");
 	      String memID2 = new String(memID.getBytes("ISO-8859-1"),"UTF-8");
+	      String memNFID = req.getParameter("memNFID");
+	      String memNFID2 = new String(memNFID.getBytes("ISO-8859-1"),"UTF-8");
 //	      Integer memID3 = Integer.parseInt(req.getParameter("memID"));
 //	      MemberService memSvc = new MemberService();
 //	      ResultSet rs = memSvc.getAvatar(memID3);
 				ResultSet rs = stmt.executeQuery(
-					"SELECT nfpic FROM memNF WHERE memID='"+memID2+"'");
+					"SELECT nfpic FROM memNF WHERE memID='"+memID2+"' and memNFID='"+memNFID2+"'");
 
 				if (rs.next()) {
 //					System.out.println("true");

@@ -412,6 +412,12 @@ public class MemNFJDBCDAO implements MemNFDAO_interface {
 		return null;
 	}
 
+	@Override
+	public void updateViews(Integer memNFID) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
 
 

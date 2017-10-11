@@ -34,6 +34,9 @@ public class MemNFDAO implements MemNFDAO_interface {
 		private static final String UPDATE = 
 			"UPDATE memNF set nfTitle=?, nfContent=?, nfPic=?, nfDate=?, nfViews=?, nfStatus=? where memNFID = ?";
 
+		private static final String UPDATE_VIEWS = 
+				"UPDATE memNF set nfViews=nfVIews+1 where memNFID = ?";
+		
 		private static final String GET_ALL_BY_MEMID = 
 				"SELECT * FROM memNF where memID = ? and nfstatus=1 order by nfDate Desc";
 		private static final String COUNT_STMT = 
@@ -102,6 +105,44 @@ public class MemNFDAO implements MemNFDAO_interface {
 			pstmt.setInt(5, memNFVO.getNfViews());
 			pstmt.setInt(6, memNFVO.getNfStatus());
 			pstmt.setInt(7, memNFVO.getMemNFID());
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
+	
+	@Override
+	public void updateViews(Integer memNFID) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_VIEWS);
+			pstmt.setInt(1, memNFID);
 
 			pstmt.executeUpdate();
 

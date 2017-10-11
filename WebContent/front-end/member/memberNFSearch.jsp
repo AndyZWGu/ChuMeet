@@ -88,12 +88,12 @@
 					<c:forEach items="${memNFSearchList}" var="memNFSearchList" varStatus="status">
 						<div class="wall">
 						<c:if test="${memNFSearchList.memID != memVO.memID}">
-							<a class="article" href="<%=request.getContextPath()%>/front-end/member/guestNF.do?memNFID=${memNFSearchList.memNFID}">
+							<a class="article" href="<%=request.getContextPath()%>/front-end/member/guestNF.do?memNFID=${memNFSearchList.memNFID}&memID=${memNFSearchList.memID}">
 						</c:if>
 						<c:if test="${memNFSearchList.memID == memVO.memID}">
 							<a class="article" href="<%=request.getContextPath()%>/front-end/member/memberNF.do?memNFID=${memNFSearchList.memNFID}">
 						</c:if>  
-								<img src="<%=request.getContextPath()%>/front-end/member/memberNFSearch/avatar.do?memID=${memNFSearchList.memID}" />
+								<img src="<%=request.getContextPath()%>/front-end/member/memberNFSearch/avatar.do?memID=${memNFSearchList.memID}&memNFID=${memNFSearchList.memNFID}" />
 								<h2>${memNFSearchList.nfTitle}</h2>
 								<h6>${memNFSearchList.nfViews} Views</h6>
 							</a>

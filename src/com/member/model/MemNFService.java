@@ -61,7 +61,7 @@ public class MemNFService {
 	}
 	
 	public MemNFVO updateNF(
-			Integer memID,
+			Integer memNFID,
 			String nfTitle,
 			String nfContent,
 			byte[] nfPic,
@@ -71,7 +71,7 @@ public class MemNFService {
 
 		MemNFVO memNFVO = new MemNFVO();
 
-		memNFVO.setMemID(memID);
+		memNFVO.setMemID(memNFID);
 		memNFVO.setNfTitle(nfTitle);
 		memNFVO.setNfContent(nfContent);
 		memNFVO.setNfPic(nfPic);
@@ -82,6 +82,10 @@ public class MemNFService {
 		dao.update(memNFVO);
 
 		return memNFVO;
+	}
+	
+	public void updateNFViews(Integer memNFID) {
+		dao.updateViews(memNFID);
 	}
 	
 	public MemNFVO updateNFtoHome(

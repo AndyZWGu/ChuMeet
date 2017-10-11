@@ -27,7 +27,7 @@
 		<div class="row">
 		<div class="col-md-12 col-sm-12 memNFDetail">
 			<h1>${memNFVO.nfTitle}</h1>
-			<img src="<%=request.getContextPath()%>/front-end/member/memberNFSearch/avatar.do?memID=${memVO.memID}" alt="" class="thumbnail">
+			<img src="<%=request.getContextPath()%>/front-end/member/memberNFSearch/avatar.do?memID=${memVO.memID}&memNFID=${memNFVO.memNFID}" alt="" class="thumbnail">
 			<p>${memNFVO.nfContent}</p>
 			<h4 class="text-right"><fmt:formatDate value="${memNFVO.nfDate}" pattern="yyyy/MM/dd hh:mm" /></h4>
 		</div>
