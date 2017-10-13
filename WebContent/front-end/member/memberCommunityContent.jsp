@@ -6,7 +6,8 @@
 <%@ page import="com.member.model.*"%>
 <%@ page import="java.util.*"%>
 <%
-	
+	List<FriendsVO> memFriList = (List)request.getAttribute("memFriList");
+	List<FriendsVO> friMemNameList = (List)request.getAttribute("friMemNameList");
 %>
 
 <div class="col-md-9 wow bounce" data-wow-delay=".05s"
@@ -24,6 +25,12 @@
   <li class="list-group-item">First item</li>
   <li class="list-group-item">Second item</li>
   <li class="list-group-item">Third item</li>
+  		<c:forEach items="${memMailList}" var="memMailList" varStatus="status">
+			<a href="<%=request.getContextPath()%>/front-end/member/memberMail.do?memMailID=${memMailList.memMailID}" class="list-group-item">${memMailList.mailTitle}
+				<p class="text-right">申請人:${friMemNameList[status.index].memName}</p>
+				<p class="text-right"><fmt:formatDate value="${friFriList.friendDate}" pattern="yyyy/MM/dd" /></p>
+			</a>
+		</c:forEach>
 </ul> 
   </div>
   <div id="menu1" class="tab-pane fade">

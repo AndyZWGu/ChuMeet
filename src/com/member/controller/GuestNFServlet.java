@@ -53,7 +53,7 @@ public class GuestNFServlet extends HttpServlet {
 		if (session.getAttribute("guestVO") != null) {
 			session.removeAttribute("guestVO");
 		}
-		
+
 		MemberService memSvc = new MemberService();
 		Integer memID = Integer.parseInt(req.getParameter("memID"));
 		MemberVO guestVO = (MemberVO) memSvc.getOneMember(memID);
@@ -86,9 +86,10 @@ public class GuestNFServlet extends HttpServlet {
 		} else {
 			System.out.println("這裡是動態細項");
 			// MemNFVO memNFVO = nfSvc.getOneNF(memNFID);
-			// req.setAttribute("memNFVO", memNFVO);
+			 
 			// nfNameList
 				MemNFVO memNFVO = nfSvc.getOneNF(Integer.valueOf(memNFID));
+				req.setAttribute("memNFVO", memNFVO);
 				//瀏覽數+1
 				nfSvc.updateNFViews(Integer.valueOf(memNFID));
 			// 留言功能如果被使用

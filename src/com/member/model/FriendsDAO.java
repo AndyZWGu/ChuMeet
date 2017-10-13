@@ -292,8 +292,8 @@ public class FriendsDAO implements FriendsDAO_interface {
 	
 			while (rs.next()) {
 				friendsVO = new FriendsVO();
-				friendsVO.setFriMem1(rs.getInt("memID1"));
-				friendsVO.setFriMem2(rs.getInt("memID2"));
+				friendsVO.setFriMem1(rs.getInt("friMem1"));
+				friendsVO.setFriMem2(rs.getInt("friMem2"));
 				friendsVO.setFriendType(rs.getString("friendType"));
 				friendsVO.setFriendDate(rs.getTimestamp("friendDate"));
 				list.add(friendsVO); // Store the row in the list

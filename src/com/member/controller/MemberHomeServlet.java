@@ -335,8 +335,8 @@ public class MemberHomeServlet extends HttpServlet {
 				String nfTitle = req.getParameter("nfTitle");
 				// String comment2 = new
 				// String(comment.getBytes("ISO-8859-1"),"UTF-8");
-				if (comment == null || (comment.trim()).length() == 0 || 
-						nfTitle == null || (nfTitle.trim()).length() == 0) {
+				if (comment == null || (comment.trim()).length() == 0 || nfTitle == null
+						|| (nfTitle.trim()).length() == 0) {
 					System.out.println("留言失敗,不得為空");
 					String url = "/front-end/member/memberHome.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url);
@@ -368,7 +368,7 @@ public class MemberHomeServlet extends HttpServlet {
 			// req.setAttribute("memNFVO", memNFVO);
 			// nfNameList
 			Integer memNFID = null;
-			if(req.getParameter("memNFID")!=null){
+			if (req.getParameter("memNFID") != null) {
 				memNFID = Integer.parseInt(req.getParameter("memNFID"));
 				MemNFVO memNFVO = nfSvc.getOneNF(memNFID);
 				req.setAttribute("memNFVO", memNFVO);
@@ -390,7 +390,7 @@ public class MemberHomeServlet extends HttpServlet {
 					// get做先後再
 					// System.out.println(comment); //沒處理編碼會亂碼
 					// System.out.println(comment2); //有處理
-					MemMBVO addMBVO = mbSvc.addMB(memNFID, memVO.getMemID(), comment, nowTimestamp(),1);
+					MemMBVO addMBVO = mbSvc.addMB(memNFID, memVO.getMemID(), comment, nowTimestamp(), 1);
 				}
 			}
 			// 找動態下方的留言
@@ -416,6 +416,26 @@ public class MemberHomeServlet extends HttpServlet {
 		/******************** 社群管理 ********************/
 		if (session.getAttribute("checkedSidbar") == "memCommunity") {
 			System.out.println("這裡是社群管理");
+
+			// Map
+			Map<String, String[]> friMap = new HashMap<String, String[]>();
+			String[] MailMemIDs = new String[2];
+			MailMemIDs[0] = memVO.getMemID().toString();
+			friMap.put("friMem1", MailMemIDs);
+			// list
+			List<FriendsVO> memFriList = friSvc.getAll(friMap);
+			for(FriendsVO list : memFriList){
+				System.out.println(list.getFriMem2());
+			}
+			req.setAttribute("memFriList", memFriList);
+			// mamNameList
+			List<MemberVO> friMemNameList = new ArrayList<MemberVO>();
+			MemberService memSvc = new MemberService();
+			for (FriendsVO list : memFriList) {
+				friMemNameList.add(memSvc.getOneMember(list.getFriMem2()));
+			}
+			req.setAttribute("friMemNameList", friMemNameList);
+
 			// 轉址用
 			String url = "/front-end/member/memberHome.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
@@ -688,7 +708,7 @@ public class MemberHomeServlet extends HttpServlet {
 			return str;
 		}
 	}
-	
+
 	// 取得上傳照片
 	public byte[] getAvatarByPart(HttpServletRequest req) throws IllegalStateException, IOException, ServletException {
 		byte[] byteAvatar = null;
@@ -707,12 +727,13 @@ public class MemberHomeServlet extends HttpServlet {
 		}
 		return byteAvatar;
 	}
+
 	// 取出上傳的檔案名稱 (因為API未提供method,所以必須自行撰寫)
 	public String getFileNameFromPart(Part part) {
 		String header = part.getHeader("content-disposition");
-//		System.out.println("header=" + header); // 測試用
+		// System.out.println("header=" + header); // 測試用
 		String filename = new File(header.substring(header.lastIndexOf("=") + 2, header.length() - 1)).getName();
-//		System.out.println("filename=" + filename); // 測試用
+		// System.out.println("filename=" + filename); // 測試用
 		if (filename.length() == 0) {
 			return null;
 		}
